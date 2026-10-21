@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>08 · 孟菲斯 — 拾光 SHIGUANG</title>
+<!-- DesignLab · 08 孟菲斯 Memphis — 80年代玩乐几何：点阵底 + 波浪 + 硬阴影 -->
+<style>
+  :root{--bg:#fbf2e2;--ink:#17130e;--pink:#ff5d8f;--blue:#4d7cfe;--teal:#23c9b4;--yellow:#ffd23f}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);
+    font-family:"Trebuchet MS","Arial Rounded MT Bold","Microsoft YaHei UI","Microsoft YaHei",sans-serif;
+    line-height:1.8;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(rgba(23,19,14,.07) 1.5px,transparent 1.5px);background-size:30px 30px}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 44px;position:relative}
+
+  /* ── 顶栏 ── */
+  header{display:flex;align-items:center;justify-content:space-between;padding:30px 0}
+  .brand{display:flex;align-items:center;gap:12px;font-weight:800;font-size:17px;letter-spacing:.04em}
+  .brand i{width:26px;height:26px;border-radius:50%;background:var(--yellow);border:3px solid var(--ink);display:block}
+  nav a{color:var(--ink);font-weight:700;font-size:14px;text-decoration:none;margin-left:26px}
+  nav a:hover{text-decoration:underline wavy var(--pink) 2px;text-underline-offset:7px}
+
+  /* ── 主视觉：飘浮的几何 ── */
+  .hero{padding:66px 0 84px;position:relative}
+  .shape{position:absolute;pointer-events:none;animation:wiggle 6s ease-in-out infinite}
+  .s-squig{top:58px;right:190px}
+  .s-ring{top:250px;left:-16px;animation-delay:-2s}
+  .s-tri{top:120px;right:24px;animation-delay:-3.4s}
+  .s-plus{top:34px;left:42%;animation-delay:-1.2s}
+  @keyframes wiggle{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+  .kicker{display:inline-block;background:#fff;border:3px solid var(--ink);border-radius:999px;
+    padding:9px 24px;font-size:12.5px;font-weight:700;letter-spacing:.2em;text-indent:.2em;
+    box-shadow:4px 4px 0 var(--ink)}
+  h1{font-size:clamp(42px,6.8vw,84px);font-weight:800;line-height:1.22;margin:30px 0 26px;letter-spacing:.01em}
+  h1 mark{background:var(--yellow);padding:0 .12em;border-radius:10px;display:inline-block;transform:rotate(-1.5deg)}
+  .lede{max-width:540px;font-size:15.5px;line-height:2;color:#40372c}
+  .actions{margin-top:48px;display:flex;gap:20px;flex-wrap:wrap}
+  .btn{background:var(--pink);color:#fff;font-weight:800;font-size:14.5px;text-decoration:none;
+    padding:15px 36px;border:3px solid var(--ink);border-radius:999px;letter-spacing:.1em;text-indent:.1em;
+    box-shadow:5px 5px 0 var(--ink);transition:transform .15s,box-shadow .15s}
+  .btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--ink)}
+  .btn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+  .btn.blue{background:var(--blue)}
+
+  /* ── 特性：四张贴纸卡 ── */
+  .features{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;padding:8px 0 84px}
+  .card{background:#fff;border:3px solid var(--ink);border-radius:18px;box-shadow:6px 6px 0 var(--ink);
+    padding:26px 22px 30px;transition:transform .2s,box-shadow .2s}
+  .card:hover{transform:translate(-2px,-2px) rotate(-1deg);box-shadow:8px 8px 0 var(--ink)}
+  .card .num{display:inline-block;font-size:12px;font-weight:800;padding:4px 13px;border-radius:999px;
+    border:2px solid var(--ink);margin-bottom:16px;background:var(--pink);color:#fff}
+  .card:nth-child(2) .num{background:var(--blue)}
+  .card:nth-child(3) .num{background:var(--teal)}
+  .card:nth-child(4) .num{background:var(--yellow);color:var(--ink)}
+  .card .motif{margin-bottom:14px;display:block}
+  .card h3{font-size:16.5px;font-weight:800;margin-bottom:8px;letter-spacing:.04em}
+  .card p{font-size:13px;line-height:1.95;color:#54493a}
+
+  /* ── 页脚 ── */
+  footer{border-top:3px solid var(--ink)}
+  .foot{display:flex;justify-content:space-between;padding:28px 0 62px;font-weight:700;font-size:13px;letter-spacing:.06em}
+
+  .style-tag{position:fixed;right:20px;bottom:20px;z-index:99;font-size:11px;letter-spacing:.1em;color:#fff;
+    background:rgba(20,20,20,.62);padding:8px 14px;border-radius:999px;text-decoration:none;
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:.45;transition:opacity .25s}
+  .style-tag:hover{opacity:1}
+
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  @media (max-width:980px){.features{grid-template-columns:1fr 1fr}}
+  @media (max-width:620px){
+    .wrap{padding:0 24px}
+    .features{grid-template-columns:1fr}
+    .shape{display:none}
+    .foot{flex-direction:column;gap:8px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><i></i>拾光 SHIGUANG</div>
+    <nav><a href="#">功能</a><a href="#">定价</a><a href="#">关于</a></nav>
+  </header>
+
+  <section class="hero">
+    <svg class="shape s-squig" width="96" height="36" viewBox="0 0 96 36" fill="none" aria-hidden="true">
+      <path d="M4 19 Q 12 3 20 19 T 36 19 T 52 19 T 68 19 T 84 17" stroke="#ff5d8f" stroke-width="6" stroke-linecap="round"/>
+    </svg>
+    <svg class="shape s-ring" width="76" height="76" viewBox="0 0 76 76" fill="none" aria-hidden="true">
+      <circle cx="38" cy="38" r="28" stroke="#4d7cfe" stroke-width="9"/>
+    </svg>
+    <svg class="shape s-tri" width="74" height="66" viewBox="0 0 74 66" aria-hidden="true">
+      <path d="M37 3 71 63H3Z" fill="#ffd23f"/>
+    </svg>
+    <svg class="shape s-plus" width="56" height="56" viewBox="0 0 56 56" aria-hidden="true">
+      <path d="M28 6v44M6 28h44" stroke="#23c9b4" stroke-width="9" stroke-linecap="round"/>
+    </svg>
+
+    <div class="kicker">灵感记录，轻如羽毛</div>
+    <h1>把灵感，<br>留在<mark>拾光</mark></h1>
+    <p class="lede">一闪而过的想法最珍贵。拾光帮你随手捕捉、自动整理，让每一次创作都从从容容。</p>
+    <div class="actions">
+      <a class="btn" href="#">立即体验</a>
+      <a class="btn blue" href="#">了解更多</a>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="card">
+      <svg class="motif" width="40" height="20" viewBox="0 0 40 20" fill="none"><path d="M3 12 Q 7 3 11 12 T 19 12 T 27 12 T 35 11" stroke="#ff5d8f" stroke-width="4" stroke-linecap="round"/></svg>
+      <div class="num">01</div><h3>一秒捕捉</h3><p>打开即写，灵感不过夜。</p>
+    </div>
+    <div class="card">
+      <svg class="motif" width="34" height="34" viewBox="0 0 34 34" fill="none"><circle cx="17" cy="17" r="12" stroke="#4d7cfe" stroke-width="5"/></svg>
+      <div class="num">02</div><h3>多端同步</h3><p>手机、平板与桌面，实时同步。</p>
+    </div>
+    <div class="card">
+      <svg class="motif" width="34" height="30" viewBox="0 0 34 30"><path d="M17 2 32 28H2Z" fill="#23c9b4"/></svg>
+      <div class="num">03</div><h3>极简专注</h3><p>只保留纸与笔的纯粹。</p>
+    </div>
+    <div class="card">
+      <svg class="motif" width="30" height="30" viewBox="0 0 30 30"><path d="M15 3v24M3 15h24" stroke="#ffd23f" stroke-width="6" stroke-linecap="round"/></svg>
+      <div class="num">04</div><h3>全平台</h3><p>网页版随时可用，无需安装。</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="foot">
+      <span>© 2026 拾光 SHIGUANG · 保留所有权利</span>
+      <span>MEMPHIS</span>
+    </div>
+  </footer>
+</div>
+<a class="style-tag" href="index.html">← 08 · 孟菲斯</a>
+</body>
+</html>

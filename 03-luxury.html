@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>03 · 暗调奢华 — 拾光 SHIGUANG</title>
+<!-- DesignLab · 03 暗调奢华 Luxury / High-end — 金 + 墨 + 衬线 + 广字距 -->
+<style>
+  :root{
+    --bg:#0d0c0a;--gold:#c9a55a;--gold-2:#e8cf8e;
+    --ink:#ece6da;--muted:#9a8f7a;--line:rgba(201,165,90,.22);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:Georgia,"Times New Roman","Songti SC","SimSun",serif;
+    line-height:1.9;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(1200px 520px at 50% -8%,rgba(201,165,90,.09),transparent 60%);
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 48px;text-align:center}
+
+  /* ── 顶部：极简导航，广字距 ── */
+  header{padding:40px 0 28px}
+  nav a{color:var(--muted);font-size:12px;letter-spacing:.3em;text-decoration:none;margin:0 20px;transition:color .4s}
+  nav a:hover{color:var(--gold-2)}
+
+  /* ── 主视觉：居中纪念性构图 ── */
+  .hero{padding:88px 0 84px}
+  .est{font-size:10px;letter-spacing:.5em;text-indent:.5em;color:var(--muted)}
+  .monogram{
+    font-size:clamp(50px,7vw,84px);letter-spacing:.3em;text-indent:.3em;line-height:1.3;font-weight:400;
+    background:linear-gradient(100deg,#8f6f2e 0%,#e8cf8e 38%,#f8ecc2 50%,#e8cf8e 62%,#8f6f2e 100%);
+    background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:sheen 8s linear infinite;
+  }
+  @keyframes sheen{to{background-position:220% 0}}
+  .en{font-size:10.5px;letter-spacing:.6em;text-indent:.6em;color:var(--muted);margin-top:2px}
+  .rule{display:flex;align-items:center;justify-content:center;gap:18px;margin:38px 0;color:var(--gold);font-size:9px}
+  .rule::before,.rule::after{content:"";width:120px;height:1px}
+  .rule::before{background:linear-gradient(90deg,transparent,var(--gold))}
+  .rule::after{background:linear-gradient(90deg,var(--gold),transparent)}
+  h1{font-size:clamp(26px,3.4vw,40px);font-weight:400;letter-spacing:.24em;text-indent:.24em;line-height:1.8}
+  .lede{color:var(--muted);font-size:14.5px;max-width:520px;margin:26px auto 0;letter-spacing:.08em;
+        font-family:"Microsoft YaHei UI","Microsoft YaHei",sans-serif;font-weight:300;line-height:2.2}
+  .actions{margin-top:54px;display:flex;gap:22px;justify-content:center}
+  .btn{border:1px solid var(--gold);color:var(--gold-2);text-decoration:none;
+       padding:15px 46px;font-size:12.5px;letter-spacing:.36em;text-indent:.36em;
+       background:transparent;transition:all .5s}
+  .btn:hover{background:linear-gradient(100deg,#8f6f2e,#e8cf8e,#8f6f2e);color:#211a0c;border-color:transparent}
+  .btn.ghost{border-color:rgba(201,165,90,.4);color:var(--muted)}
+  .btn.ghost:hover{color:var(--gold-2);border-color:var(--gold);background:transparent}
+
+  /* ── 特性：四栏，罗马数字 ── */
+  .features{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .feature{padding:44px 30px 58px}
+  .feature + .feature{border-left:1px solid var(--line)}
+  .feature .num{color:var(--gold);font-size:13px;letter-spacing:.4em;text-indent:.4em}
+  .feature h3{font-size:16px;letter-spacing:.26em;text-indent:.26em;margin:18px 0 12px;font-weight:400}
+  .feature p{font-size:12.5px;color:var(--muted);letter-spacing:.04em;
+             font-family:"Microsoft YaHei UI","Microsoft YaHei",sans-serif;font-weight:300;line-height:2}
+
+  /* ── 页脚 ── */
+  footer{padding:36px 0 84px;display:flex;justify-content:space-between;font-size:11px;letter-spacing:.26em;color:#6d6452}
+
+  /* 入场：缓慢浮现 */
+  @keyframes fade-up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+  .hero>*{animation:fade-up 1.6s cubic-bezier(.16,.84,.44,1) both}
+  .hero>*:nth-child(2){animation-delay:.15s}.hero>*:nth-child(3){animation-delay:.3s}
+  .hero>*:nth-child(4){animation-delay:.45s}.hero>*:nth-child(5){animation-delay:.6s}
+
+  .style-tag{position:fixed;right:20px;bottom:20px;z-index:99;font-size:11px;letter-spacing:.1em;color:#fff;
+    background:rgba(20,20,20,.62);padding:8px 14px;border-radius:999px;text-decoration:none;
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:.45;transition:opacity .25s}
+  .style-tag:hover{opacity:1}
+
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  @media (max-width:840px){
+    .wrap{padding:0 26px}
+    .hero{padding:60px 0 60px}
+    .features{grid-template-columns:1fr 1fr}
+    .feature + .feature{border-left:0}
+    .feature{border-top:1px solid var(--line)}
+    .feature:nth-child(-n+2){border-top:0}
+    .feature:nth-child(even){border-left:1px solid var(--line)}
+    .actions{flex-direction:column;align-items:center}
+    footer{flex-direction:column;gap:10px;align-items:center}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <nav><a href="#">功能</a><a href="#">定价</a><a href="#">关于</a></nav>
+  </header>
+
+  <section class="hero">
+    <div class="est">EST. MMXXVI · 灵感记录</div>
+    <div class="monogram">拾光</div>
+    <div class="en">SHIGUANG</div>
+    <div class="rule">◆</div>
+    <h1>把灵感，留在拾光</h1>
+    <p class="lede">一闪而过的想法最珍贵。拾光帮你随手捕捉、自动整理，让每一次创作都从从容容。</p>
+    <div class="actions">
+      <a class="btn" href="#">立即体验</a>
+      <a class="btn ghost" href="#">了解更多</a>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="feature"><div class="num">I</div><h3>一秒捕捉</h3><p>打开即写，灵感不过夜。</p></div>
+    <div class="feature"><div class="num">II</div><h3>多端同步</h3><p>手机、平板与桌面，实时同步。</p></div>
+    <div class="feature"><div class="num">III</div><h3>极简专注</h3><p>只保留纸与笔的纯粹。</p></div>
+    <div class="feature"><div class="num">IV</div><h3>全平台</h3><p>网页版随时可用，无需安装。</p></div>
+  </section>
+
+  <footer>
+    <span>© 2026 拾光 SHIGUANG · 保留所有权利</span>
+    <span>LUXURY</span>
+  </footer>
+</div>
+<a class="style-tag" href="index.html">← 03 · 暗调奢华</a>
+</body>
+</html>

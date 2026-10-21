@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>01 · 瑞士国际主义 — 拾光 SHIGUANG</title>
+<!-- DesignLab · 01 瑞士国际主义 Swiss / International Typographic Style -->
+<style>
+  :root{--ink:#0b0b0b;--red:#e30613;--grey:#6f6f6f}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#fff;color:var(--ink);
+    font-family:Helvetica,Arial,"Microsoft YaHei UI","Microsoft YaHei",sans-serif;
+    font-feature-settings:"tnum";-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 44px}
+
+  /* ── 顶栏：2px 实线，类似印刷品的版口线 ── */
+  header{border-bottom:2px solid var(--ink);display:flex;justify-content:space-between;align-items:baseline;padding:24px 0}
+  .brand{font-size:17px;font-weight:700}
+  .brand span{font-size:10.5px;font-weight:400;letter-spacing:.22em;color:var(--grey);margin-left:12px}
+  nav a{color:var(--ink);text-decoration:none;font-size:13px;font-weight:500;margin-left:30px;padding-bottom:3px;border-bottom:2px solid transparent}
+  nav a:hover{border-color:var(--red);color:var(--red)}
+
+  /* ── 主视觉：左右非对称栅格 + 红色方块 ── */
+  .hero{display:grid;grid-template-columns:2fr 1fr;gap:64px;padding:96px 0 88px;position:relative}
+  .kicker{color:var(--red);font-size:12px;font-weight:700;letter-spacing:.3em;display:flex;align-items:center;gap:14px}
+  .kicker::after{content:"";width:52px;height:2px;background:var(--red)}
+  h1{font-size:clamp(48px,7.4vw,92px);font-weight:700;line-height:1.04;letter-spacing:-.02em;margin-top:30px}
+  .hero-right{display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:10px}
+  .redsquare{position:absolute;right:0;top:96px;width:52px;height:52px;background:var(--red)}
+  .lede{font-size:15px;line-height:1.9;color:#33383d;margin-bottom:38px}
+  .actions{display:flex;gap:14px}
+  .btn{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;font-size:13px;font-weight:700;
+       letter-spacing:.1em;padding:15px 32px;transition:background .2s}
+  .btn:hover{background:var(--red)}
+  .btn.line{background:#fff;color:var(--ink);border:2px solid var(--ink);padding:13px 30px}
+  .btn.line:hover{background:var(--ink);color:#fff}
+
+  /* ── 特性：表格化的四栏，数字即秩序 ── */
+  .features{display:grid;grid-template-columns:repeat(4,1fr);border-top:2px solid var(--ink);border-bottom:2px solid var(--ink)}
+  .feature{padding:26px 26px 52px;border-left:1px solid var(--ink)}
+  .feature:first-child{border-left:0;padding-left:0}
+  .feature .num{font-size:38px;font-weight:700;letter-spacing:-.03em;line-height:1}
+  .feature h3{font-size:15px;font-weight:700;margin:18px 0 10px}
+  .feature p{font-size:13px;color:#4a4a4a;line-height:1.9}
+
+  /* ── 页脚：反白色带 ── */
+  footer{background:var(--ink);color:#fff}
+  .foot{display:flex;justify-content:space-between;align-items:center;padding:26px 0;font-size:12px;letter-spacing:.08em}
+
+  .style-tag{position:fixed;right:20px;bottom:20px;z-index:99;font-size:11px;letter-spacing:.1em;color:#fff;
+    background:rgba(20,20,20,.62);padding:8px 14px;border-radius:999px;text-decoration:none;
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:.45;transition:opacity .25s}
+  .style-tag:hover{opacity:1}
+
+  @media (max-width:840px){
+    .wrap{padding:0 24px}
+    .hero{grid-template-columns:1fr;gap:36px;padding:64px 0 60px}
+    .redsquare{position:static;margin-top:26px}
+    .features{grid-template-columns:1fr 1fr}
+    .feature{padding:22px 18px 40px;border-left:0;border-top:1px solid var(--ink)}
+    .feature:nth-child(-n+2){border-top:0}
+    .feature:first-child{padding-left:0}
+    .feature:nth-child(odd){padding-left:0}
+    footer .foot{flex-direction:column;gap:8px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">拾光<span>SHIGUANG</span></div>
+    <nav><a href="#">功能</a><a href="#">定价</a><a href="#">关于</a></nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="kicker">灵感记录，轻如羽毛</div>
+      <h1>把灵感，<br>留在拾光</h1>
+    </div>
+    <div class="hero-right">
+      <span class="redsquare" aria-hidden="true"></span>
+      <p class="lede">一闪而过的想法最珍贵。拾光帮你随手捕捉、自动整理，让每一次创作都从从容容。</p>
+      <div class="actions">
+        <a class="btn" href="#">立即体验</a>
+        <a class="btn line" href="#">了解更多</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="feature"><div class="num">01</div><h3>一秒捕捉</h3><p>打开即写，灵感不过夜。</p></div>
+    <div class="feature"><div class="num">02</div><h3>多端同步</h3><p>手机、平板与桌面，实时同步。</p></div>
+    <div class="feature"><div class="num">03</div><h3>极简专注</h3><p>只保留纸与笔的纯粹。</p></div>
+    <div class="feature"><div class="num">04</div><h3>全平台</h3><p>网页版随时可用，无需安装。</p></div>
+  </section>
+
+  <footer>
+    <div class="foot">
+      <span>© 2026 拾光 SHIGUANG · 保留所有权利</span>
+      <span>SWISS / INTERNATIONAL</span>
+    </div>
+  </footer>
+</div>
+<a class="style-tag" href="index.html">← 01 · 瑞士国际主义</a>
+</body>
+</html>

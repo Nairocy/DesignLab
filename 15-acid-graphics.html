@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>15 · 酸性设计 — 拾光 SHIGUANG</title>
+<!-- DesignLab · 15 酸性设计 Acid Graphics — 深黑底上的荧光光球、铬金属渐变标题、透视网格与颗粒噪点，把后网络数字迷幻叠成一张海报 -->
+<link rel="icon" href="data:,">
+<style>
+  :root{
+    --bg:#08080c;
+    --bg-soft:#0b0b12;
+    --acid:#ccff00;
+    --magenta:#ff00c8;
+    --cyan:#00fff0;
+    --violet:#7b2bff;
+    --white:#ffffff;
+    --text:#f2f3f8;
+    --dim:#d8d8e0;
+    --hair:rgba(255,255,255,.14);
+    --mono:Consolas,"Courier New",monospace;
+    --display:"Arial Black",Impact,"PingFang SC","Microsoft YaHei",sans-serif;
+    --body:"Segoe UI","Helvetica Neue","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;overflow-x:hidden;-webkit-text-size-adjust:100%}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--body);
+    font-size:16px;
+    line-height:1.75;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  ::selection{background:var(--magenta);color:#08080c}
+  :focus-visible{outline:2px solid var(--acid);outline-offset:3px}
+  a:focus:not(:focus-visible){outline:none}
+  img,svg{display:block}
+  .wrap{width:100%;max-width:1180px;margin:0 auto;padding-left:40px;padding-right:40px}
+
+  /* ── 背景层：光球 / 透视网格 / 噪点 ── */
+  .fx{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+  .orb{position:absolute;display:block;border-radius:50%;opacity:.5;will-change:transform}
+  .orb-a{
+    width:44vw;height:44vw;min-width:300px;min-height:300px;top:-13vw;left:-9vw;
+    background:radial-gradient(circle at 50% 50%,rgba(204,255,0,.62) 0%,rgba(204,255,0,.34) 26%,rgba(150,200,0,.14) 50%,rgba(204,255,0,0) 72%);
+    animation:drift-a 26s ease-in-out infinite;
+  }
+  .orb-b{
+    width:38vw;height:38vw;min-width:260px;min-height:260px;top:8%;right:-13vw;
+    background:radial-gradient(circle at 50% 50%,rgba(255,0,200,.58) 0%,rgba(200,20,190,.3) 30%,rgba(123,43,255,.14) 52%,rgba(255,0,200,0) 74%);
+    animation:drift-b 32s ease-in-out infinite;
+  }
+  .orb-c{
+    width:42vw;height:42vw;min-width:280px;min-height:280px;bottom:-17vw;left:24%;
+    background:radial-gradient(circle at 50% 50%,rgba(0,255,240,.42) 0%,rgba(0,200,230,.22) 30%,rgba(0,140,255,.1) 52%,rgba(0,255,240,0) 74%);
+    animation:drift-c 38s ease-in-out infinite;
+  }
+  @keyframes drift-a{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(6vw,5vh,0) scale(1.12)}}
+  @keyframes drift-b{0%,100%{transform:translate3d(0,0,0) scale(1.05)}50%{transform:translate3d(-5vw,7vh,0) scale(.94)}}
+  @keyframes drift-c{0%,100%{transform:translate3d(0,0,0) scale(.96)}50%{transform:translate3d(4vw,-5vh,0) scale(1.1)}}
+
+  .grid-floor{
+    position:absolute;left:50%;bottom:0;width:240vw;height:100vh;
+    transform:translateX(-50%) perspective(800px) rotateX(54deg);
+    transform-origin:center bottom;
+    -webkit-mask-image:linear-gradient(to top,rgba(0,0,0,.95) 0%,rgba(0,0,0,.55) 46%,transparent 86%);
+    mask-image:linear-gradient(to top,rgba(0,0,0,.95) 0%,rgba(0,0,0,.55) 46%,transparent 86%);
+    opacity:.9;
+  }
+  .grid-move{
+    position:absolute;inset:-60px;pointer-events:none;will-change:transform;
+    background-image:
+      linear-gradient(rgba(0,255,240,.24) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(0,255,240,.24) 1px,transparent 1px);
+    background-size:56px 56px;
+    animation:grid-run 46s linear infinite;
+  }
+  @keyframes grid-run{from{transform:translate3d(0,0,0)}to{transform:translate3d(-56px,56px,0)}}
+
+  .grain{
+    position:fixed;inset:-25%;z-index:4;pointer-events:none;opacity:.072;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size:180px 180px;
+    animation:grain 7s steps(5) infinite;
+    will-change:transform;
+  }
+  @keyframes grain{
+    0%{transform:translate3d(0,0,0)}
+    20%{transform:translate3d(-6%,3%,0)}
+    40%{transform:translate3d(4%,-5%,0)}
+    60%{transform:translate3d(-3%,-2%,0)}
+    80%{transform:translate3d(5%,4%,0)}
+    100%{transform:translate3d(0,0,0)}
+  }
+
+  .page{position:relative;z-index:2}
+
+  /* ── 顶栏 ── */
+  .site-header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:24px;padding-bottom:8px}
+  .brand{display:inline-flex;align-items:center;gap:12px;min-height:44px;color:var(--white);text-decoration:none}
+  .brand-mark{
+    width:36px;height:36px;flex:none;display:grid;place-items:center;
+    border:1px solid rgba(204,255,0,.7);background:rgba(204,255,0,.06);color:var(--acid);
+  }
+  .brand-mark svg{width:18px;height:18px}
+  .brand-name{display:block;font-family:var(--display);font-weight:900;font-size:17px;line-height:1;letter-spacing:.06em}
+  .brand-latin{display:block;margin-top:5px;font-family:var(--mono);font-size:10px;line-height:1;letter-spacing:.26em;color:var(--acid)}
+  .nav{display:flex;align-items:center;gap:2px}
+  .nav a{
+    position:relative;display:inline-flex;align-items:center;min-height:44px;padding:0 13px;
+    color:var(--text);font-size:14px;letter-spacing:.04em;text-decoration:none;transition:color .22s ease;
+  }
+  .nav a::after{
+    content:"";position:absolute;left:13px;right:13px;bottom:8px;height:1px;
+    background:linear-gradient(90deg,var(--magenta),var(--cyan));
+    transform:scaleX(0);transform-origin:left;transition:transform .25s ease;
+  }
+  .nav a:hover{color:var(--acid)}
+  .nav a:hover::after,.nav a:focus-visible::after{transform:scaleX(1)}
+
+  /* ── 主视觉 ── */
+  .hero{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);align-items:center;gap:48px;padding-top:62px;padding-bottom:84px}
+  .kicker{
+    display:inline-flex;align-items:center;gap:10px;padding:9px 16px;
+    font-family:var(--mono);font-size:12px;line-height:1.4;letter-spacing:.2em;
+    color:var(--text);border:1px solid rgba(204,255,0,.55);background:rgba(204,255,0,.05);
+  }
+  .kicker::before{content:"";width:7px;height:7px;flex:none;background:var(--acid);box-shadow:0 0 12px var(--acid)}
+  .hero h1{
+    margin-top:26px;padding-right:.1em;white-space:nowrap;
+    font-family:var(--display);font-weight:900;font-size:clamp(34px,5.9vw,72px);
+    line-height:1.1;letter-spacing:-.015em;
+  }
+  .hero h1 .chrome{
+    display:inline-block;transform:skewX(-7deg);color:var(--white);
+    animation:jitter 9s steps(1) infinite;
+  }
+  @supports ((-webkit-background-clip:text) or (background-clip:text)){
+    .hero h1 .chrome{
+      background:linear-gradient(176deg,#ffffff 0%,#eaf6ff 17%,#98a2b8 34%,#ffffff 45%,#dcffab 53%,#ffffff 61%,#8d96ac 75%,#ffffff 88%,#ccff00 100%);
+      -webkit-background-clip:text;background-clip:text;
+      color:transparent;-webkit-text-fill-color:transparent;
+      filter:drop-shadow(2px 0 0 rgba(255,0,200,.6)) drop-shadow(-2px 0 0 rgba(0,255,240,.55));
+    }
+  }
+  @keyframes jitter{
+    0%,91%,100%{transform:skewX(-7deg) translate3d(0,0,0)}
+    92%{transform:skewX(-7deg) translate3d(2px,-1px,0)}
+    94%{transform:skewX(-7deg) translate3d(-1.5px,1px,0)}
+    96%{transform:skewX(-7deg) translate3d(1px,0,0)}
+  }
+  .lede{max-width:34em;margin-top:26px;padding-left:18px;border-left:1px solid rgba(255,255,255,.16);font-size:16px;line-height:2;color:var(--dim)}
+  .actions{display:flex;flex-wrap:wrap;gap:16px;margin-top:38px}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    min-height:52px;padding:0 30px;border:1px solid transparent;
+    font-family:var(--body);font-size:14.5px;font-weight:700;letter-spacing:.1em;text-decoration:none;
+    transition:transform .2s ease,background .2s ease,color .2s ease,border-color .2s ease,box-shadow .2s ease;
+  }
+  .btn svg{width:16px;height:16px;flex:none;transition:transform .2s ease}
+  .btn:hover svg{transform:translateX(3px)}
+  .btn-primary{background:var(--acid);color:#08080c;box-shadow:5px 5px 0 rgba(255,0,200,.85)}
+  .btn-primary:hover{transform:translate(-2px,-2px);box-shadow:8px 8px 0 rgba(255,0,200,.85)}
+  .btn-primary:active{transform:translate(1px,1px);box-shadow:2px 2px 0 rgba(255,0,200,.85)}
+  .btn-ghost{color:var(--white);border-color:rgba(0,255,240,.55);background:rgba(0,255,240,.04)}
+  .btn-ghost:hover{background:rgba(0,255,240,.12);border-color:var(--cyan);transform:translateY(-2px)}
+
+  .hero-art{position:relative;justify-self:center;display:grid;place-items:center;width:100%;max-width:340px;aspect-ratio:1;margin:10px 0}
+  .metal{
+    position:relative;width:82%;aspect-ratio:1;
+    border-radius:48% 52% 46% 54%/52% 46% 54% 48%;
+    background:
+      radial-gradient(circle at 33% 27%,rgba(255,255,255,.98) 0 5%,rgba(255,255,255,.72) 9%,rgba(255,255,255,0) 26%),
+      radial-gradient(circle at 72% 74%,rgba(123,43,255,.9) 0%,rgba(123,43,255,0) 40%),
+      radial-gradient(circle at 22% 76%,rgba(0,255,240,.75) 0%,rgba(0,255,240,0) 38%),
+      conic-gradient(from 200deg,#0c0d12 0%,#8f98ad 10%,#f6f9ff 17%,#454b59 27%,#0b0c10 38%,#b9c3d6 48%,#5f6676 57%,#111218 68%,#cfd8e8 78%,#6b7386 88%,#0c0d12 100%);
+    box-shadow:
+      inset -14px -18px 46px rgba(0,0,0,.9),
+      inset 10px 12px 30px rgba(255,255,255,.22),
+      0 0 70px rgba(0,255,240,.18),
+      0 0 120px rgba(255,0,200,.16);
+    animation:blob 16s ease-in-out infinite;
+  }
+  @keyframes blob{
+    0%,100%{border-radius:48% 52% 46% 54%/52% 46% 54% 48%;transform:rotate(0deg) scale(1)}
+    33%{border-radius:56% 44% 52% 48%/46% 56% 44% 54%;transform:rotate(6deg) scale(1.03)}
+    66%{border-radius:44% 56% 42% 58%/58% 44% 56% 42%;transform:rotate(-5deg) scale(.98)}
+  }
+  .ring{position:absolute;inset:0;border:1px dashed rgba(204,255,0,.32);border-radius:50%;animation:spin 46s linear infinite}
+  .ring::after{content:"";position:absolute;inset:11%;border:1px solid rgba(255,0,200,.28);border-radius:50%}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .sticker{
+    position:absolute;right:0;bottom:7%;transform:rotate(-7deg);
+    padding:7px 11px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--text);
+    border:1px solid rgba(255,0,200,.7);background:rgba(8,8,12,.75);
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+  }
+  .art-code{
+    position:absolute;left:0;top:3%;writing-mode:vertical-rl;
+    font-family:var(--mono);font-size:10px;letter-spacing:.24em;color:rgba(216,216,224,.62);
+  }
+
+  /* ── 跑马灯 ── */
+  .ticker{position:relative;overflow:hidden;padding:13px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);background:rgba(255,255,255,.025)}
+  .ticker::before,.ticker::after{content:"";position:absolute;top:0;bottom:0;width:70px;z-index:2;pointer-events:none}
+  .ticker::before{left:0;background:linear-gradient(90deg,var(--bg),rgba(8,8,12,0))}
+  .ticker::after{right:0;background:linear-gradient(270deg,var(--bg),rgba(8,8,12,0))}
+  .ticker-track{display:flex;width:max-content;animation:tick 40s linear infinite}
+  .ticker-group{display:flex;align-items:center;gap:26px;padding-right:26px;white-space:nowrap;font-family:var(--mono);font-size:11.5px;letter-spacing:.26em;color:var(--dim)}
+  .ticker-group .plus{color:var(--acid);font-size:13px}
+  @keyframes tick{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+
+  /* ── 特性区 ── */
+  .features{padding-top:88px;padding-bottom:94px}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:42px}
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.28em;color:var(--acid);margin-bottom:14px}
+  .sec-title{
+    font-family:var(--display);font-weight:900;font-size:clamp(38px,5vw,60px);line-height:1;letter-spacing:.01em;
+    color:var(--white);transform:skewX(-6deg);
+    text-shadow:3px 0 0 rgba(255,0,200,.55),-3px 0 0 rgba(0,255,240,.45);
+  }
+  .sec-title .outline{color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.55);text-shadow:none;margin-left:.06em}
+  .sec-note{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:rgba(216,216,224,.7);border:1px solid var(--hair);padding:8px 12px}
+
+  .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+  .card{
+    position:relative;overflow:hidden;padding:28px 28px 32px;--rot:-.4deg;transform:rotate(var(--rot));
+    background-color:rgba(9,9,14,.56);
+    background-image:linear-gradient(158deg,rgba(255,255,255,.06),rgba(255,255,255,.012) 62%);
+    border:1px solid var(--hair);
+    transition:transform .3s ease,border-color .3s ease,background .3s ease,box-shadow .3s ease;
+  }
+  .card:nth-child(even){--rot:.4deg}
+  .card::before{content:"";position:absolute;top:-1px;left:-1px;width:86px;height:2px;background:var(--magenta);opacity:.85}
+  .card:hover{transform:translateY(-6px) rotate(0deg);border-color:rgba(204,255,0,.5);
+    background-color:rgba(11,13,9,.62);
+    background-image:linear-gradient(158deg,rgba(204,255,0,.08),rgba(255,255,255,.015) 62%);
+    box-shadow:0 24px 60px -34px rgba(204,255,0,.55)}
+  .card-top{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px}
+  .icon{
+    width:50px;height:50px;display:grid;place-items:center;flex:none;
+    border:1px solid rgba(255,255,255,.18);background:rgba(8,8,12,.55);color:var(--icon);
+    transition:color .3s ease,border-color .3s ease;
+  }
+  .icon svg{width:26px;height:26px}
+  .card:nth-child(1) .icon{--icon:var(--acid)}
+  .card:nth-child(2) .icon{--icon:var(--cyan)}
+  .card:nth-child(3) .icon{--icon:var(--magenta)}
+  .card:nth-child(4) .icon{--icon:var(--white)}
+  .card:hover .icon{color:var(--acid);border-color:rgba(204,255,0,.5)}
+  .idx{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:rgba(216,216,224,.6);white-space:nowrap}
+  .card h3{font-family:var(--display);font-weight:900;font-size:22px;line-height:1.35;letter-spacing:.02em;color:var(--white);margin-bottom:9px}
+  .card p{font-size:14.8px;line-height:1.85;color:var(--dim)}
+  .dash{color:var(--magenta);font-family:var(--mono)}
+
+  /* ── 页脚 ── */
+  .site-footer{position:relative;border-top:1px solid var(--hair);padding:40px 0 64px;
+    background:radial-gradient(120% 130% at 78% 100%,rgba(123,43,255,.12),rgba(8,8,12,0) 62%),rgba(8,8,12,.8)}
+  .foot{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}
+  .foot-brand{font-family:var(--display);font-weight:900;font-size:16px;letter-spacing:.05em;color:var(--white)}
+  .foot-brand span{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.26em;color:var(--acid);margin-left:8px}
+  .foot-copy{font-size:12.5px;letter-spacing:.02em;color:var(--dim)}
+  .foot-tag{font-family:var(--mono);font-size:10px;letter-spacing:.24em;color:rgba(216,216,224,.62);border:1px solid var(--hair);padding:7px 12px}
+
+  /* ── 返回胶囊 ── */
+  .style-tag{
+    position:fixed;right:20px;bottom:20px;z-index:99;
+    display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:999px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--white);text-decoration:none;
+    background:rgba(8,8,12,.78);border:1px solid rgba(204,255,0,.4);
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+    opacity:.62;transition:opacity .25s ease,background .25s ease,border-color .25s ease;
+  }
+  .style-tag:hover,.style-tag:focus-visible{opacity:1;border-color:var(--acid);background:rgba(204,255,0,.14)}
+
+  @media (max-width:980px){
+    .hero{grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:30px;padding-top:44px;padding-bottom:64px}
+    .hero h1{font-size:clamp(34px,5.2vw,56px)}
+    .hero-art{max-width:290px;margin:0}
+    .art-code{display:none}
+  }
+  @media (max-width:760px){
+    .wrap{padding-left:20px;padding-right:20px}
+    .site-header{padding-top:16px;flex-wrap:wrap;row-gap:2px}
+    .nav{margin-left:-13px}
+    .hero{grid-template-columns:1fr;gap:22px;padding-top:32px;padding-bottom:52px}
+    .hero h1{font-size:clamp(32px,9.2vw,52px)}
+    .hero-art{max-width:min(300px,78vw);justify-self:start;margin:6px 0}
+    .lede{font-size:15.5px;line-height:1.95}
+    .actions{gap:12px;margin-top:30px}
+    .orb{opacity:.4}
+    .orb-a{width:76vw;height:76vw;top:-26vw;left:-30vw}
+    .orb-b{width:64vw;height:64vw;top:auto;right:-30vw;bottom:6%}
+    .orb-c{width:70vw;height:70vw;left:14%;bottom:-30vw}
+    .grid-floor{width:280vw;height:78vh;bottom:0}
+    .features{padding-top:60px;padding-bottom:66px}
+    .sec-head{margin-bottom:30px}
+    .grid{grid-template-columns:1fr;gap:16px}
+    .card{padding:24px 22px 26px}
+    .ticker-group{font-size:10.5px;letter-spacing:.22em;gap:20px;padding-right:20px}
+    .foot{flex-direction:column;align-items:flex-start;gap:12px}
+    .style-tag{right:14px;bottom:14px}
+  }
+  @media (min-width:481px) and (max-width:760px){
+    .hero-art{justify-self:center;margin:12px 0 4px}
+  }
+  @media (max-width:400px){
+    .kicker{font-size:11px;letter-spacing:.14em;padding:8px 12px}
+    .btn{flex:1 1 100%}
+    .sec-title{font-size:36px}
+    .sticker{font-size:9px;letter-spacing:.14em;padding:6px 9px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .grain{opacity:.05}
+  }
+</style>
+</head>
+<body>
+
+<div class="fx" aria-hidden="true">
+  <span class="orb orb-a"></span>
+  <span class="orb orb-b"></span>
+  <span class="orb orb-c"></span>
+  <span class="grid-floor"><span class="grid-move"></span></span>
+</div>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="page">
+
+  <header class="site-header wrap">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square" focusable="false">
+          <path d="M4.5 19.5 19.5 4.5M4.5 4.5h6.5M4.5 4.5v6.5M19.5 19.5h-6.5M19.5 19.5v-6.5"/>
+        </svg>
+      </span>
+      <span>
+        <span class="brand-name">拾光</span>
+        <span class="brand-latin">SHIGUANG</span>
+      </span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a href="#features">功能</a>
+      <a href="#">定价</a>
+      <a href="#">关于</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="kicker">灵感记录，轻如羽毛</p>
+        <h1 id="hero-title"><span class="chrome">把灵感，留在拾光</span></h1>
+        <p class="lede">一闪而过的想法最珍贵。拾光帮你随手捕捉、自动整理，让每一次创作都从从容容。</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#features">立即体验
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" aria-hidden="true" focusable="false">
+              <path d="M2.5 8h11M9.5 4l4 4-4 4"/>
+            </svg>
+          </a>
+          <a class="btn btn-ghost" href="#features">了解更多</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="metal"></div>
+        <div class="ring"></div>
+        <span class="art-code">X:015 / Y:2026</span>
+        <span class="sticker">LIQUID CHROME</span>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <div class="ticker-group">
+          <span>ACID GRAPHICS</span><span class="plus">+</span>
+          <span>LIQUID CHROME</span><span class="plus">+</span>
+          <span>Y2K GRID</span><span class="plus">+</span>
+          <span>NOISE GRAIN</span><span class="plus">+</span>
+          <span>拾光 SHIGUANG</span><span class="plus">+</span>
+        </div>
+        <div class="ticker-group">
+          <span>ACID GRAPHICS</span><span class="plus">+</span>
+          <span>LIQUID CHROME</span><span class="plus">+</span>
+          <span>Y2K GRID</span><span class="plus">+</span>
+          <span>NOISE GRAIN</span><span class="plus">+</span>
+          <span>拾光 SHIGUANG</span><span class="plus">+</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="features wrap" id="features" aria-labelledby="features-title">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow">// 特性 · 04</p>
+          <h2 class="sec-title" id="features-title">FEATURES<span class="outline">/04</span></h2>
+        </div>
+        <p class="sec-note">SYSTEM ONLINE</p>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <div class="card-top">
+            <span class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false">
+                <path d="M13 2 4.5 13.5H10L9 22l8.5-12H12l1-8Z"/>
+              </svg>
+            </span>
+            <span class="idx">01 / 04</span>
+          </div>
+          <h3>一秒捕捉</h3>
+          <p><span class="dash">—</span> 打开即写，灵感不过夜。</p>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <span class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false">
+                <rect x="2.5" y="4.5" width="12" height="8.5"/>
+                <path d="M6 17h5M8.5 13v4"/>
+                <rect x="16.5" y="8.5" width="5" height="9.5"/>
+                <path d="M18.5 11h1.5"/>
+              </svg>
+            </span>
+            <span class="idx">02 / 04</span>
+          </div>
+          <h3>多端同步</h3>
+          <p><span class="dash">—</span> 手机、平板与桌面，实时同步。</p>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <span class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true" focusable="false">
+                <rect x="3.5" y="3.5" width="17" height="17"/>
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M12 3.5v3M12 17.5v3M3.5 12h3M17.5 12h3"/>
+              </svg>
+            </span>
+            <span class="idx">03 / 04</span>
+          </div>
+          <h3>极简专注</h3>
+          <p><span class="dash">—</span> 只保留纸与笔的纯粹。</p>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <span class="icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true" focusable="false">
+                <circle cx="12" cy="12" r="8.5"/>
+                <path d="M3.5 12h17"/>
+                <path d="M12 3.5c2.5 2.4 3.8 5.4 3.8 8.5s-1.3 6.1-3.8 8.5c-2.5-2.4-3.8-5.4-3.8-8.5s1.3-6.1 3.8-8.5Z"/>
+              </svg>
+            </span>
+            <span class="idx">04 / 04</span>
+          </div>
+          <h3>全平台</h3>
+          <p><span class="dash">—</span> 网页版随时可用，无需安装。</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="foot wrap">
+      <div class="foot-brand">拾光<span>SHIGUANG</span></div>
+      <div class="foot-copy">© 2026 拾光 SHIGUANG · 保留所有权利</div>
+      <div class="foot-tag">ACID GRAPHICS / 15</div>
+    </div>
+  </footer>
+
+</div>
+
+<a class="style-tag" href="index.html">← 15 · 酸性设计</a>
+</body>
+</html>

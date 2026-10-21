@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>07 · 和风侘寂 — 拾光 SHIGUANG</title>
+<!-- DesignLab · 07 和风侘寂 Wabi-sabi — 竖排 + 素纸 + 一枚朱印 -->
+<style>
+  :root{--paper:#f6f2e8;--ink:#33312b;--muted:#8e8878;--accent:#b23a2e;--line:#e0d9c8}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);
+    font-family:"Kaiti SC","KaiTi","STKaiti","Noto Serif SC","Songti SC","SimSun",serif;
+    line-height:2.1;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(rgba(51,49,43,.035) 1px,transparent 1px);background-size:24px 24px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 48px}
+
+  /* ── 顶栏：一条细线之下 ── */
+  header{display:flex;justify-content:space-between;align-items:baseline;padding:40px 0 26px;border-bottom:1px solid var(--line)}
+  .brand{font-size:19px;letter-spacing:.34em}
+  nav a{color:var(--muted);text-decoration:none;font-size:13.5px;letter-spacing:.24em;margin-left:30px;transition:color .4s}
+  nav a:hover{color:var(--accent)}
+
+  /* ── 主视觉：左竖排一列，右留白 ── */
+  .hero{display:grid;grid-template-columns:auto 1fr;gap:90px;padding:88px 0 92px;align-items:start}
+  .tate{writing-mode:vertical-rl;text-orientation:upright;border-right:1px solid var(--line);padding-right:34px;justify-self:start}
+  .tate .v-kicker{display:inline-block;font-size:12px;letter-spacing:.5em;color:var(--muted);margin-bottom:40px}
+  .tate h1{display:inline-block;font-size:clamp(28px,3.2vw,40px);font-weight:400;letter-spacing:.46em;line-height:1}
+  .seal{display:inline-block;width:40px;height:40px;margin-top:20px;background:var(--accent);color:#fdf9ee;
+    font-size:15px;line-height:1.15;text-align:center;padding:5px 0;border-radius:3px;
+    font-family:"Kaiti SC","KaiTi",serif;letter-spacing:0;transform:rotate(-3deg);
+    box-shadow:1px 1px 0 rgba(0,0,0,.12)}
+  .hero-right{max-width:520px;padding-top:6px}
+  .enso{width:150px;height:150px;margin-bottom:40px;transform:rotate(-6deg)}
+  .lede{font-size:15px;color:#5c574a;line-height:2.3}
+  .actions{margin-top:48px;display:flex;gap:34px;align-items:center}
+  .btn{background:var(--ink);color:var(--paper);text-decoration:none;font-size:13.5px;
+    letter-spacing:.34em;text-indent:.34em;padding:14px 38px;transition:background .4s}
+  .btn:hover{background:var(--accent)}
+  .btn.ghost{background:none;color:var(--ink);padding:14px 0;border-bottom:1px solid #cfc7b4;
+    letter-spacing:.34em;text-indent:.34em;transition:color .4s,border-color .4s}
+  .btn.ghost:hover{color:var(--accent);border-color:var(--accent);background:none}
+
+  /* ── 特性：四行，细线分隔 ── */
+  .features{border-top:1px solid var(--line)}
+  .feature{display:grid;grid-template-columns:80px 220px 1fr;gap:28px;align-items:baseline;
+    padding:30px 8px;border-bottom:1px solid var(--line)}
+  .feature .num{font-size:20px;color:var(--accent);letter-spacing:.2em}
+  .feature h3{font-size:18px;letter-spacing:.22em}
+  .feature p{font-size:13.5px;color:var(--muted);line-height:2.2}
+
+  /* ── 页脚 ── */
+  footer{display:flex;justify-content:space-between;padding:28px 0 68px;color:var(--muted);
+    font-size:12.5px;letter-spacing:.22em}
+
+  .style-tag{position:fixed;right:20px;bottom:20px;z-index:99;font-size:11px;letter-spacing:.1em;color:#fff;
+    background:rgba(20,20,20,.62);padding:8px 14px;border-radius:999px;text-decoration:none;
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:.45;transition:opacity .25s}
+  .style-tag:hover{opacity:1}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+  @media (max-width:840px){
+    .wrap{padding:0 26px}
+    .hero{grid-template-columns:1fr;gap:48px;padding:56px 0 64px}
+    .tate h1{font-size:26px}
+    .feature{grid-template-columns:56px 1fr;gap:12px}
+    .feature p{grid-column:2}
+    footer{flex-direction:column;gap:8px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">拾光</div>
+    <nav><a href="#">功能</a><a href="#">定价</a><a href="#">关于</a></nav>
+  </header>
+
+  <section class="hero">
+    <div class="tate">
+      <span class="v-kicker">灵感记录，轻如羽毛</span>
+      <h1>把灵感，留在拾光<span class="seal">拾光</span></h1>
+    </div>
+    <div class="hero-right">
+      <svg class="enso" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+        <path d="M136 24 C 84 -2, 28 18, 14 64 C 0 110, 26 162, 76 178 C 122 192, 170 166, 180 122 C 186 96, 180 72, 164 52"
+          stroke="#33312b" stroke-width="10" stroke-linecap="round" opacity=".88"/>
+      </svg>
+      <p class="lede">一闪而过的想法最珍贵。拾光帮你随手捕捉、自动整理，让每一次创作都从从容容。</p>
+      <div class="actions">
+        <a class="btn" href="#">立即体验</a>
+        <a class="btn ghost" href="#">了解更多</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="feature"><div class="num">一</div><h3>一秒捕捉</h3><p>打开即写，灵感不过夜。</p></div>
+    <div class="feature"><div class="num">二</div><h3>多端同步</h3><p>手机、平板与桌面，实时同步。</p></div>
+    <div class="feature"><div class="num">三</div><h3>极简专注</h3><p>只保留纸与笔的纯粹。</p></div>
+    <div class="feature"><div class="num">四</div><h3>全平台</h3><p>网页版随时可用，无需安装。</p></div>
+  </section>
+
+  <footer>
+    <span>© 2026 拾光 SHIGUANG · 保留所有权利</span>
+    <span>侘寂</span>
+  </footer>
+</div>
+<a class="style-tag" href="index.html">← 07 · 和风侘寂</a>
+</body>
+</html>

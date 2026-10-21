@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>10 · 新粗野主义 — 拾光 SHIGUANG</title>
+<!-- DesignLab · 10 新粗野主义 Neo-Brutalism — 纯黑厚描边 / 零模糊实色硬影 / 高饱和撞色块 / 方格纸可见网格 / 按压式触觉交互 -->
+<style>
+  :root{
+    --paper:#fdf8ea;
+    --ink:#000000;
+    --yellow:#ffd93d;
+    --pink:#ff5f9e;
+    --cyan:#5ad2ff;
+    --lime:#c8f54a;
+    --purple:#b79bff;
+    --orange:#ff8a4c;
+    --edge:3px;
+    --hard:7px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--paper);color:var(--ink);
+    font-family:"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;
+    line-height:1.75;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+    background-image:
+      repeating-linear-gradient(0deg,rgba(0,0,0,.055) 0 1px,transparent 1px 34px),
+      repeating-linear-gradient(90deg,rgba(0,0,0,.055) 0 1px,transparent 1px 34px);
+  }
+  ::selection{background:var(--yellow);color:var(--ink)}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 40px;position:relative}
+
+  /* ── 顶栏：每件都有黑边 ── */
+  header{
+    display:flex;align-items:center;justify-content:space-between;gap:18px;
+    padding:26px 0;flex-wrap:wrap;
+  }
+  .brand{display:flex;align-items:center;gap:12px;font-weight:900;font-size:17px;letter-spacing:.04em}
+  .brand .mark{
+    width:34px;height:34px;background:var(--yellow);border:var(--edge) solid var(--ink);
+    box-shadow:4px 4px 0 var(--ink);display:inline-flex;align-items:center;justify-content:center;
+    font-size:15px;font-weight:900;line-height:1;
+  }
+  .brand small{
+    font-family:Consolas,"Courier New",monospace;font-size:10px;font-weight:400;
+    letter-spacing:.3em;margin-left:2px;
+  }
+  nav.links{display:flex;gap:12px;flex-wrap:wrap}
+  nav.links a{
+    display:inline-block;padding:8px 18px;min-height:44px;line-height:26px;
+    color:var(--ink);text-decoration:none;font-size:13.5px;font-weight:800;letter-spacing:.06em;
+    background:#fff;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);
+    transition:transform .12s ease,box-shadow .12s ease,background .12s ease;
+  }
+  nav.links a:hover{background:var(--yellow);transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink)}
+  nav.links a:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--ink)}
+
+  /* ── hero ── */
+  .hero{padding:74px 0 84px;position:relative}
+  .sticker{
+    position:absolute;top:52px;right:6px;transform:rotate(9deg);
+    background:var(--lime);border:var(--edge) solid var(--ink);box-shadow:6px 6px 0 var(--ink);
+    padding:10px 18px;font-size:12px;font-weight:900;letter-spacing:.2em;
+  }
+  .sticker::after{
+    content:"";position:absolute;left:14px;bottom:-11px;width:0;height:0;
+    border-left:11px solid transparent;border-right:11px solid transparent;border-top:11px solid var(--ink);
+  }
+  .star{
+    position:absolute;left:-34px;top:-6px;width:86px;height:86px;
+    transform:rotate(-12deg);pointer-events:none;opacity:.9;
+  }
+  .kicker{
+    display:inline-block;background:#fff;border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);
+    padding:7px 16px;font-size:12.5px;font-weight:800;letter-spacing:.16em;
+  }
+  h1{
+    font-family:"Arial Black",Impact,"Microsoft YaHei",sans-serif;
+    font-size:clamp(46px,8.2vw,104px);font-weight:900;line-height:1.02;
+    letter-spacing:-.02em;margin:28px 0 26px;
+  }
+  h1 em{
+    font-style:normal;display:inline-block;background:var(--yellow);
+    border:var(--edge) solid var(--ink);box-shadow:7px 7px 0 var(--ink);
+    padding:0 .1em;transform:rotate(-1.6deg);
+  }
+  .lede{max-width:580px;font-size:16px;line-height:2;font-weight:500}
+  .actions{margin-top:42px;display:flex;gap:22px;flex-wrap:wrap}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-height:56px;padding:14px 38px;text-decoration:none;
+    font-size:15px;font-weight:900;letter-spacing:.1em;
+    background:var(--yellow);color:var(--ink);
+    border:var(--edge) solid var(--ink);box-shadow:var(--hard) var(--hard) 0 var(--ink);
+    transition:transform .12s ease,box-shadow .12s ease,background .12s ease;
+  }
+  .btn:hover{transform:translate(-3px,-3px);box-shadow:10px 10px 0 var(--ink)}
+  .btn:active{transform:translate(4px,4px);box-shadow:2px 2px 0 var(--ink)}
+  .btn.ghost{background:#fff}
+  .btn.ghost:hover{background:var(--pink)}
+
+  /* ── 特性区：每卡一色 + 硬影 ── */
+  .section-head{display:flex;align-items:baseline;gap:16px;margin-bottom:32px;flex-wrap:wrap}
+  .section-head h2{
+    font-family:"Arial Black",Impact,"Microsoft YaHei",sans-serif;
+    font-size:clamp(24px,3.4vw,36px);font-weight:900;letter-spacing:-.01em;
+  }
+  .section-head span{
+    font-family:Consolas,monospace;font-size:11.5px;letter-spacing:.3em;
+    background:var(--ink);color:var(--yellow);padding:4px 12px;
+  }
+  .features{display:grid;grid-template-columns:1fr 1fr;gap:34px;padding-bottom:90px}
+  .card{
+    position:relative;background:#fff;border:var(--edge) solid var(--ink);
+    box-shadow:8px 8px 0 var(--ink);padding:28px 26px 30px;
+    transition:transform .14s ease,box-shadow .14s ease;
+  }
+  .card.c1{background:var(--pink)}
+  .card.c2{background:var(--cyan)}
+  .card.c3{background:var(--yellow)}
+  .card.c4{background:var(--purple)}
+  .card:hover{transform:translate(-3px,-3px);box-shadow:11px 11px 0 var(--ink)}
+  .card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px}
+  .card .ic{width:30px;height:30px;display:block}
+  .num{
+    background:var(--ink);color:#fff;font-family:Consolas,monospace;
+    font-size:11.5px;letter-spacing:.14em;padding:4px 10px;
+  }
+  .card h3{
+    font-family:"Arial Black",Impact,"Microsoft YaHei",sans-serif;
+    font-size:21px;font-weight:900;letter-spacing:.01em;margin-bottom:10px;
+  }
+  .card p{font-size:14px;line-height:1.95;font-weight:500}
+  .card .more{
+    display:inline-block;margin-top:16px;font-size:12.5px;font-weight:900;
+    letter-spacing:.08em;border-bottom:3px solid var(--ink);padding-bottom:2px;
+  }
+
+  /* ── 底部黑带 ── */
+  .band{background:var(--ink);color:#fff;border-top:var(--edge) solid var(--ink)}
+  .band .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;
+    padding:26px 40px;flex-wrap:wrap;font-family:Consolas,monospace;font-size:12px;letter-spacing:.18em}
+  .band b{color:var(--yellow)}
+
+  /* ── 页脚 ── */
+  footer{background:#fff;border-top:var(--edge) solid var(--ink)}
+  .foot{display:flex;justify-content:space-between;align-items:center;gap:16px;
+    padding:26px 0 34px;flex-wrap:wrap;font-size:12.5px;font-weight:600;letter-spacing:.06em}
+  .flinks a{color:var(--ink);text-decoration:none;margin-right:18px;font-weight:800;
+    border-bottom:2px solid transparent}
+  .flinks a:hover{border-color:var(--ink)}
+  .foot .tag{font-family:Consolas,monospace;font-size:11px;letter-spacing:.24em;
+    background:var(--yellow);border:2px solid var(--ink);padding:3px 10px}
+
+  a:focus-visible,button:focus-visible{outline:3px dashed var(--ink);outline-offset:4px}
+
+  /* 入场 */
+  @keyframes pop{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+  .kicker,.lede,.actions,.card{animation:pop .55s cubic-bezier(.2,.7,.35,1) both}
+  .kicker{animation-delay:.04s}
+  .lede{animation-delay:.12s}
+  .actions{animation-delay:.2s}
+  .card:nth-child(1){animation-delay:.1s}
+  .card:nth-child(2){animation-delay:.18s}
+  .card:nth-child(3){animation-delay:.26s}
+  .card:nth-child(4){animation-delay:.34s}
+
+  .style-tag{position:fixed;right:20px;bottom:20px;z-index:99;font-size:11px;letter-spacing:.1em;color:#fff;
+    background:rgba(20,20,20,.72);padding:9px 15px;border-radius:999px;text-decoration:none;
+    border:2px solid rgba(255,255,255,.25);opacity:.55;transition:opacity .25s}
+  .style-tag:hover{opacity:1}
+
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  @media (max-width:880px){
+    .wrap{padding:0 22px}
+    .hero{padding:52px 0 62px}
+    .features{grid-template-columns:1fr;gap:26px}
+    .sticker{position:static;display:inline-block;margin:0 0 20px;transform:rotate(-3deg)}
+    .star{display:none}
+    .band .wrap{padding:22px}
+  }
+  @media (max-width:420px){
+    h1{font-size:44px}
+    .actions{gap:14px}
+    .btn{width:100%;padding:14px 20px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><span class="mark">拾</span>拾光<small>SHIGUANG</small></div>
+    <nav class="links"><a href="#">功能</a><a href="#">定价</a><a href="#">关于</a></nav>
+  </header>
+
+  <section class="hero">
+    <svg class="star" viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M50 2 60 33 90 20 72 47 98 62 66 64 70 96 50 71 30 96 34 64 2 62 28 47 10 20 40 33Z"
+            fill="#ff8a4c" stroke="#000000" stroke-width="4" stroke-linejoin="round"/>
+    </svg>
+    <div class="sticker">NO.10 / NEO</div>
+    <span class="kicker">灵感记录，轻如羽毛</span>
+    <h1>把灵感，<br>留在<em>拾光</em></h1>
+    <p class="lede">一闪而过的想法最珍贵。拾光帮你随手捕捉、自动整理，让每一次创作都从从容容。</p>
+    <div class="actions">
+      <a class="btn" href="#">立即体验</a>
+      <a class="btn ghost" href="#">了解更多</a>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><h2>四个特性</h2><span>FEATURES</span></div>
+    <div class="features">
+      <article class="card c1">
+        <div class="card-top">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          <span class="num">01</span>
+        </div>
+        <h3>一秒捕捉</h3>
+        <p>打开即写，灵感不过夜。</p>
+        <span class="more">了解更多 →</span>
+      </article>
+      <article class="card c2">
+        <div class="card-top">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+          <span class="num">02</span>
+        </div>
+        <h3>多端同步</h3>
+        <p>手机、平板与桌面，实时同步。</p>
+        <span class="more">了解更多 →</span>
+      </article>
+      <article class="card c3">
+        <div class="card-top">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></svg>
+          <span class="num">03</span>
+        </div>
+        <h3>极简专注</h3>
+        <p>只保留纸与笔的纯粹。</p>
+        <span class="more">了解更多 →</span>
+      </article>
+      <article class="card c4">
+        <div class="card-top">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="1.5"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <span class="num">04</span>
+        </div>
+        <h3>全平台</h3>
+        <p>网页版随时可用，无需安装。</p>
+        <span class="more">了解更多 →</span>
+      </article>
+    </div>
+  </section>
+</div>
+
+<div class="band">
+  <div class="wrap"><span>拾光 SHIGUANG — <b>把灵感，留在拾光</b></span><span>NEO-BRUTALISM / HARD SHADOW</span></div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div class="flinks"><a href="#">功能</a><a href="#">定价</a><a href="#">关于</a></div>
+      <div>© 2026 拾光 SHIGUANG · 保留所有权利</div>
+      <div class="tag">HARD EDGE</div>
+    </div>
+  </div>
+</footer>
+<a class="style-tag" href="index.html">← 10 · 新粗野主义</a>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>风格指示卡片 · 样板 — DesignLab</title>
+<!-- DesignLab · 风格指示卡片样板（单卡预览；确认后再铺开）-->
+<style>
+  :root{--bg:#fafaf9;--card:#fff;--ink:#1c1917;--muted:#78716c;--line:#e7e5e4}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{min-height:100vh;background:var(--bg);color:var(--ink);
+    font-family:"Segoe UI","Microsoft YaHei UI","Microsoft YaHei",sans-serif;
+    line-height:1.8;-webkit-font-smoothing:antialiased;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px}
+  .stage{display:flex;flex-direction:column;align-items:center}
+
+  /* ── 指示卡片：图片 + 名称 ── */
+  .style-card{display:block;width:360px;max-width:100%;background:var(--card);
+    border:1px solid var(--line);border-radius:16px;overflow:hidden;
+    text-decoration:none;color:var(--ink);
+    transition:transform .25s,box-shadow .25s,border-color .25s}
+  .style-card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(28,25,23,.09);border-color:#d6d3d1}
+  .style-card:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+  .shot{aspect-ratio:16/10;overflow:hidden;border-bottom:1px solid var(--line);background:#f5f5f4}
+  .shot img{width:100%;height:auto;display:block;transform:translateY(0);
+    transition:transform .7s ease}
+  .style-card:hover .shot img{transform:translateY(var(--pan,0px));
+    transition:transform 2.6s cubic-bezier(.3,.1,.25,1)}
+
+  .cap{display:flex;align-items:baseline;gap:10px;padding:14px 18px 15px}
+  .cap .no{font-size:11.5px;letter-spacing:.14em;color:var(--muted);font-variant-numeric:tabular-nums}
+  .cap b{font-size:16px;font-weight:600;letter-spacing:.01em}
+  .cap small{font-size:11px;color:var(--muted);letter-spacing:.12em}
+  .cap .arrow{margin-left:auto;align-self:center;font-size:13px;color:#a8a29e;
+    transition:transform .25s,color .25s}
+  .style-card:hover .arrow{color:var(--ink);transform:translateX(3px)}
+
+  .note{margin-top:22px;font-size:12px;color:var(--muted);letter-spacing:.06em;text-align:center}
+
+  @media (max-width:520px){body{padding:28px 20px}}
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none!important}
+    .style-card:hover .shot img{transform:none}
+  }
+</style>
+</head>
+<body>
+  <main class="stage">
+    <a class="style-card" href="../09-cyberpunk.html" target="_blank" rel="noopener">
+      <div class="shot"><img id="shotImg" src="../_shots/09-cyberpunk.png" alt="09 赛博朋克 · 拾光示例页整页截图"></div>
+      <div class="cap">
+        <span class="no">09</span>
+        <b>赛博朋克</b>
+        <small>Cyberpunk</small>
+        <span class="arrow" aria-hidden="true">→</span>
+      </div>
+    </a>
+    <p class="note">样板 · 悬停查看整页滚动 · 点击打开示例</p>
+  </main>
+<script>
+(function(){
+  var img = document.getElementById("shotImg");
+  function setPan(){
+    var shot = img.parentElement;
+    var over = img.getBoundingClientRect().height - shot.getBoundingClientRect().height;
+    img.style.setProperty("--pan", (over > 2 ? -over : 0) + "px");
+  }
+  if (img.complete) setPan();
+  img.addEventListener("load", setPan);
+  window.addEventListener("resize", setPan);
+})();
+</script>
+</body>
+</html>

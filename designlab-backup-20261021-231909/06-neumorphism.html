@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>06 · 新拟态 — 拾光 SHIGUANG</title>
+<!-- DesignLab · 06 新拟态 Neumorphism — 同色表面 + 双向柔影，按压即凹陷 -->
+<style>
+  :root{
+    --bg:#e8ecf3;
+    --sh-dark:#c5ccd9;--sh-light:#ffffff;
+    --ink:#3d4657;--muted:#7b8598;--accent:#4f5dcc;
+    --raise:9px 9px 20px var(--sh-dark),-9px -9px 20px var(--sh-light);
+    --raise-sm:6px 6px 14px var(--sh-dark),-6px -6px 14px var(--sh-light);
+    --press:inset 5px 5px 11px var(--sh-dark),inset -5px -5px 11px var(--sh-light);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);
+    font-family:"Segoe UI","Microsoft YaHei UI","Microsoft YaHei",sans-serif;
+    line-height:1.85;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 48px}
+
+  /* ── 导航：一块凸起的面板 ── */
+  nav{margin:46px 0 76px;display:flex;justify-content:space-between;align-items:center;
+    background:var(--bg);border-radius:22px;padding:18px 30px;box-shadow:var(--raise-sm)}
+  .brand{font-weight:600;letter-spacing:.14em;font-size:15px}
+  .brand small{color:var(--muted);font-size:10px;letter-spacing:.3em;margin-left:10px;font-weight:400}
+  .links a{color:var(--muted);text-decoration:none;font-size:13px;margin-left:26px;transition:color .3s}
+  .links a:hover{color:var(--accent)}
+
+  /* ── 主视觉：文字如压印在软表面上 ── */
+  .hero{text-align:center;padding:16px 0 92px}
+  .chip{display:inline-block;padding:10px 26px;border-radius:999px;box-shadow:var(--press);
+    font-size:12px;letter-spacing:.26em;text-indent:.26em;color:var(--muted)}
+  h1{font-size:clamp(40px,5.6vw,64px);font-weight:600;color:#454f66;margin:36px 0 22px;line-height:1.4;
+    text-shadow:1px 1px 1px #fff,-1px -1px 2px rgba(120,132,155,.35)}
+  .lede{color:var(--muted);font-size:15.5px;max-width:540px;margin:0 auto}
+  .actions{margin-top:56px;display:flex;gap:28px;justify-content:center}
+  .btn{display:inline-block;padding:17px 44px;border-radius:18px;font-size:13.5px;letter-spacing:.18em;text-indent:.18em;
+    color:var(--accent);text-decoration:none;background:var(--bg);box-shadow:var(--raise);
+    transition:box-shadow .35s,transform .2s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn:active{box-shadow:var(--press);transform:none;color:#3d48a8}
+  .btn.ghost{color:var(--muted)}
+  .btn.ghost:active{color:var(--accent)}
+
+  /* ── 特性：四块凸起卡片，数字嵌在凹陷圆槽里 ── */
+  .features{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;padding:16px 0 64px}
+  .card{background:var(--bg);border-radius:24px;padding:36px 26px 40px;text-align:center;
+    box-shadow:var(--raise);transition:box-shadow .35s,transform .3s}
+  .card:hover{transform:translateY(-3px)}
+  .card:active{box-shadow:var(--press);transform:none}
+  .dot{width:58px;height:58px;margin:0 auto 22px;border-radius:50%;box-shadow:var(--press);
+    display:flex;align-items:center;justify-content:center;color:var(--accent);
+    font-weight:700;font-size:15px;letter-spacing:.04em;text-shadow:1px 1px 1px #fff}
+  .card h3{font-size:15.5px;margin-bottom:10px;letter-spacing:.1em}
+  .card p{font-size:12.5px;color:var(--muted);line-height:2.05}
+
+  /* ── 页脚 ── */
+  footer{padding:22px 0 72px;display:flex;justify-content:space-between;color:#9aa4b8;font-size:12px;letter-spacing:.12em}
+
+  .style-tag{position:fixed;right:20px;bottom:20px;z-index:99;font-size:11px;letter-spacing:.1em;color:#fff;
+    background:rgba(20,20,20,.62);padding:8px 14px;border-radius:999px;text-decoration:none;
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:.45;transition:opacity .25s}
+  .style-tag:hover{opacity:1}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+  @media (max-width:900px){.features{grid-template-columns:1fr 1fr}}
+  @media (max-width:620px){
+    .wrap{padding:0 24px}
+    .features{grid-template-columns:1fr}
+    nav{padding:16px 20px;border-radius:18px}
+    .links a{margin-left:14px}
+    footer{flex-direction:column;gap:8px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <div class="brand">拾光<small>SHIGUANG</small></div>
+    <div class="links"><a href="#">功能</a><a href="#">定价</a><a href="#">关于</a></div>
+  </nav>
+
+  <header class="hero">
+    <div class="chip">灵感记录，轻如羽毛</div>
+    <h1>把灵感，<br>留在拾光</h1>
+    <p class="lede">一闪而过的想法最珍贵。拾光帮你随手捕捉、自动整理，让每一次创作都从从容容。</p>
+    <div class="actions">
+      <a class="btn" href="#">立即体验</a>
+      <a class="btn ghost" href="#">了解更多</a>
+    </div>
+  </header>
+
+  <section class="features">
+    <div class="card"><div class="dot">01</div><h3>一秒捕捉</h3><p>打开即写，灵感不过夜。</p></div>
+    <div class="card"><div class="dot">02</div><h3>多端同步</h3><p>手机、平板与桌面，实时同步。</p></div>
+    <div class="card"><div class="dot">03</div><h3>极简专注</h3><p>只保留纸与笔的纯粹。</p></div>
+    <div class="card"><div class="dot">04</div><h3>全平台</h3><p>网页版随时可用，无需安装。</p></div>
+  </section>
+
+  <footer>
+    <span>© 2026 拾光 SHIGUANG · 保留所有权利</span>
+    <span>NEUMORPHISM</span>
+  </footer>
+</div>
+<a class="style-tag" href="index.html">← 06 · 新拟态</a>
+</body>
+</html>

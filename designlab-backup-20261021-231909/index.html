@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>DesignLab · 前端设计风格图鉴</title>
+<!-- DesignLab · 图鉴首页：10 种设计风格，同一份内容源 -->
+<style>
+  :root{--bg:#fafaf9;--card:#fff;--ink:#1c1917;--muted:#78716c;--line:#e7e5e4;--accent:#1c1917}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);
+    font-family:"Segoe UI","Microsoft YaHei UI","Microsoft YaHei",sans-serif;
+    line-height:1.8;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 44px}
+
+  /* ── 顶栏 ── */
+  header.top{display:flex;justify-content:space-between;align-items:center;padding:30px 0}
+  .logo{font-size:15px;font-weight:600;letter-spacing:.16em}
+  .logo small{color:var(--muted);font-weight:400;font-size:11px;letter-spacing:.24em;margin-left:10px}
+  .top-meta{font-size:12px;color:var(--muted);letter-spacing:.14em}
+
+  /* ── 标题区 ── */
+  .intro{padding:80px 0 56px;max-width:760px}
+  .kicker{font-size:12px;letter-spacing:.3em;color:var(--muted)}
+  h1{font-size:clamp(36px,4.6vw,56px);font-weight:600;line-height:1.3;margin:20px 0 24px;letter-spacing:.01em}
+  .lede{color:#57534e;font-size:16px;line-height:2}
+  .lede b{color:var(--ink)}
+
+  /* ── 透镜 / 原则 ── */
+  .lenses{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;padding:10px 0 64px}
+  .lens{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 18px}
+  .lens b{display:block;font-size:14px;margin-bottom:8px}
+  .lens p{font-size:12.5px;color:var(--muted);line-height:1.9}
+
+  h2{font-size:20px;font-weight:600;margin:8px 0 26px;display:flex;align-items:center;gap:14px}
+  h2::after{content:"";flex:1;height:1px;background:var(--line)}
+
+  /* ── 卡片网格 ── */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding-bottom:72px}
+  .card{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:24px 22px;text-decoration:none;color:var(--ink);transition:transform .25s,box-shadow .25s,border-color .25s}
+  .card:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(28,25,23,.09);border-color:#d6d3d1}
+  .card-head{display:flex;align-items:baseline;gap:12px;margin-bottom:12px}
+  .no{font-size:12px;letter-spacing:.16em;color:var(--muted);font-variant-numeric:tabular-nums}
+  .names b{font-size:16.5px;margin-right:8px}
+  .names small{font-size:11px;color:var(--muted);letter-spacing:.1em}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+  .tags span{font-size:11px;color:#57534e;background:#f5f5f4;border:1px solid var(--line);
+    padding:2px 10px;border-radius:999px}
+  .card ul{list-style:none;margin-bottom:16px}
+  .card li{position:relative;padding-left:14px;font-size:12.5px;color:#57534e;line-height:1.95}
+  .card li::before{content:"";position:absolute;left:0;top:.72em;width:5px;height:5px;border-radius:50%;background:#d6d3d1}
+  .swatches{display:flex;gap:8px;margin-top:auto;padding-top:6px}
+  .swatches i{width:16px;height:16px;border-radius:50%;border:1px solid rgba(0,0,0,.1);display:block}
+  .open{margin-top:14px;font-size:12.5px;font-weight:600;letter-spacing:.06em;color:var(--ink)}
+  .open::after{content:" →"}
+
+  /* ── 原则 / 练习 / 阅读 ── */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding-bottom:72px}
+  .item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;gap:14px}
+  .item .k{flex:none;font-size:12px;color:var(--muted);letter-spacing:.1em;padding-top:3px}
+  .item b{display:block;font-size:14px;margin-bottom:4px}
+  .item p{font-size:12.5px;color:var(--muted);line-height:1.9}
+
+  .reading{padding-bottom:80px}
+  .reading a{display:flex;justify-content:space-between;align-items:baseline;gap:20px;
+    padding:16px 4px;border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink);transition:background .2s}
+  .reading a:hover{background:#f5f5f4}
+  .reading b{font-size:14px;font-weight:600}
+  .reading span{font-size:12px;color:var(--muted);text-align:right}
+
+  footer{border-top:1px solid var(--line);padding:26px 0 60px;display:flex;justify-content:space-between;
+    color:var(--muted);font-size:12px;letter-spacing:.08em}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+  @media (max-width:980px){.grid{grid-template-columns:1fr 1fr}.lenses{grid-template-columns:1fr 1fr}}
+  @media (max-width:640px){
+    .wrap{padding:0 24px}
+    .grid,.cols,.lenses{grid-template-columns:1fr}
+    footer{flex-direction:column;gap:8px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="logo">DesignLab<small>设计风格图鉴</small></div>
+    <div class="top-meta">10 种风格 · 1 份内容源 · 零依赖单文件</div>
+  </header>
+
+  <section class="intro">
+    <div class="kicker">为「学习前端设计」而做</div>
+    <h1>十种设计语言，<br>同一份内容</h1>
+    <p class="lede">同一套产品文案（虚构产品「拾光 SHIGUANG · 灵感记录应用」），用 10 种经典风格各实现一遍。
+    <b>文字一字不差，变化的全是视觉语言</b>——字体、色彩、空间、质感、动效。对照浏览，比看一百篇教程更直观。</p>
+  </section>
+
+  <section class="lenses">
+    <div class="lens"><b>① 字体</b><p>衬线还是无衬线？字重和字距在传递什么情绪？</p></div>
+    <div class="lens"><b>② 色彩</b><p>一共几个色？强调色占多少、用在哪？背景是纸还是黑？</p></div>
+    <div class="lens"><b>③ 空间</b><p>留白是奢侈还是拥挤？元素靠什么对齐：网格还是轴心？</p></div>
+    <div class="lens"><b>④ 质感</b><p>平面、玻璃、浮雕还是纸纹？边界用线还是影子？</p></div>
+    <div class="lens"><b>⑤ 动效</b><p>有动画吗？快还是慢？它服务于什么状态？</p></div>
+  </section>
+
+  <h2>十个示例</h2>
+  <section class="grid">
+
+    <a class="card" href="02-swiss.html" target="_blank">
+      <div class="card-head"><span class="no">02</span><div class="names"><b>瑞士国际主义</b><small>Swiss Style</small></div></div>
+      <div class="tags"><span>栅格</span><span>无衬线</span><span>红点色</span></div>
+      <ul><li>严格栏格 + 实线规则，像排一张海报</li><li>数字即秩序：01–04 当视觉锚点</li><li>唯一强调色只做"信号"，不做装饰</li></ul>
+      <div class="swatches"><i style="background:#ffffff" title="#ffffff"></i><i style="background:#0b0b0b" title="#0b0b0b"></i><i style="background:#e30613" title="#e30613"></i><i style="background:#6f6f6f" title="#6f6f6f"></i></div>
+      <span class="open">打开示例</span>
+    </a>
+
+    <a class="card" href="03-editorial.html" target="_blank">
+      <div class="card-head"><span class="no">03</span><div class="names"><b>杂志编辑风</b><small>Editorial</small></div></div>
+      <div class="tags"><span>衬线</span><span>首字下沉</span><span>竖分栏</span></div>
+      <ul><li>报头居中 + 粗细双线，翻开即是刊物</li><li>双栏通版，正文首字下沉压住版面</li><li>四栏小文章，竖细线分隔</li></ul>
+      <div class="swatches"><i style="background:#f7f2e8" title="#f7f2e8"></i><i style="background:#211d17" title="#211d17"></i><i style="background:#9e2b25" title="#9e2b25"></i><i style="background:#6f6757" title="#6f6757"></i></div>
+      <span class="open">打开示例</span>
+    </a>
+
+    <a class="card" href="04-luxury.html" target="_blank">
+      <div class="card-head"><span class="no">04</span><div class="names"><b>暗调奢华</b><small>Luxury</small></div></div>
+      <div class="tags"><span>金</span><span>广字距</span><span>居中构图</span></div>
+      <ul><li>纪念碑式的居中构图与大量深空留白</li><li>金渐变只上在品牌字上（流光动画）</li><li>罗马数字 + 菱形分隔符，拒绝彩色</li></ul>
+      <div class="swatches"><i style="background:#0d0c0a" title="#0d0c0a"></i><i style="background:#c9a55a" title="#c9a55a"></i><i style="background:#ece6da" title="#ece6da"></i><i style="background:#9a8f7a" title="#9a8f7a"></i></div>
+      <span class="open">打开示例</span>
+    </a>
+
+    <a class="card" href="06-neumorphism.html" target="_blank">
+      <div class="card-head"><span class="no">06</span><div class="names"><b>新拟态</b><small>Neumorphism</small></div></div>
+      <div class="tags"><span>同色浮雕</span><span>双向柔影</span><span>按压反馈</span></div>
+      <ul><li>表面与背景同色，一明一暗两道影子造形</li><li>按压时影子翻转为内嵌，模拟真实按键</li><li>数字嵌在凹陷圆槽里，触感即层级</li></ul>
+      <div class="swatches"><i style="background:#e8ecf3" title="#e8ecf3"></i><i style="background:#c5ccd9" title="#c5ccd9"></i><i style="background:#ffffff" title="#ffffff"></i><i style="background:#4f5dcc" title="#4f5dcc"></i></div>
+      <span class="open">打开示例</span>
+    </a>
+
+    <a class="card" href="07-brutalism.html" target="_blank">
+      <div class="card-head"><span class="no">07</span><div class="names"><b>粗野主义</b><small>Brutalism</small></div></div>
+      <div class="tags"><span>硬阴影</span><span>跑马灯</span><span>反精致</span></div>
+      <ul><li>4px 黑描边 + 零模糊硬阴影，骨架全裸露</li><li>顶部滚动跑马灯，倾斜贴纸</li><li>按钮 hover 时"按进去"（位移+缩影）</li></ul>
+      <div class="swatches"><i style="background:#f4f2ec" title="#f4f2ec"></i><i style="background:#101010" title="#101010"></i><i style="background:#2500ff" title="#2500ff"></i><i style="background:#ffe600" title="#ffe600"></i></div>
+      <span class="open">打开示例</span>
+    </a>
+
+    <a class="card" href="09-cyberpunk.html" target="_blank">
+      <div class="card-head"><span class="no">09</span><div class="names"><b>赛博朋克</b><small>Cyberpunk</small></div></div>
+      <div class="tags"><span>霓虹</span><span>扫描线</span><span>故障字效</span></div>
+      <ul><li>暗角 + 扫描线双层覆盖，屏幕即荧光管</li><li>标题用 clip-path 分片做故障闪动</li><li>HUD 面板带四角括号与状态灯</li></ul>
+      <div class="swatches"><i style="background:#05050a" title="#05050a"></i><i style="background:#00f0ff" title="#00f0ff"></i><i style="background:#ff2d9b" title="#ff2d9b"></i><i style="background:#f7e017" title="#f7e017"></i></div>
+      <span class="open">打开示例</span>
+    </a>
+
+    <a class="card" href="10-zen.html" target="_blank">
+      <div class="card-head"><span class="no">10</span><div class="names"><b>和风侘寂</b><small>Wabi-sabi</small></div></div>
+      <div class="tags"><span>竖排</span><span>素纸</span><span>朱印</span></div>
+      <ul><li>writing-mode 竖排题头，竖细线作栏界</li><li>墨圈一笔留缺（enso），不追求圆满</li><li>一枚朱印收尾，红只此一处</li></ul>
+      <div class="swatches"><i style="background:#f6f2e8" title="#f6f2e8"></i><i style="background:#33312b" title="#33312b"></i><i style="background:#b23a2e" title="#b23a2e"></i><i style="background:#8e8878" title="#8e8878"></i></div>
+      <span class="open">打开示例</span>
+    </a>
+
+    <a class="card" href="11-memphis.html" target="_blank">
+      <div class="card-head"><span class="no">11</span><div class="names"><b>孟菲斯</b><small>Memphis</small></div></div>
+      <div class="tags"><span>点阵底</span><span>波浪</span><span>贴纸卡</span></div>
+      <ul><li>点阵底纹上漂浮波浪、圆环、三角（缓慢摇摆）</li><li>卡片是"贴纸"：硬阴影 + hover 微旋转</li><li>四色点彩，每张卡一个主色</li></ul>
+      <div class="swatches"><i style="background:#fbf2e2" title="#fbf2e2"></i><i style="background:#ff5d8f" title="#ff5d8f"></i><i style="background:#4d7cfe" title="#4d7cfe"></i><i style="background:#ffd23f" title="#ffd23f"></i></div>
+      <span class="open">打开示例</span>
+    </a>
+
+    <a class="card" href="12-bauhaus.html" target="_blank">
+      <div class="card-head"><span class="no">12</span><div class="names"><b>包豪斯</b><small>Bauhaus</small></div></div>
+      <div class="tags"><span>三原色</span><span>几何构成</span><span>竖题头</span></div>
+      <ul><li>红黄蓝只做形状，不做渐变不做影子</li><li>左侧竖排题头栏，正交构成</li><li>形随机能：四种几何对应四个功能</li></ul>
+      <div class="swatches"><i style="background:#f4f1ea" title="#f4f1ea"></i><i style="background:#d92b2b" title="#d92b2b"></i><i style="background:#1f4ed8" title="#1f4ed8"></i><i style="background:#f2c200" title="#f2c200"></i></div>
+      <span class="open">打开示例</span>
+    </a>
+
+    <a class="card" href="13-neo-brutalism.html" target="_blank">
+      <div class="card-head"><span class="no">13</span><div class="names"><b>新粗野主义</b><small>Neo-Brutalism</small></div></div>
+      <div class="tags"><span>硬边线框</span><span>撞色标签</span><span>主题切换</span></div>
+      <ul><li>直角 + 3px 硬边 + 零模糊硬阴影——粗野基因的可用化路线</li><li>每卡一色撞色标签；卡片瀑布式微旋转，hover 摆正</li><li>右上角按钮切换深浅主题，卡片随之变色（内核同构 nairocy.com 主站）</li></ul>
+      <div class="swatches"><i style="background:#f4f5fa" title="#f4f5fa"></i><i style="background:#1a1d29" title="#1a1d29"></i><i style="background:#ff6b35" title="#ff6b35"></i><i style="background:#7c5cff" title="#7c5cff"></i></div>
+      <span class="open">打开示例</span>
+    </a>
+
+  </section>
+
+  <h2>十页共同的底线（通用原则）</h2>
+  <section class="cols">
+    <div class="item"><span class="k">01</span><div><b>8pt 间距节奏</b><p>间距取 8 的倍数，秩序从数字开始，而不是每处"差不多"。</p></div></div>
+    <div class="item"><span class="k">02</span><div><b>字阶而非孤立的字号</b><p>标题/正文/注释保持 3–4 级，级差约 1.25 倍以上，层级才有落差。</p></div></div>
+    <div class="item"><span class="k">03</span><div><b>对比度是红线</b><p>正文对比度 ≥ 4.5:1；再高级的低对比也别牺牲可读性（新拟态尤其危险）。</p></div></div>
+    <div class="item"><span class="k">04</span><div><b>一页一强调色</b><p>强调色只给"行动"——按钮与链接；拿它做装饰，注意力就失焦。</p></div></div>
+    <div class="item"><span class="k">05</span><div><b>对齐有系统</b><p>要么网格对齐，要么轴心对齐；"差一点点"的对齐是最廉价的破绽。</p></div></div>
+    <div class="item"><span class="k">06</span><div><b>动效服务状态</b><p>入场 ≤ 1s、缓动自然；优先动 transform / opacity，不动布局。</p></div></div>
+    <div class="item"><span class="k">07</span><div><b>留白即层级</b><p>挤在一起的信息没有主次；空白本身会引导视线。</p></div></div>
+    <div class="item"><span class="k">08</span><div><b>无障碍底线</b><p>prefers-reduced-motion、focus 可见、移动端点击区 ≥ 44px——10 页都已内置。</p></div></div>
+  </section>
+
+  <h2>练习路线</h2>
+  <section class="cols">
+    <div class="item"><span class="k">A</span><div><b>换骨</b><p>挑一页，把统一文案换成你自己的项目介绍，其余不动——体会"内容变、风格不变"。</p></div></div>
+    <div class="item"><span class="k">B</span><div><b>换皮</b><p>挑一页，只改字体与字距，其它不动——观察气质变化能有多大。</p></div></div>
+    <div class="item"><span class="k">C</span><div><b>找根</b><p>打开 09 的 clip-path、10 的 writing-mode、13 的双主题变量，去 MDN 把每个新属性吃透。</p></div></div>
+    <div class="item"><span class="k">D</span><div><b>融合</b><p>把"瑞士的栅格"嫁接到"玻璃的质感"上，做一个混血版——风格是语法，不是牢笼。</p></div></div>
+  </section>
+
+  <h2>延伸阅读</h2>
+  <section class="reading">
+    <a href="https://tilda.education/en/web-design-styles" target="_blank"><b>Tilda Education — Popular Web Design Styles</b><span>风格分类与特征总览</span></a>
+    <a href="https://wiki.kevinliu.biz/wiki/design/website-design-styles" target="_blank"><b>Kevin Liu's Wiki — Website Design Styles</b><span>每种风格的使用场景与翻车点对照表</span></a>
+    <a href="https://webdesignlookbook.webflow.io/" target="_blank"><b>Web Design Lookbook</b><span>Swiss / Brutalism 等风格的视觉解析</span></a>
+    <a href="https://www.uistyleguide.com/" target="_blank"><b>UI Style Guide — 67 Interactive Design Styles</b><span>可交互的风格参考</span></a>
+    <a href="https://www.figma.com/resource-library/web-design-trends/" target="_blank"><b>Figma — Top Web Design Trends 2026</b><span>趋势：字号叙事、新粗野主义等</span></a>
+    <a href="https://fireart.studio/blog/the-best-web-design-trends/" target="_blank"><b>Fireart — Web Design Trends 2026</b><span>Tactile Brutalism 与排版架构化</span></a>
+    <a href="https://github.com/sailesh-01/ui-ux-stylepedia" target="_blank"><b>sailesh-01/ui-ux-stylepedia</b><span>50+ 风格交互合集（开源，可读源码）</span></a>
+  </section>
+
+  <footer>
+    <span>DesignLab · 2026-10 · 10 个示例均为零依赖单文件，浏览器直接打开</span>
+    <span>复习笔记见 README.md</span>
+  </footer>
+</div>
+</body>
+</html>

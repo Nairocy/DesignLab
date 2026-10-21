@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>13 · 至上主义 — 拾光 SHIGUANG</title>
+<!-- DesignLab · 13 至上主义 Suprematism — 纯色几何形体漂浮在无垠象牙白上，用极大留白与 1px 细线代替一切装饰 -->
+<style>
+  :root{
+    --bg:#f4f1e8; --ink:#0d0d0d; --red:#c8102e; --ochre:#e8b800; --ultra:#1a3a8f;
+    --line:rgba(13,13,13,.2);
+    --pad:clamp(22px,5vw,64px);
+  }
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--bg);color:var(--ink);overflow-x:hidden;
+    font-family:"Century Gothic","Futura","Avenir Next","Trebuchet MS","Microsoft YaHei UI","Microsoft YaHei",sans-serif;
+    font-weight:400;line-height:1.8;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--red);color:var(--bg)}
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--red);outline-offset:4px}
+
+  /* ── 顶栏：无底线，全靠留白分隔 ── */
+  .bar{
+    position:relative;z-index:5;max-width:1320px;margin:0 auto;
+    padding:26px var(--pad) 0;
+    display:flex;align-items:center;justify-content:space-between;gap:14px 18px;flex-wrap:wrap;
+  }
+  .brand{display:inline-flex;align-items:center;gap:13px;min-height:44px;text-decoration:none}
+  .brand .mark{display:block;flex:0 0 auto;width:17px;height:17px;background:var(--red)}
+  .brand .txt{font-size:13.5px;font-weight:500;letter-spacing:.22em;white-space:nowrap}
+  .brand em{font-style:normal;font-size:9.5px;letter-spacing:.3em;color:#5c574c;margin-left:.65em}
+  .nav{display:flex;align-items:center}
+  .nav a{
+    display:inline-flex;align-items:center;min-height:44px;padding:0 12px;
+    font-size:12.5px;letter-spacing:.18em;text-decoration:none;transition:color .25s ease;
+  }
+  .nav a:hover{color:var(--red)}
+  .nav .slash{font-size:9.5px;letter-spacing:0;color:#b5afa2;padding:0 1px;user-select:none}
+
+  /* ── 主视觉：78vh 的空场，形体只占边缘一角 ── */
+  .hero{position:relative;overflow:hidden;min-height:78vh;display:flex;align-items:center}
+  .hero-in{
+    position:relative;z-index:3;width:100%;max-width:1320px;margin:0 auto;
+    padding:clamp(56px,10vh,118px) var(--pad) clamp(64px,11vh,128px);
+  }
+  .eyebrow{display:flex;align-items:center;gap:14px;font-size:11.5px;letter-spacing:.36em;color:#3f3b33}
+  .eyebrow i{display:block;width:9px;height:9px;background:var(--ink)}
+  .eyebrow .en{font-size:9px;letter-spacing:.28em;color:#8d8779}
+  h1{
+    margin-top:38px;font-size:clamp(36px,8.4vw,88px);font-weight:400;
+    line-height:1.26;letter-spacing:.24em;
+  }
+  h1 span{display:block}
+  h1 .l2{padding-left:1.1em}
+  .lede{margin-top:38px;max-width:33em;font-size:14.5px;line-height:2.15;letter-spacing:.04em;color:#3d3a33}
+  .actions{margin-top:44px;display:flex;align-items:center;flex-wrap:wrap;gap:12px 30px}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-height:54px;padding:0 36px;background:var(--ink);color:var(--bg);
+    font-size:12px;letter-spacing:.26em;text-decoration:none;
+    transition:background .3s ease;
+  }
+  .btn:hover{background:var(--red)}
+  .link{
+    display:inline-flex;align-items:center;gap:13px;min-height:44px;
+    padding:10px 2px;font-size:12px;letter-spacing:.22em;line-height:1.2;
+    text-decoration:none;border-bottom:1px solid var(--ink);
+    transition:border-color .3s ease,color .3s ease;
+  }
+  .link svg{display:block;width:26px;height:10px;transition:transform .3s ease}
+  .link:hover{border-color:var(--red);color:var(--red)}
+  .link:hover svg{transform:translateX(5px)}
+
+  /* ── 漂浮形体：纯色、无阴影、无描边、无圆角（圆本身例外） ── */
+  .shape{position:absolute;display:block;pointer-events:none;z-index:1}
+  .s-black{
+    width:clamp(56px,8.2vw,108px);aspect-ratio:1;background:var(--ink);
+    top:15%;right:20%;transform:rotate(17deg);
+  }
+  .s-red{
+    width:clamp(28px,4.2vw,56px);aspect-ratio:1;background:var(--red);
+    top:59%;right:10.5%;transform:rotate(-12deg);
+  }
+  .s-ochre{
+    width:clamp(44px,6.4vw,86px);aspect-ratio:1;background:var(--ochre);
+    border-radius:50%;bottom:12%;right:29%;
+  }
+  .s-ultra{
+    width:clamp(110px,17vw,226px);height:clamp(6px,.75vw,10px);background:var(--ultra);
+    top:26%;right:4%;transform:rotate(-28deg);
+  }
+  .s-cross{bottom:30%;right:38%;width:clamp(56px,6.6vw,90px);aspect-ratio:1;transform:rotate(34deg)}
+  .s-cross::before,.s-cross::after{content:"";position:absolute;background:var(--ink)}
+  .s-cross::before{left:50%;top:0;width:8px;height:100%;margin-left:-4px}
+  .s-cross::after{top:50%;left:0;height:8px;width:100%;margin-top:-4px}
+
+  /* ── 特性：1px 细线分栏，没有卡片 ── */
+  .features{max-width:1320px;margin:0 auto;padding:0 var(--pad) clamp(60px,9vh,100px)}
+  .sec-head{
+    display:flex;align-items:flex-end;justify-content:space-between;gap:16px 24px;
+    border-top:1px solid var(--line);padding:20px 0 40px;
+  }
+  .sec-head h2{display:flex;align-items:center;gap:14px;font-size:11.5px;font-weight:400;letter-spacing:.36em}
+  .sec-head h2 i{display:block;width:9px;height:9px;background:var(--red)}
+  .sec-head .idx{font-size:9px;letter-spacing:.3em;color:#8d8779;white-space:nowrap}
+  .grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+    background:var(--line);border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  }
+  .feat{background:var(--bg);padding:34px clamp(18px,2.2vw,30px) 46px}
+  .feat .no{display:block;font-size:9px;letter-spacing:.3em;color:#8d8779}
+  .feat svg{display:block;width:46px;height:46px;margin:26px 0 30px}
+  .feat h3{font-size:17px;font-weight:500;letter-spacing:.14em;margin-bottom:12px}
+  .feat p{font-size:12.8px;line-height:2.1;letter-spacing:.03em;color:#4a463d}
+  .feat .dash{margin-right:.45em;color:var(--ink)}
+
+  /* ── 页脚 ── */
+  footer{
+    max-width:1320px;margin:0 auto;padding:34px var(--pad) 46px;
+    border-top:1px solid var(--line);
+    display:flex;align-items:center;justify-content:space-between;gap:20px 30px;flex-wrap:wrap;
+  }
+  .copy{font-size:11px;letter-spacing:.14em;color:#5c574c}
+  .fmarks{display:flex;align-items:center;gap:8px;margin-right:128px}
+  .fmarks i{display:block}
+  .fm1{width:26px;height:26px;background:var(--ink)}
+  .fm2{width:12px;height:12px;background:var(--red)}
+  .fm3{width:12px;height:12px;border-radius:50%;background:var(--ochre)}
+
+  /* ── 返回胶囊 ── */
+  .style-tag{
+    position:fixed;right:20px;bottom:20px;z-index:99;
+    display:inline-flex;align-items:center;min-height:44px;padding:0 16px;
+    background:var(--ink);color:var(--bg);text-decoration:none;
+    font-size:11px;letter-spacing:.12em;transition:background .25s ease;
+  }
+  .style-tag:hover{background:var(--red)}
+  .style-tag:focus-visible{outline-color:var(--ochre)}
+
+  /* ── 动效：只做极慢漂移与透明度，不做位移花活 ── */
+  @keyframes fade-up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  @keyframes drift-a{0%,100%{transform:rotate(17deg) translate(0,0)}50%{transform:rotate(19.5deg) translate(-4px,7px)}}
+  @keyframes drift-b{0%,100%{transform:rotate(-12deg) translate(0,0)}50%{transform:rotate(-9deg) translate(5px,-6px)}}
+  @keyframes drift-c{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(-6px,-9px) rotate(6deg)}}
+  @keyframes drift-d{0%,100%{transform:rotate(-28deg) translateX(0)}50%{transform:rotate(-25deg) translateX(10px)}}
+  @keyframes drift-e{0%,100%{transform:rotate(34deg) scale(1)}50%{transform:rotate(38deg) scale(1.03)}}
+  @media (prefers-reduced-motion:no-preference){
+    .reveal{opacity:0;animation:fade-up 1s cubic-bezier(.22,.61,.36,1) forwards}
+    .d1{animation-delay:.08s}
+    .d2{animation-delay:.2s}
+    .d3{animation-delay:.32s}
+    .d4{animation-delay:.44s}
+    .s-black{animation:drift-a 34s ease-in-out infinite}
+    .s-red{animation:drift-b 26s ease-in-out infinite}
+    .s-ochre{animation:drift-c 40s ease-in-out infinite}
+    .s-ultra{animation:drift-d 30s ease-in-out infinite}
+    .s-cross{animation:drift-e 38s ease-in-out infinite}
+    html{scroll-behavior:smooth}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .reveal{opacity:1}
+    .s-black,.s-red,.s-ochre,.s-ultra,.s-cross{animation:none}
+  }
+
+  @media (max-width:1080px){
+    .s-cross{display:none}
+    .s-black{right:13%}
+    .s-red{right:7%}
+    .s-ochre{right:20%}
+    .s-ultra{right:2%}
+  }
+  @media (max-width:980px){
+    .grid{grid-template-columns:1fr 1fr}
+    .feat{padding:30px 26px 40px}
+  }
+  @media (max-width:760px){
+    .bar{padding-top:16px;gap:4px 14px}
+    .brand{gap:11px}
+    .brand .txt{font-size:12px;letter-spacing:.16em}
+    .brand em{font-size:8.5px;letter-spacing:.22em;margin-left:.5em}
+    .nav a{padding:0 7px;font-size:11.5px;letter-spacing:.1em}
+    .nav .slash{font-size:9px}
+    .hero{min-height:74vh}
+    .hero-in{padding-top:52px;padding-bottom:104px}
+    .eyebrow{font-size:11px;letter-spacing:.18em;gap:11px}
+    .eyebrow .en{display:none}
+    h1{margin-top:30px;letter-spacing:.2em}
+    h1 .l2{padding-left:.9em}
+    .lede{margin-top:30px;font-size:13.8px;line-height:2.05;max-width:none}
+    .actions{margin-top:36px;gap:12px}
+    .btn{flex:1 1 100%;min-height:52px;padding:0 20px}
+    .link{flex:0 0 auto;padding:12px 2px}
+    .sec-head{flex-direction:column;align-items:flex-start;gap:14px;padding-bottom:26px}
+    .grid{grid-template-columns:1fr}
+    .feat{padding:26px 0 34px}
+    .feat svg{width:38px;height:38px;margin:20px 0 22px}
+    footer{flex-direction:column;align-items:flex-start;gap:18px;padding-bottom:78px}
+    .fmarks{margin-right:0}
+    .s-black{width:52px;top:4px;right:14px}
+    .s-ultra{display:none}
+    .s-ochre{width:38px;bottom:52px;right:62px}
+    .s-red{width:24px;top:auto;bottom:58px;right:18px}
+  }
+  @media (max-width:340px){
+    :root{--pad:18px}
+    .brand .txt{font-size:11.5px;letter-spacing:.12em}
+    .brand em{font-size:8px;letter-spacing:.16em}
+    .nav a{padding:0 5px;font-size:11px}
+    h1{letter-spacing:.2em}
+    h1 .l2{padding-left:.6em}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <a class="brand" href="#top">
+    <span class="mark" aria-hidden="true"></span>
+    <span class="txt">拾光 <em>SHIGUANG</em></span>
+  </a>
+  <nav class="nav" aria-label="主导航">
+    <a href="#features">功能</a><span class="slash" aria-hidden="true">/</span><a href="#top">定价</a><span class="slash" aria-hidden="true">/</span><a href="#top">关于</a>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="hero-title">
+    <i class="shape s-black" aria-hidden="true"></i>
+    <i class="shape s-red" aria-hidden="true"></i>
+    <i class="shape s-ochre" aria-hidden="true"></i>
+    <i class="shape s-ultra" aria-hidden="true"></i>
+    <i class="shape s-cross" aria-hidden="true"></i>
+
+    <div class="hero-in">
+      <p class="eyebrow reveal d1"><i aria-hidden="true"></i>灵感记录，轻如羽毛<span class="en">A RECORD OF LIGHT</span></p>
+      <h1 id="hero-title" class="reveal d2"><span>把灵感，</span><span class="l2">留在拾光</span></h1>
+      <p class="lede reveal d3">一闪而过的想法最珍贵。拾光帮你随手捕捉、自动整理，让每一次创作都从从容容。</p>
+      <div class="actions reveal d4">
+        <a class="btn" href="#features">立即体验</a>
+        <a class="link" href="#features">了解更多
+          <svg viewBox="0 0 26 10" aria-hidden="true" focusable="false">
+            <rect x="0" y="4.2" width="20" height="1.6" fill="currentColor"></rect>
+            <polygon points="24.6,5 19,2.2 19,7.8" fill="currentColor"></polygon>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="features" aria-labelledby="features-title">
+    <div class="sec-head">
+      <h2 id="features-title"><i aria-hidden="true"></i>特性</h2>
+      <span class="idx">01 — 04</span>
+    </div>
+    <div class="grid">
+      <article class="feat">
+        <span class="no">01 · CAPTURE</span>
+        <svg viewBox="0 0 46 46" aria-hidden="true" focusable="false">
+          <rect x="2" y="10" width="25" height="25" fill="#0d0d0d"></rect>
+          <rect x="33" y="4" width="8" height="34" fill="#c8102e"></rect>
+        </svg>
+        <h3>一秒捕捉</h3>
+        <p><span class="dash">—</span> 打开即写，灵感不过夜。</p>
+      </article>
+      <article class="feat">
+        <span class="no">02 · SYNC</span>
+        <svg viewBox="0 0 46 46" aria-hidden="true" focusable="false">
+          <rect x="2" y="24" width="12" height="12" fill="#0d0d0d"></rect>
+          <rect x="18" y="15" width="9" height="9" fill="#e8b800"></rect>
+          <rect x="31" y="5" width="12" height="12" fill="#1a3a8f"></rect>
+          <rect x="2" y="40" width="41" height="1" fill="#0d0d0d"></rect>
+        </svg>
+        <h3>多端同步</h3>
+        <p><span class="dash">—</span> 手机、平板与桌面，实时同步。</p>
+      </article>
+      <article class="feat">
+        <span class="no">03 · FOCUS</span>
+        <svg viewBox="0 0 46 46" aria-hidden="true" focusable="false">
+          <rect x="3" y="21" width="40" height="5" fill="#0d0d0d"></rect>
+          <rect x="17" y="8" width="12" height="12" fill="#c8102e"></rect>
+          <circle cx="23" cy="36" r="3" fill="#e8b800"></circle>
+        </svg>
+        <h3>极简专注</h3>
+        <p><span class="dash">—</span> 只保留纸与笔的纯粹。</p>
+      </article>
+      <article class="feat">
+        <span class="no">04 · ANYWHERE</span>
+        <svg viewBox="0 0 46 46" aria-hidden="true" focusable="false">
+          <circle cx="14" cy="23" r="11" fill="#1a3a8f"></circle>
+          <rect x="27" y="6" width="13" height="13" fill="#0d0d0d"></rect>
+          <rect x="27" y="31" width="13" height="5" fill="#c8102e"></rect>
+        </svg>
+        <h3>全平台</h3>
+        <p><span class="dash">—</span> 网页版随时可用，无需安装。</p>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer id="about">
+  <p class="copy">© 2026 拾光 SHIGUANG · 保留所有权利</p>
+  <div class="fmarks" aria-hidden="true">
+    <i class="fm1"></i><i class="fm2"></i><i class="fm3"></i>
+  </div>
+</footer>
+
+<a class="style-tag" href="index.html">← 13 · 至上主义</a>
+</body>
+</html>

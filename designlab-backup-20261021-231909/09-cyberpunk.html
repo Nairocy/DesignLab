@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>09 · 赛博朋克 — 拾光 SHIGUANG</title>
+<!-- DesignLab · 09 赛博朋克 Cyberpunk — 霓虹 + 扫描线 + 故障字效 -->
+<style>
+  :root{
+    --bg:#05050a;--cyan:#00f0ff;--magenta:#ff2d9b;--yellow:#f7e017;
+    --ink:#e8fbff;--muted:#7fa8b8;--line:rgba(0,240,255,.35);--panel:rgba(0,240,255,.045);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);
+    font-family:Consolas,"Cascadia Mono","Microsoft YaHei UI","Microsoft YaHei",monospace;
+    line-height:1.8;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  /* 暗角 + 扫描线两层覆盖 */
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:49;
+    background:radial-gradient(120% 90% at 50% 40%,transparent 55%,rgba(0,0,0,.55))}
+  body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:50;
+    background:repeating-linear-gradient(0deg,rgba(255,255,255,.028) 0 1px,transparent 1px 3px)}
+
+  .wrap{position:relative;max-width:1160px;margin:0 auto;padding:0 40px;z-index:1}
+
+  /* ── HUD 状态条 ── */
+  .hud{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);
+    padding:14px 0;font-size:11.5px;letter-spacing:.18em;color:var(--muted)}
+  .hud b{color:var(--cyan);font-weight:400}
+  .blink{animation:blink 1.2s steps(2) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  /* ── 导航 ── */
+  nav{display:flex;justify-content:space-between;align-items:center;padding:28px 0}
+  .brand{font-size:16px;letter-spacing:.26em;color:var(--cyan);text-shadow:0 0 12px rgba(0,240,255,.7)}
+  .links a{color:var(--ink);text-decoration:none;font-size:13px;margin-left:28px;letter-spacing:.14em;position:relative}
+  .links a::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:1px;background:var(--magenta);transition:.3s}
+  .links a:hover{color:var(--magenta)}
+  .links a:hover::after{width:100%}
+
+  /* ── 主视觉：故障标题 ── */
+  .hero{padding:88px 0 56px;max-width:860px}
+  .kicker{color:var(--magenta);font-size:13px;letter-spacing:.2em}
+  .kicker::before{content:"> "}
+  .kicker::after{content:" _";animation:blink 1s steps(2) infinite}
+  h1{font-size:clamp(42px,6.8vw,86px);line-height:1.16;letter-spacing:.04em;margin:26px 0 32px;color:#fff;
+    text-shadow:1px 0 rgba(0,240,255,.55),-1px 0 rgba(255,45,155,.55)}
+  .glitch{position:relative;display:inline-block}
+  .glitch::before,.glitch::after{content:attr(data-text);position:absolute;left:0;top:0;width:100%;color:#fff}
+  .glitch::before{text-shadow:-2px 0 var(--magenta);clip-path:inset(0 0 62% 0);animation:glitch-a 3.8s infinite steps(1)}
+  .glitch::after{text-shadow:2px 0 var(--cyan);clip-path:inset(58% 0 0 0);animation:glitch-b 3.8s infinite steps(1)}
+  @keyframes glitch-a{
+    0%,84%,100%{opacity:0;transform:none}
+    86%{opacity:1;transform:translate(-3px,-1px)}
+    90%{opacity:1;transform:translate(2px,1px)}
+    94%{opacity:0}
+  }
+  @keyframes glitch-b{
+    0%,84%,100%{opacity:0;transform:none}
+    87%{opacity:1;transform:translate(3px,1px)}
+    91%{opacity:1;transform:translate(-2px,-1px)}
+    95%{opacity:0}
+  }
+  .lede{color:var(--muted);font-size:14.5px;max-width:600px;line-height:2.1}
+  .actions{margin-top:50px;display:flex;gap:18px;flex-wrap:wrap}
+  .btn{display:inline-block;text-decoration:none;font-size:13.5px;letter-spacing:.22em;text-indent:.22em;
+    padding:15px 34px;border:1px solid var(--magenta);color:var(--magenta);background:transparent;
+    box-shadow:0 0 14px rgba(255,45,155,.45),inset 0 0 14px rgba(255,45,155,.12);transition:.3s}
+  .btn:hover{background:var(--magenta);color:#05050a;box-shadow:0 0 28px rgba(255,45,155,.8)}
+  .btn.cyan{border-color:var(--cyan);color:var(--cyan);
+    box-shadow:0 0 14px rgba(0,240,255,.4),inset 0 0 14px rgba(0,240,255,.12)}
+  .btn.cyan:hover{background:var(--cyan);color:#05050a;box-shadow:0 0 28px rgba(0,240,255,.8)}
+
+  /* ── 特性：四块 HUD 面板，四角括号 ── */
+  .features{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:36px 0 72px}
+  .card{position:relative;background:var(--panel);border:1px solid var(--line);padding:26px 22px 30px;transition:.3s}
+  .card::before,.card::after{content:"";position:absolute;width:12px;height:12px;border-color:var(--cyan);border-style:solid}
+  .card::before{top:-1px;left:-1px;border-width:2px 0 0 2px}
+  .card::after{bottom:-1px;right:-1px;border-width:0 2px 2px 0}
+  .card:hover{background:rgba(0,240,255,.09);box-shadow:0 0 22px rgba(0,240,255,.18)}
+  .card .num{color:var(--yellow);font-size:12px;letter-spacing:.2em}
+  .card h3{color:var(--cyan);font-size:15px;letter-spacing:.14em;margin:14px 0 10px;text-shadow:0 0 8px rgba(0,240,255,.4)}
+  .card p{font-size:12.5px;color:var(--muted);line-height:2}
+
+  /* ── 页脚 ── */
+  footer{border-top:1px solid var(--line)}
+  .foot{display:flex;justify-content:space-between;padding:24px 0 56px;color:var(--muted);
+    font-size:11.5px;letter-spacing:.16em}
+  .foot b{color:var(--cyan);font-weight:400}
+
+  .style-tag{position:fixed;right:20px;bottom:20px;z-index:99;font-size:11px;letter-spacing:.1em;color:#fff;
+    background:rgba(20,20,20,.62);padding:8px 14px;border-radius:999px;text-decoration:none;
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:.45;transition:opacity .25s}
+  .style-tag:hover{opacity:1}
+
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  @media (max-width:900px){.features{grid-template-columns:1fr 1fr}}
+  @media (max-width:600px){.features{grid-template-columns:1fr}.links a{margin-left:16px}.foot{flex-direction:column;gap:8px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hud">
+    <span><b>拾光</b> // SHIGUANG.OS</span>
+    <span>VER 2026.10 <span class="blink">▍</span></span>
+  </div>
+
+  <nav>
+    <div class="brand">SHIGUANG</div>
+    <div class="links"><a href="#">功能</a><a href="#">定价</a><a href="#">关于</a></div>
+  </nav>
+
+  <section class="hero">
+    <div class="kicker">灵感记录，轻如羽毛</div>
+    <h1><span class="glitch" data-text="把灵感，">把灵感，</span><br>留在拾光</h1>
+    <p class="lede">一闪而过的想法最珍贵。拾光帮你随手捕捉、自动整理，让每一次创作都从从容容。</p>
+    <div class="actions">
+      <a class="btn" href="#">立即体验</a>
+      <a class="btn cyan" href="#">了解更多</a>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="card"><div class="num">0x01</div><h3>一秒捕捉</h3><p>打开即写，灵感不过夜。</p></div>
+    <div class="card"><div class="num">0x02</div><h3>多端同步</h3><p>手机、平板与桌面，实时同步。</p></div>
+    <div class="card"><div class="num">0x03</div><h3>极简专注</h3><p>只保留纸与笔的纯粹。</p></div>
+    <div class="card"><div class="num">0x04</div><h3>全平台</h3><p>网页版随时可用，无需安装。</p></div>
+  </section>
+
+  <footer>
+    <div class="foot">
+      <span>© 2026 拾光 SHIGUANG · 保留所有权利</span>
+      <span>CYBERPUNK // <b>EOF</b></span>
+    </div>
+  </footer>
+</div>
+<a class="style-tag" href="index.html">← 09 · 赛博朋克</a>
+</body>
+</html>

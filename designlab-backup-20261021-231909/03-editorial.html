@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>03 · 杂志编辑风 — 拾光 SHIGUANG</title>
+<!-- DesignLab · 03 杂志编辑风 Editorial / Magazine -->
+<style>
+  :root{--paper:#f7f2e8;--ink:#211d17;--muted:#6f6757;--rule:#d8cebb;--accent:#9e2b25}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);
+    font-family:Georgia,"Times New Roman","Songti SC","SimSun",serif;
+    line-height:1.85;-webkit-font-smoothing:antialiased}
+
+  .wrap{max-width:1160px;margin:0 auto;padding:0 44px}
+
+  /* ── 报头：居中刊名 + 双细线 ── */
+  .meta-row{display:flex;justify-content:space-between;font-size:10.5px;letter-spacing:.26em;color:var(--muted);padding:26px 0 10px}
+  .masthead{text-align:center;padding:6px 0 22px}
+  .masthead .name{font-size:clamp(44px,6vw,68px);font-weight:700;letter-spacing:.34em;text-indent:.34em;line-height:1.2}
+  .masthead .sub{font-size:11px;letter-spacing:.5em;text-indent:.5em;color:var(--muted);margin-top:8px}
+  .rule-double{height:5px;border-top:3px solid var(--ink);border-bottom:1px solid var(--ink)}
+  nav.cats{display:flex;justify-content:center;padding:15px 0;font-size:12.5px;letter-spacing:.2em}
+  nav.cats a{color:var(--ink);text-decoration:none;padding:0 24px;border-right:1px solid var(--rule)}
+  nav.cats a:last-child{border-right:0}
+  nav.cats a:hover{color:var(--accent)}
+
+  /* ── 双栏通版：左标题右正文（首字下沉） ── */
+  .spread{display:grid;grid-template-columns:7fr 5fr;gap:56px;padding:64px 0 60px;border-bottom:1px solid var(--rule)}
+  .kicker{font-size:12px;letter-spacing:.3em;color:var(--accent);font-style:italic}
+  h1{font-size:clamp(34px,4.6vw,56px);line-height:1.34;font-weight:700;margin-top:18px;letter-spacing:.02em}
+  .lede{font-size:14.5px;color:#453e33;line-height:2.05}
+  .lede::first-letter{float:left;font-size:56px;line-height:.82;padding:8px 12px 0 0;font-weight:700;color:var(--accent)}
+  .actions{margin-top:36px;display:flex;gap:28px;align-items:center}
+  .btn{display:inline-block;background:var(--ink);color:var(--paper);text-decoration:none;
+       font-size:12.5px;letter-spacing:.24em;padding:14px 30px;text-indent:.24em;transition:background .3s}
+  .btn:hover{background:var(--accent)}
+  .link{color:var(--ink);text-decoration:none;font-size:13px;border-bottom:1px solid var(--ink);padding-bottom:3px;letter-spacing:.06em}
+  .link:hover{color:var(--accent);border-color:var(--accent)}
+
+  /* ── 栏目：四栏小文章，竖线分栏 ── */
+  .features{display:grid;grid-template-columns:repeat(4,1fr);padding:42px 0 72px}
+  .feature{padding:22px 24px 0 0}
+  .feature + .feature{border-left:1px solid var(--rule);padding-left:24px}
+  .feature .num{font-size:26px;font-style:italic;font-weight:700;color:var(--accent);line-height:1}
+  .feature h3{font-size:18px;font-weight:700;margin:12px 0 10px;letter-spacing:.04em}
+  .feature p{font-size:13px;color:var(--muted);line-height:2}
+
+  /* ── 版权栏 ── */
+  .foot{display:flex;justify-content:space-between;padding:20px 0 60px;font-size:11.5px;color:var(--muted);letter-spacing:.18em}
+
+  .style-tag{position:fixed;right:20px;bottom:20px;z-index:99;font-size:11px;letter-spacing:.1em;color:#fff;
+    background:rgba(20,20,20,.62);padding:8px 14px;border-radius:999px;text-decoration:none;
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:.45;transition:opacity .25s}
+  .style-tag:hover{opacity:1}
+
+  @media (max-width:840px){
+    .wrap{padding:0 24px}
+    .spread{grid-template-columns:1fr;gap:30px;padding:44px 0}
+    .features{grid-template-columns:1fr;padding:30px 0 50px}
+    .feature{padding:20px 0;border-left:0!important;border-top:1px solid var(--rule)}
+    .feature:first-child{border-top:0;padding-top:0}
+    .foot{flex-direction:column;gap:8px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="meta-row"><span>拾光 · 灵感记录</span><span>NO.07 / 2026</span></div>
+
+  <header class="masthead">
+    <div class="name">拾光</div>
+    <div class="sub">SHIGUANG</div>
+  </header>
+  <div class="rule-double"></div>
+  <nav class="cats"><a href="#">功能</a><a href="#">定价</a><a href="#">关于</a></nav>
+
+  <section class="spread">
+    <div>
+      <div class="kicker">灵感记录，轻如羽毛</div>
+      <h1>把灵感，留在拾光</h1>
+    </div>
+    <div>
+      <p class="lede">一闪而过的想法最珍贵。拾光帮你随手捕捉、自动整理，让每一次创作都从从容容。</p>
+      <div class="actions">
+        <a class="btn" href="#">立即体验</a>
+        <a class="link" href="#">了解更多</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="feature"><div class="num">一</div><h3>一秒捕捉</h3><p>打开即写，灵感不过夜。</p></div>
+    <div class="feature"><div class="num">二</div><h3>多端同步</h3><p>手机、平板与桌面，实时同步。</p></div>
+    <div class="feature"><div class="num">三</div><h3>极简专注</h3><p>只保留纸与笔的纯粹。</p></div>
+    <div class="feature"><div class="num">四</div><h3>全平台</h3><p>网页版随时可用，无需安装。</p></div>
+  </section>
+
+  <div class="rule-double"></div>
+  <div class="foot">
+    <span>© 2026 拾光 SHIGUANG · 保留所有权利</span>
+    <span>EDITORIAL</span>
+  </div>
+</div>
+<a class="style-tag" href="index.html">← 03 · 杂志编辑风</a>
+</body>
+</html>

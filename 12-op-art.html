@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>12 · 欧普主义 — 拾光 SHIGUANG</title>
+<!-- DesignLab · 12 欧普主义 Op Art — 黑白条纹与莫尔波纹，静止却像在流动 -->
+<style>
+  :root{
+    --paper:#f5f5f3;--ink:#0a0a0a;--accent:#2b5cff;
+    --body:#3c3c38;--muted:#6a6a64;--hair:rgba(10,10,10,.14);
+    --sans:"Futura","Avenir Next","Century Gothic","Helvetica Neue",Helvetica,Arial,"Microsoft YaHei UI","Microsoft YaHei",sans-serif;
+    --mono:ui-monospace,"SFMono-Regular",Menlo,Consolas,"Cascadia Mono",monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);
+    font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit}
+  ::selection{background:var(--ink);color:var(--paper)}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 48px}
+  .mono{font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+  /* ── 顶栏 ── */
+  .bar{display:flex;align-items:center;justify-content:space-between;gap:24px;
+    padding:20px 0;border-bottom:1px solid var(--hair)}
+  .brand{display:inline-flex;align-items:center;gap:12px;text-decoration:none;min-height:44px}
+  .brand svg{width:32px;height:32px;display:block;flex:none}
+  .brand b{display:block;font-size:15px;font-weight:600;letter-spacing:.2em;line-height:1.3}
+  .brand i{display:block;font-family:var(--mono);font-style:normal;font-size:8.5px;
+    letter-spacing:.3em;color:var(--muted);line-height:1.4}
+  nav{display:flex;gap:2px}
+  nav a{position:relative;display:inline-flex;align-items:center;min-height:44px;padding:0 14px;
+    text-decoration:none;font-size:13px;letter-spacing:.2em;color:#242422;transition:color .2s}
+  nav a::after{content:"";position:absolute;left:14px;right:14px;bottom:9px;height:4px;
+    background-image:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 6px);
+    background-size:6px 4px;background-position:0 0;opacity:0;transition:opacity .2s,background-position .3s}
+  nav a:hover::after,nav a:focus-visible::after{opacity:1;background-position:6px 0}
+
+  /* ── hero ── */
+  .hero{display:grid;grid-template-columns:minmax(0,1.04fr) minmax(0,.96fr);
+    gap:64px;align-items:center;padding:86px 0 78px}
+  .eyebrow{display:flex;align-items:center;gap:11px;font-family:var(--mono);
+    font-size:11px;letter-spacing:.32em;color:#26262a}
+  .eyebrow i{width:8px;height:8px;background:var(--accent);flex:none;display:block}
+  h1{font-size:clamp(46px,6.2vw,88px);font-weight:600;line-height:1.06;
+    letter-spacing:.03em;margin:24px 0 30px}
+  h1 .striped{display:inline-block;padding-right:.06em;color:var(--ink)}
+  @supports (background-clip:text) or (-webkit-background-clip:text){
+    h1 .striped{
+      background-image:repeating-linear-gradient(90deg,var(--ink) 0 3px,transparent 3px 10px);
+      -webkit-background-clip:text;background-clip:text;
+      color:transparent;-webkit-text-fill-color:transparent;
+      -webkit-text-stroke:.018em var(--ink);
+    }
+  }
+  .lede{max-width:46ch;font-size:15.5px;line-height:2.05;color:var(--body);letter-spacing:.02em}
+  .actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:42px}
+  .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    min-height:52px;padding:0 34px;text-decoration:none;font-size:13px;letter-spacing:.16em;
+    border:1.5px solid var(--ink);transition:background-color .22s,color .22s;overflow:hidden}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  .btn.primary::before{content:"";position:absolute;inset:0;
+    background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.24) 0 3px,transparent 3px 9px);
+    background-size:9px 100%;background-position:0 0;transition:background-position .4s ease}
+  .btn.primary:hover::before,.btn.primary:focus-visible::before{background-position:9px 0}
+  .btn.primary span{position:relative;z-index:1}
+  .btn.ghost{background:transparent;color:var(--ink)}
+  .btn.ghost svg{width:15px;height:15px;transition:transform .25s}
+  .btn.ghost:hover{background:var(--ink);color:var(--paper)}
+  .btn.ghost:hover svg{transform:translateX(3px)}
+  .hero-note{margin-top:46px;font-family:var(--mono);font-size:9.5px;letter-spacing:.3em;color:#7b7b75}
+
+  /* ── hero 图形：双层同心波纹 + 菱形棋盘 ── */
+  .visual{justify-self:end;width:100%;max-width:470px}
+  .stage{position:relative;width:100%;aspect-ratio:1/1;overflow:hidden}
+  .orbit{position:absolute;inset:-3% 2% 5% -2%;border:1px solid rgba(10,10,10,.18);border-radius:50%}
+  .orb{position:absolute;inset:1%;border-radius:50%;
+    background:repeating-radial-gradient(circle at 50% 50%,var(--ink) 0 1.6px,transparent 1.6px 9px);
+    -webkit-mask-image:radial-gradient(circle at 50% 50%,#000 0 56%,rgba(0,0,0,.4) 74%,transparent 88%);
+    mask-image:radial-gradient(circle at 50% 50%,#000 0 56%,rgba(0,0,0,.4) 74%,transparent 88%)}
+  .orb::after{content:"";position:absolute;inset:0;border-radius:50%;
+    background:repeating-radial-gradient(circle at 54% 46.5%,var(--ink) 0 1.6px,transparent 1.6px 9px);
+    opacity:.42;animation:breathe 12s ease-in-out infinite}
+  .checker{position:absolute;width:42%;aspect-ratio:1;right:-2%;bottom:1%;
+    background:repeating-conic-gradient(var(--ink) 0 25%,transparent 0 50%) 0 0/16px 16px;
+    opacity:.94}
+  .slab{position:absolute;left:1%;top:7%;width:44px;height:35%;
+    background-image:repeating-linear-gradient(90deg,var(--ink) 0 3px,transparent 3px 9px);
+    opacity:.9;animation:dim 14s ease-in-out infinite}
+  .fig{margin-top:14px;font-family:var(--mono);font-size:9px;letter-spacing:.18em;
+    color:#7b7b75;text-align:right}
+  @keyframes breathe{0%,100%{opacity:.24}50%{opacity:.55}}
+  @keyframes dim{0%,100%{opacity:.62}50%{opacity:.95}}
+
+  /* ── 条纹分隔带 ── */
+  .band{height:16px;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);
+    background-image:repeating-linear-gradient(90deg,var(--ink) 0 3px,transparent 3px 13px)}
+
+  /* ── 特性 ── */
+  .features{padding:0 0 88px}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:14px;
+    flex-wrap:wrap;padding:26px 0 15px;border-bottom:1.5px solid var(--ink)}
+  .sec-head h2{font-family:var(--mono);font-size:11px;font-weight:500;
+    letter-spacing:.26em;color:var(--ink)}
+  .fgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr))}
+  .card{position:relative;padding:34px 30px 44px 0;border-right:1px solid var(--hair)}
+  .card+.card{padding-left:30px}
+  .card:last-child{border-right:0;padding-right:0}
+  .card::before{content:"";position:absolute;top:22px;left:0;width:36px;height:5px;
+    background-image:repeating-linear-gradient(90deg,var(--ink) 0 2px,transparent 2px 6px);
+    background-size:6px 5px;background-position:0 0;
+    transition:width .45s ease,background-position .45s ease}
+  .card:hover::before{width:72px;background-position:12px 0}
+  .card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:26px}
+  .card-top .num{font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--muted)}
+  .spark{width:14px;height:14px;
+    background:repeating-conic-gradient(var(--ink) 0 25%,transparent 0 50%) 0 0/7px 7px;
+    transition:background-position .35s}
+  .card:hover .spark{background-position:7px 7px}
+  .icon{width:46px;height:46px;display:block;margin-bottom:22px;color:var(--ink)}
+  .card h3{font-size:17px;font-weight:600;letter-spacing:.12em;margin-bottom:10px}
+  .card p{font-size:13px;line-height:1.95;color:#4a4a46;letter-spacing:.02em}
+
+  /* ── 扭曲线场（Riley 式） ── */
+  .current{border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);
+    overflow:hidden;background:var(--paper)}
+  .current svg{display:block;width:100%;height:238px}
+
+  /* ── 页脚 ── */
+  footer{background:var(--ink);color:var(--paper)}
+  .stripe-edge{height:12px;opacity:.92;
+    background-image:repeating-linear-gradient(90deg,var(--paper) 0 3px,transparent 3px 11px)}
+  .foot{display:flex;align-items:center;justify-content:space-between;gap:22px;
+    flex-wrap:wrap;padding:30px 0 34px}
+  .foot-brand{display:flex;align-items:center;gap:10px;font-size:13px;letter-spacing:.16em}
+  .foot-brand svg{width:22px;height:22px;display:block}
+  .copy{font-size:11.5px;letter-spacing:.08em;color:#c9c9c4}
+  .foot-meta{font-family:var(--mono);font-size:9.5px;letter-spacing:.26em;color:#8a8a85}
+
+  /* ── 返回胶囊 ── */
+  .style-tag{position:fixed;right:20px;bottom:20px;z-index:99;display:inline-flex;
+    align-items:center;min-height:44px;padding:0 18px;border-radius:999px;text-decoration:none;
+    background:rgba(10,10,10,.72);color:#fff;font-size:11px;letter-spacing:.12em;
+    border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    transition:background-color .2s}
+  .style-tag:hover{background:rgba(10,10,10,.92)}
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    html{scroll-behavior:auto}
+  }
+  @media (max-width:1080px){
+    .hero{gap:40px}
+    .card{padding-right:22px}
+    .card+.card{padding-left:22px}
+  }
+  @media (max-width:900px){
+    .hero{grid-template-columns:1fr;gap:44px;padding:56px 0 52px}
+    .visual{justify-self:start;max-width:420px}
+    .fig{text-align:left}
+    .fgrid{grid-template-columns:1fr 1fr}
+    .card{padding:30px 24px 36px 0}
+    .card:nth-child(2n){border-right:0;padding-right:0;padding-left:24px}
+    .card:nth-child(2n+1){padding-left:0}
+    .card:nth-child(n+3){border-top:1px solid var(--hair);padding-top:28px}
+  }
+  @media (max-width:760px){
+    .wrap{padding:0 22px}
+    h1{font-size:clamp(40px,11vw,58px);margin:20px 0 24px}
+    .lede{font-size:14.5px;line-height:2}
+    .features{padding-bottom:64px}
+    .fgrid{grid-template-columns:1fr}
+    .card,.card+.card,.card:nth-child(2n),.card:nth-child(2n+1){
+      padding-left:0;padding-right:0;border-right:0}
+    .card{border-top:1px solid var(--hair);padding-top:28px;padding-bottom:32px}
+    .card:first-child{border-top:0;padding-top:10px}
+    .icon{width:42px;height:42px;margin-bottom:18px}
+    .current svg{height:158px}
+    .foot{flex-direction:column;align-items:flex-start;gap:12px;padding:26px 0 30px}
+  }
+  @media (max-width:560px){
+    .wrap{padding:0 18px}
+    .brand b{font-size:14px;letter-spacing:.12em}
+    .brand i{display:none}
+    nav a{padding:0 8px;font-size:12.5px;letter-spacing:.12em}
+    nav a::after{left:8px;right:8px}
+    .actions{flex-direction:column;align-items:stretch;margin-top:34px}
+    .btn{width:100%}
+    .hero-note{letter-spacing:.2em;font-size:9px}
+    .slab{width:30px}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="bar">
+    <a class="brand" href="#" aria-label="拾光 SHIGUANG 首页">
+      <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+        <rect x="1" y="1" width="38" height="38" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="20" cy="20" r="13" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="20" cy="20" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="20" cy="20" r="2.4" fill="currentColor"/>
+      </svg>
+      <span><b>拾光</b><i>SHIGUANG</i></span>
+    </a>
+    <nav aria-label="主导航">
+      <a href="#features">功能</a>
+      <a href="#">定价</a>
+      <a href="#about">关于</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow"><i aria-hidden="true"></i>灵感记录，轻如羽毛</p>
+      <h1>把灵感，<br><span class="striped">留在拾光</span></h1>
+      <p class="lede">一闪而过的想法最珍贵。拾光帮你随手捕捉、自动整理，让每一次创作都从从容容。</p>
+      <div class="actions">
+        <a class="btn primary" href="#"><span>立即体验</span></a>
+        <a class="btn ghost" href="#">了解更多
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor"
+              stroke-width="1.6" stroke-linecap="square"/>
+          </svg>
+        </a>
+      </div>
+      <p class="hero-note">OP ART · RETINA STUDY · 1965 / 2026</p>
+    </div>
+
+    <div class="visual">
+      <div class="stage" aria-hidden="true">
+        <span class="orbit"></span>
+        <span class="orb"></span>
+        <span class="checker"></span>
+        <span class="slab"></span>
+      </div>
+      <p class="fig">FIG. 01 — MOIRÉ / TWO OFFSET RING SYSTEMS</p>
+    </div>
+  </section>
+</div>
+
+<div class="band" aria-hidden="true"></div>
+
+<div class="wrap">
+  <section class="features" id="features">
+    <div class="sec-head">
+      <h2>FEATURES / 04</h2>
+      <span class="mono">OPTICAL TOOLS</span>
+    </div>
+    <div class="fgrid">
+      <article class="card">
+        <div class="card-top"><span class="num">01</span><span class="spark" aria-hidden="true"></span></div>
+        <svg class="icon" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <g fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="24" cy="24" r="16"/>
+            <circle cx="24" cy="24" r="5"/>
+            <path d="M24 8v5M24 35v5M8 24h5M35 24h5M12.7 12.7l3.5 3.5M31.8 31.8l3.5 3.5M35.3 12.7l-3.5 3.5M16.2 31.8l-3.5 3.5"/>
+          </g>
+        </svg>
+        <h3>一秒捕捉</h3>
+        <p>打开即写，灵感不过夜。</p>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><span class="num">02</span><span class="spark" aria-hidden="true"></span></div>
+        <svg class="icon" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <g fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="5" y="8" width="15" height="23" rx="2"/>
+            <path d="M10 13h5M10 26h5"/>
+            <rect x="28" y="7" width="16" height="12" rx="2"/>
+            <rect x="19" y="27" width="24" height="15" rx="2"/>
+            <path d="M25 14h9M31 10l4 4-4 4"/>
+            <path d="M35 20h-8M31 16l-4 4 4 4"/>
+          </g>
+        </svg>
+        <h3>多端同步</h3>
+        <p>手机、平板与桌面，实时同步。</p>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><span class="num">03</span><span class="spark" aria-hidden="true"></span></div>
+        <svg class="icon" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <g fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="6" y="6" width="36" height="36"/>
+            <path d="M14 34L33 15"/>
+            <path d="M31 13l4 4"/>
+            <path d="M14 34l-1.5 5.5L18 38z" fill="currentColor" stroke="none"/>
+            <path d="M6 14h36M14 6v36" opacity=".28"/>
+          </g>
+        </svg>
+        <h3>极简专注</h3>
+        <p>只保留纸与笔的纯粹。</p>
+      </article>
+
+      <article class="card">
+        <div class="card-top"><span class="num">04</span><span class="spark" aria-hidden="true"></span></div>
+        <svg class="icon" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+          <g fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="24" cy="24" r="17"/>
+            <ellipse cx="24" cy="24" rx="7.5" ry="17"/>
+            <path d="M7 24h34M10.5 15h27M10.5 33h27"/>
+            <circle cx="24" cy="24" r="1.8" fill="currentColor" stroke="none"/>
+          </g>
+        </svg>
+        <h3>全平台</h3>
+        <p>网页版随时可用，无需安装。</p>
+      </article>
+    </div>
+  </section>
+</div>
+
+<section class="current" aria-hidden="true">
+  <svg viewBox="0 0 1200 260" preserveAspectRatio="none" focusable="false">
+    <g fill="none" stroke="#0a0a0a" stroke-linecap="butt">
+      <path d="M-40 8.7 L-10 9.1 L20 9.5 L50 9.8 L80 10.0 L110 10.2 L140 10.3 L170 10.3 L200 10.4 L230 10.3 L260 10.3 L290 10.3 L320 10.3 L350 10.3 L380 10.2 L410 10.0 L440 9.8 L470 9.5 L500 9.1 L530 8.7 L560 8.4 L590 8.0 L620 7.8 L650 7.6 L680 7.6 L710 7.6 L740 7.6 L770 7.6 L800 7.7 L830 7.8 L860 7.8 L890 7.9 L920 8.0 L950 8.2 L980 8.4 L1010 8.7 L1040 9.1 L1070 9.4 L1100 9.8 L1130 10.1 L1160 10.3 L1190 10.5 L1220 10.5" stroke-width="1.01" vector-effect="non-scaling-stroke"/>
+      <path d="M-40 19.9 L-10 20.7 L20 21.4 L50 22.0 L80 22.4 L110 22.6 L140 22.7 L170 22.7 L200 22.7 L230 22.7 L260 22.7 L290 22.7 L320 22.7 L350 22.6 L380 22.3 L410 21.9 L440 21.2 L470 20.5 L500 19.7 L530 18.9 L560 18.2 L590 17.7 L620 17.3 L650 17.1 L680 17.1 L710 17.1 L740 17.2 L770 17.3 L800 17.4 L830 17.5 L860 17.6 L890 17.8 L920 18.1 L950 18.5 L980 19.1 L1010 19.9 L1040 20.6 L1070 21.4 L1100 22.1 L1130 22.6 L1160 23.0 L1190 23.1 L1220 23.1" stroke-width="1.09" vector-effect="non-scaling-stroke"/>
+      <path d="M-40 31.7 L-10 32.8 L20 33.7 L50 34.3 L80 34.7 L110 34.8 L140 34.9 L170 34.9 L200 35.0 L230 35.0 L260 35.1 L290 35.1 L320 35.0 L350 34.7 L380 34.1 L410 33.2 L440 32.1 L470 30.9 L500 29.7 L530 28.7 L560 27.8 L590 27.2 L620 26.9 L650 26.8 L680 26.8 L710 26.9 L740 27.0 L770 27.1 L800 27.2 L830 27.3 L860 27.5 L890 27.9 L920 28.5 L950 29.3 L980 30.4 L1010 31.6 L1040 32.8 L1070 33.8 L1100 34.7 L1130 35.3 L1160 35.5 L1190 35.6 L1220 35.4" stroke-width="1.16" vector-effect="non-scaling-stroke"/>
+      <path d="M-40 43.9 L-10 45.1 L20 46.0 L50 46.6 L80 46.8 L110 47.0 L140 47.0 L170 47.1 L200 47.3 L230 47.4 L260 47.6 L290 47.5 L320 47.1 L350 46.4 L380 45.4 L410 44.0 L440 42.4 L470 40.8 L500 39.3 L530 38.1 L560 37.3 L590 36.8 L620 36.6 L650 36.6 L680 36.7 L710 36.8 L740 36.9 L770 36.9 L800 36.9 L830 37.1 L860 37.5 L890 38.3 L920 39.3 L950 40.7 L980 42.3 L1010 43.9 L1040 45.3 L1070 46.5 L1100 47.4 L1130 47.8 L1160 47.9 L1190 47.7 L1220 47.5" stroke-width="1.24" vector-effect="non-scaling-stroke"/>
+      <path d="M-40 56.4 L-10 57.5 L20 58.3 L50 58.7 L80 58.9 L110 59.1 L140 59.2 L170 59.5 L200 59.8 L230 60.0 L260 60.0 L290 59.7 L320 58.9 L350 57.7 L380 56.1 L410 54.1 L440 52.1 L470 50.3 L500 48.7 L530 47.6 L560 46.9 L590 46.5 L620 46.5 L650 46.6 L680 46.6 L710 46.6 L740 46.6 L770 46.6 L800 46.7 L830 47.1 L860 47.9 L890 49.2 L920 50.8 L950 52.7 L980 54.7 L1010 56.6 L1040 58.1 L1070 59.3 L1100 59.9 L1130 60.1 L1160 60.0 L1190 59.7 L1220 59.4" stroke-width="1.32" vector-effect="non-scaling-stroke"/>
+      <path d="M-40 68.8 L-10 69.8 L20 70.4 L50 70.7 L80 70.9 L110 71.2 L140 71.6 L170 72.0 L200 72.4 L230 72.5 L260 72.3 L290 71.5 L320 70.2 L350 68.3 L380 66.1 L410 63.7 L440 61.4 L470 59.5 L500 58.1 L530 57.1 L560 56.6 L590 56.5 L620 56.5 L650 56.5 L680 56.5 L710 56.3 L740 56.2 L770 56.2 L800 56.6 L830 57.4 L860 58.8 L890 60.7 L920 62.9 L950 65.3 L980 67.6 L1010 69.5 L1040 71.0 L1070 71.8 L1100 72.2 L1130 72.2 L1160 71.9 L1190 71.6 L1220 71.4" stroke-width="1.39" vector-effect="non-scaling-stroke"/>
+      <path d="M-40 81.2 L-10 81.9 L20 82.4 L50 82.7 L80 83.1 L110 83.6 L140 84.2 L170 84.7 L200 85.1 L230 85.0 L260 84.2 L290 82.8 L320 80.7 L350 78.2 L380 75.5 L410 72.8 L440 70.5 L470 68.7 L500 67.6 L530 66.9 L560 66.6 L590 66.6 L620 66.5 L650 66.3 L680 66.1 L710 65.8 L740 65.7 L770 66.0 L800 66.8 L830 68.3 L860 70.4 L890 72.9 L920 75.7 L950 78.4 L980 80.7 L1010 82.5 L1040 83.6 L1070 84.1 L1100 84.2 L1130 84.0 L1160 83.8 L1190 83.6 L1220 83.5" stroke-width="1.47" vector-effect="non-scaling-stroke"/>
+      <path d="M-40 93.3 L-10 93.9 L20 94.3 L50 94.8 L80 95.5 L110 96.3 L140 97.0 L170 97.6 L200 97.6 L230 97.0 L260 95.5 L290 93.3 L320 90.6 L350 87.5 L380 84.5 L410 81.8 L440 79.6 L470 78.2 L500 77.3 L530 76.9 L560 76.7 L590 76.6 L620 76.3 L650 75.9 L680 75.5 L710 75.2 L740 75.4 L770 76.1 L800 77.7 L830 79.9 L860 82.7 L890 85.8 L920 88.9 L950 91.6 L980 93.8 L1010 95.2 L1040 95.9 L1070 96.2 L1100 96.0 L1130 95.9 L1160 95.7 L1190 95.7 L1220 95.8" stroke-width="1.55" vector-effect="non-scaling-stroke"/>
+      <path d="M-40 105.2 L-10 105.8 L20 106.5 L50 107.3 L80 108.3 L110 109.3 L140 110.0 L170 110.3 L200 109.8 L230 108.4 L260 106.1 L290 103.1 L320 99.7 L350 96.3 L380 93.2 L410 90.8 L440 89.0 L470 87.9 L500 87.3 L530 87.0 L560 86.7 L590 86.4 L620 85.8 L650 85.2 L680 84.7 L710 84.7 L740 85.4 L770 86.9 L800 89.2 L830 92.3 L860 95.7 L890 99.2 L920 102.3 L950 104.9 L980 106.6 L1010 107.6 L1040 108.0 L1070 108.0 L1100 107.9 L1130 107.8 L1160 107.9 L1190 108.1 L1220 108.3" stroke-width="1.62" vector-effect="non-scaling-stroke"/>
+      <path d="M-40 117.1 L-10 117.9 L20 118.9 L50 120.1 L80 121.4 L110 122.4 L140 122.9 L170 122.6 L200 121.3 L230 118.9 L260 115.8 L290 112.1 L320 108.4 L350 104.9 L380 102.1 L410 100.0 L440 98.7 L470 97.9 L500 97.5 L530 97.1 L560 96.5 L590 95.8 L620 95.0 L650 94.3 L680 94.1 L710 94.6 L740 96.0 L770 98.5 L800 101.7 L830 105.4 L860 109.3 L890 112.8 L920 115.7 L950 117.8 L980 119.1 L1010 119.6 L1040 119.8 L1070 119.8 L1100 119.8 L1130 120.1 L1160 120.4 L1190 120.7 L1220 120.7" stroke-width="1.70" vector-effect="non-scaling-stroke"/>
+      <path d="M-40 129.3 L-10 130.5 L20 131.9 L50 133.4 L80 134.8 L110 135.5 L140 135.4 L170 134.2 L200 131.9 L230 128.6 L260 124.7 L290 120.6 L320 116.8 L350 113.6 L380 111.2 L410 109.6 L440 108.6 L470 108.0 L500 107.5 L530 106.8 L560 105.9 L590 104.8 L620 103.9 L650 103.4 L680 103.8 L710 105.1 L740 107.5 L770 110.9 L800 114.9 L830 119.1 L860 123.1 L890 126.4 L920 128.8 L950 130.3 L980 131.1 L1010 131.4 L1040 131.5 L1070 131.7 L1100 132.1 L1130 132.7 L1160 133.2 L1190 133.3 L1220 132.8" stroke-width="1.77" vector-effect="non-scaling-stroke"/>
+      <path d="M-40 141.8 L-10 143.5 L20 145.3 L50 147.0 L80 148.1 L110 148.3 L140 147.2 L170 145.0 L200 141.6 L230 137.5 L260 133.1 L290 128.9 L320 125.3 L350 122.6 L380 120.7 L410 119.6 L440 118.8 L470 118.1 L500 117.2 L530 116.1 L560 114.8 L590 113.6 L620 112.8 L650 112.9 L680 114.1 L710 116.5 L740 120.0 L770 124.2 L800 128.8 L830 133.1 L860 136.8 L890 139.6 L920 141.5 L950 142.5 L980 142.9 L1010 143.2 L1040 143.5 L1070 144.1 L1100 144.8 L1130 145.6 L1160 145.9 L1190 145.6 L1220 144.3" stroke-width="1.85" vector-effect="non-scaling-stroke"/>
+      <path d="M-40 153.0 L-10 154.8 L20 156.5 L50 157.7 L80 158.1 L110 157.5 L140 155.6 L170 152.7 L200 149.1 L230 145.1 L260 141.2 L290 137.9 L320 135.2 L350 133.4 L380 132.1 L410 131.3 L440 130.5 L470 129.6 L500 128.4 L530 127.1 L560 125.9 L590 125.0 L620 124.8 L650 125.7 L680 127.7 L710 130.7 L740 134.5 L770 138.6 L800 142.6 L830 146.1 L860 148.9 L890 150.7 L920 151.8 L950 152.4 L980 152.8 L1010 153.2 L1040 153.9 L1070 154.7 L1100 155.5 L1130 156.0 L1160 155.9 L1190 154.9 L1220 152.8" stroke-width="1.77" vector-effect="non-scaling-stroke"/>
+      <path d="M-40 164.3 L-10 166.0 L20 167.3 L50 167.9 L80 167.5 L110 166.1 L140 163.6 L170 160.4 L200 156.9 L230 153.3 L260 150.2 L290 147.7 L320 145.9 L350 144.6 L380 143.7 L410 142.9 L440 142.0 L470 140.8 L500 139.5 L530 138.2 L560 137.2 L590 136.9 L620 137.4 L650 139.0 L680 141.6 L710 144.9 L740 148.6 L770 152.3 L800 155.6 L830 158.2 L860 160.1 L890 161.3 L920 161.9 L950 162.4 L980 162.9 L1010 163.6 L1040 164.5 L1070 165.4 L1100 166.0 L1130 166.1 L1160 165.4 L1190 163.7 L1220 161.0" stroke-width="1.70" vector-effect="non-scaling-stroke"/>
+      <path d="M-40 175.4 L-10 176.8 L20 177.5 L50 177.4 L80 176.3 L110 174.3 L140 171.5 L170 168.4 L200 165.2 L230 162.4 L260 160.0 L290 158.3 L320 157.0 L350 156.1 L380 155.3 L410 154.4 L440 153.2 L470 151.9 L500 150.6 L530 149.6 L560 149.1 L590 149.4 L620 150.6 L650 152.8 L680 155.6 L710 158.9 L740 162.3 L770 165.3 L800 167.7 L830 169.5 L860 170.7 L890 171.5 L920 172.0 L950 172.6 L980 173.3 L1010 174.2 L1040 175.1 L1070 175.9 L1100 176.1 L1130 175.6 L1160 174.3 L1190 172.0 L1220 169.1" stroke-width="1.62" vector-effect="non-scaling-stroke"/>
+      <path d="M-40 186.2 L-10 187.1 L20 187.1 L50 186.4 L80 184.7 L110 182.4 L140 179.7 L170 176.9 L200 174.3 L230 172.2 L260 170.5 L290 169.3 L320 168.4 L350 167.6 L380 166.7 L410 165.6 L440 164.3 L470 163.1 L500 162.0 L530 161.4 L560 161.5 L590 162.4 L620 164.1 L650 166.6 L680 169.4 L710 172.4 L740 175.1 L770 177.4 L800 179.1 L830 180.3 L860 181.1 L890 181.7 L920 182.3 L950 183.0 L980 183.9 L1010 184.8 L1040 185.6 L1070 186.0 L1100 185.7 L1130 184.7 L1160 182.8 L1190 180.3 L1220 177.3" stroke-width="1.55" vector-effect="non-scaling-stroke"/>
+      <path d="M-40 196.5 L-10 196.8 L20 196.2 L50 195.0 L80 193.1 L110 190.8 L140 188.3 L170 186.1 L200 184.1 L230 182.6 L260 181.5 L290 180.6 L320 179.8 L350 179.0 L380 177.9 L410 176.8 L440 175.5 L470 174.5 L500 173.8 L530 173.7 L560 174.3 L590 175.7 L620 177.8 L650 180.2 L680 182.8 L710 185.2 L740 187.3 L770 188.9 L800 190.0 L830 190.8 L860 191.4 L890 192.0 L920 192.7 L950 193.6 L980 194.5 L1010 195.3 L1040 195.7 L1070 195.7 L1100 194.9 L1130 193.4 L1160 191.3 L1190 188.8 L1220 186.1" stroke-width="1.47" vector-effect="non-scaling-stroke"/>
+      <path d="M-40 206.3 L-10 206.0 L20 205.0 L50 203.5 L80 201.6 L110 199.5 L140 197.6 L170 195.9 L200 194.5 L230 193.5 L260 192.7 L290 191.9 L320 191.2 L350 190.2 L380 189.1 L410 188.0 L440 187.0 L470 186.3 L500 186.1 L530 186.5 L560 187.5 L590 189.2 L620 191.2 L650 193.4 L680 195.5 L710 197.3 L740 198.7 L770 199.8 L800 200.6 L830 201.1 L860 201.7 L890 202.4 L920 203.2 L950 204.1 L980 204.9 L1010 205.4 L1040 205.5 L1070 204.9 L1100 203.8 L1130 202.1 L1160 199.9 L1190 197.7 L1220 195.5" stroke-width="1.39" vector-effect="non-scaling-stroke"/>
+      <path d="M-40 215.6 L-10 214.9 L20 213.7 L50 212.2 L80 210.5 L110 208.9 L140 207.5 L170 206.3 L200 205.4 L230 204.6 L260 204.0 L290 203.3 L320 202.4 L350 201.5 L380 200.5 L410 199.5 L440 198.8 L470 198.5 L500 198.8 L530 199.5 L560 200.8 L590 202.4 L620 204.2 L650 206.0 L680 207.5 L710 208.8 L740 209.7 L770 210.4 L800 211.0 L830 211.5 L860 212.2 L890 212.9 L920 213.7 L950 214.4 L980 215.0 L1010 215.1 L1040 214.8 L1070 213.9 L1100 212.6 L1130 210.9 L1160 209.0 L1190 207.1 L1220 205.5" stroke-width="1.32" vector-effect="non-scaling-stroke"/>
+      <path d="M-40 224.6 L-10 223.7 L20 222.6 L50 221.3 L80 220.0 L110 218.8 L140 217.8 L170 217.1 L200 216.4 L230 215.9 L260 215.3 L290 214.6 L320 213.8 L350 212.9 L380 212.1 L410 211.4 L440 211.1 L470 211.2 L500 211.7 L530 212.6 L560 213.9 L590 215.3 L620 216.7 L650 218.0 L680 219.0 L710 219.8 L740 220.4 L770 220.9 L800 221.4 L830 222.0 L860 222.6 L890 223.3 L920 223.9 L950 224.4 L980 224.7 L1010 224.5 L1040 223.9 L1070 222.9 L1100 221.6 L1130 220.1 L1160 218.6 L1190 217.3 L1220 216.2" stroke-width="1.24" vector-effect="non-scaling-stroke"/>
+      <path d="M-40 233.5 L-10 232.7 L20 231.8 L50 230.8 L80 230.0 L110 229.2 L140 228.6 L170 228.1 L200 227.6 L230 227.2 L260 226.6 L290 226.0 L320 225.3 L350 224.6 L380 224.1 L410 223.8 L440 223.8 L470 224.1 L500 224.7 L530 225.6 L560 226.6 L590 227.6 L620 228.6 L650 229.4 L680 230.1 L710 230.6 L740 231.0 L770 231.4 L800 231.8 L830 232.3 L860 232.9 L890 233.4 L920 233.9 L950 234.1 L980 234.0 L1010 233.7 L1040 233.0 L1070 232.0 L1100 230.9 L1130 229.8 L1160 228.8 L1190 227.9 L1220 227.3" stroke-width="1.16" vector-effect="non-scaling-stroke"/>
+      <path d="M-40 242.7 L-10 242.1 L20 241.5 L50 240.9 L80 240.4 L110 239.9 L140 239.6 L170 239.3 L200 238.9 L230 238.5 L260 238.1 L290 237.6 L320 237.2 L350 236.8 L380 236.5 L410 236.4 L440 236.6 L470 237.0 L500 237.5 L530 238.2 L560 238.9 L590 239.5 L620 240.0 L650 240.5 L680 240.9 L710 241.2 L740 241.5 L770 241.8 L800 242.1 L830 242.5 L860 242.9 L890 243.2 L920 243.4 L950 243.4 L980 243.2 L1010 242.8 L1040 242.2 L1070 241.5 L1100 240.8 L1130 240.1 L1160 239.5 L1190 239.1 L1220 238.7" stroke-width="1.09" vector-effect="non-scaling-stroke"/>
+      <path d="M-40 252.1 L-10 251.8 L20 251.5 L50 251.3 L80 251.1 L110 250.9 L140 250.7 L170 250.6 L200 250.4 L230 250.1 L260 249.9 L290 249.7 L320 249.5 L350 249.3 L380 249.3 L410 249.3 L440 249.5 L470 249.7 L500 250.0 L530 250.3 L560 250.6 L590 250.9 L620 251.1 L650 251.3 L680 251.5 L710 251.6 L740 251.8 L770 252.0 L800 252.2 L830 252.4 L860 252.6 L890 252.7 L920 252.7 L950 252.6 L980 252.4 L1010 252.2 L1040 251.9 L1070 251.5 L1100 251.2 L1130 250.9 L1160 250.7 L1190 250.5 L1220 250.3" stroke-width="1.01" vector-effect="non-scaling-stroke"/>
+    </g>
+  </svg>
+</section>
+
+<footer id="about">
+  <div class="stripe-edge" aria-hidden="true"></div>
+  <div class="wrap foot">
+    <div class="foot-brand">
+      <svg viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+        <rect x="1" y="1" width="38" height="38" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="20" cy="20" r="13" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="20" cy="20" r="7" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="20" cy="20" r="2.4" fill="currentColor"/>
+      </svg>
+      <span>拾光 SHIGUANG</span>
+    </div>
+    <p class="copy">© 2026 拾光 SHIGUANG · 保留所有权利</p>
+    <p class="foot-meta">OP ART / NO.12</p>
+  </div>
+</footer>
+
+<a class="style-tag" href="index.html">← 12 · 欧普主义</a>
+
+</body>
+</html>

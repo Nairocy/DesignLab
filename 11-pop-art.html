@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>11 · 波普主义 — 拾光 SHIGUANG</title>
+<!-- DesignLab · 11 波普主义 Pop Art — 漫画网点 + 3px 粗黑轮廓 + 四色重复版画，把灵感做成货架上最艳的那罐 -->
+<style>
+  :root{
+    --paper:#fffdf5;
+    --ink:#111111;
+    --red:#e8302a;
+    --yellow:#ffd400;
+    --blue:#1b4fd8;
+    --magenta:#ff3d81;
+    --head:"Arial Black","Arial Bold",Impact,"Microsoft YaHei","PingFang SC",sans-serif;
+    --body:"Helvetica Neue",Helvetica,Arial,"Microsoft YaHei","PingFang SC",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--body);
+    font-size:16px;line-height:1.85;overflow-x:clip;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  svg{display:block;max-width:100%}
+  .wrap{width:100%;max-width:1180px;margin:0 auto;padding:0 clamp(18px,4.2vw,46px)}
+  ::selection{background:var(--yellow);color:var(--ink)}
+  :focus-visible{outline:3px solid var(--blue);outline-offset:3px;box-shadow:0 0 0 6px var(--yellow)}
+
+  /* ── 顶上那条印刷厂小报 ── */
+  .ticker{background:var(--ink);color:var(--paper);overflow:hidden;border-bottom:3px solid var(--ink)}
+  .tick-run{display:flex;width:max-content;animation:tick 42s linear infinite}
+  .tick-group{display:flex;align-items:center;gap:20px;padding:7px 20px;
+    font-size:10.5px;font-weight:700;letter-spacing:.22em;white-space:nowrap}
+  .tick-group b{font-family:var(--head);color:var(--yellow);letter-spacing:.14em}
+  .tick-dot{width:7px;height:7px;background:var(--yellow);transform:rotate(45deg);flex:none}
+  @keyframes tick{to{transform:translateX(-50%)}}
+
+  /* ── 顶栏 ── */
+  .site-head{position:sticky;top:0;z-index:40;background:var(--paper);border-bottom:3px solid var(--ink)}
+  .head-in{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 22px;padding:13px 0}
+  .brand{display:inline-flex;align-items:center;gap:11px;text-decoration:none;min-height:48px}
+  .brand-mark{width:35px;height:35px;flex:none}
+  .brand-name{font-family:var(--head);font-weight:900;font-size:20px;line-height:1;letter-spacing:.03em}
+  .brand-name em{display:block;font-family:var(--body);font-style:normal;font-weight:800;
+    font-size:8.5px;letter-spacing:.3em;color:var(--red);margin-top:5px;text-indent:.12em}
+  .nav{display:flex;align-items:center;gap:2px;flex-wrap:wrap}
+  .nav a{display:inline-flex;align-items:center;min-height:44px;padding:0 15px;text-decoration:none;
+    font-weight:700;font-size:14px;letter-spacing:.09em;border:2px solid transparent;border-radius:999px;
+    transition:background .18s,border-color .18s,box-shadow .18s,transform .18s}
+  .nav a:hover{background:var(--yellow);border-color:var(--ink);box-shadow:3px 3px 0 var(--ink);transform:translateY(-1px)}
+  .nav a:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--ink)}
+
+  /* ── 主视觉 ── */
+  .hero{position:relative;padding:clamp(38px,5.6vw,70px) 0 clamp(48px,6vw,78px);overflow:hidden}
+  .hero::before{content:"";position:absolute;right:-120px;bottom:-70px;width:560px;height:360px;
+    background:radial-gradient(circle,rgba(255,61,129,.5) 2.6px,transparent 2.8px) 0 0/15px 15px;
+    transform:rotate(-8deg);opacity:.8;pointer-events:none;
+    -webkit-mask-image:radial-gradient(ellipse at 50% 50%,#000 26%,transparent 72%);
+    mask-image:radial-gradient(ellipse at 50% 50%,#000 26%,transparent 72%)}
+  .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.06fr .94fr;
+    gap:clamp(30px,4.4vw,62px);align-items:center}
+  .hero-copy{position:relative;min-width:0}
+
+  .issue{display:flex;width:fit-content;align-items:center;gap:9px;background:var(--yellow);border:3px solid var(--ink);
+    padding:5px 14px;font-family:var(--head);font-weight:900;font-size:10.5px;letter-spacing:.16em;
+    box-shadow:4px 4px 0 var(--magenta),8px 8px 0 var(--ink);transform:rotate(-1.6deg)}
+  .issue i{width:9px;height:9px;background:var(--red);border:2px solid var(--ink);display:block;flex:none}
+
+  .say{position:relative;display:inline-block;margin-top:30px;max-width:340px;background:#fff;
+    border:3px solid var(--ink);border-radius:18px;padding:13px 22px;font-weight:800;font-size:17px;
+    letter-spacing:.05em;box-shadow:5px 5px 0 var(--ink);transform:rotate(-1deg)}
+  .say::before,.say::after{content:"";position:absolute}
+  .say::before{left:36px;bottom:-18px;width:0;height:0;
+    border-style:solid;border-width:18px 17px 0 9px;border-color:var(--ink) transparent transparent transparent}
+  .say::after{left:39px;bottom:-11px;width:0;height:0;
+    border-style:solid;border-width:12px 11px 0 4px;border-color:#fff transparent transparent transparent}
+
+  .hero h1{display:flex;flex-direction:column;align-items:flex-start;gap:19px;
+    margin-top:24px;font-family:var(--head);font-weight:900;
+    font-size:clamp(40px,6.3vw,80px);line-height:1.12;letter-spacing:.01em}
+  .h1-row{display:block;animation:plateIn .65s cubic-bezier(.2,.9,.25,1.15) both}
+  .h1-row:nth-child(1){animation-delay:.05s}
+  .h1-row:nth-child(2){animation-delay:.19s}
+  .plate{display:inline-block;padding:.04em .16em .12em;border:4px solid var(--ink);
+    background:var(--yellow);color:var(--ink);
+    box-shadow:7px 7px 0 var(--magenta),14px 14px 0 var(--ink);transform:rotate(-1.7deg)}
+  .plate.p2{background:var(--red);color:var(--paper);
+    box-shadow:7px 7px 0 var(--blue),14px 14px 0 var(--ink);transform:rotate(1deg)}
+  @keyframes plateIn{from{opacity:0;translate:0 26px}to{opacity:1;translate:0 0}}
+
+  .lede{position:relative;margin-top:44px;max-width:470px;font-size:15.5px;line-height:2.05;color:#202020}
+  .lede mark{background:var(--yellow);color:var(--ink);padding:1px 3px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+
+  .cta{display:flex;flex-wrap:wrap;gap:16px;margin-top:34px}
+  .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    min-height:54px;padding:0 28px;border:3px solid var(--ink);border-radius:6px;
+    font-family:var(--head);font-weight:900;font-size:15px;letter-spacing:.08em;text-decoration:none;
+    background:var(--yellow);color:var(--ink);box-shadow:6px 6px 0 var(--ink);
+    transition:transform .16s ease,box-shadow .16s ease,background .16s ease}
+  .btn:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink)}
+  .btn:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+  .btn-primary{background:var(--red);color:#fffdf5}
+  .btn-primary:hover{background:#f23c35}
+  .btn svg{width:18px;height:18px;flex:none}
+
+  /* ── 主视觉里的漫画插画 ── */
+  .hero-art{position:relative;justify-self:end;width:100%;max-width:520px;min-width:0}
+  .art-frame{position:relative;border:4px solid var(--ink);background:var(--blue);
+    box-shadow:9px 9px 0 var(--magenta),18px 18px 0 var(--ink);
+    transform:rotate(1.3deg);animation:frameIn .8s .12s cubic-bezier(.2,.9,.25,1.1) both}
+  .art-frame .art{width:100%;height:auto}
+  @keyframes frameIn{from{opacity:0;translate:0 22px;rotate:4deg}to{opacity:1;translate:0 0;rotate:1.3deg}}
+  .hero-burst{position:absolute;top:-40px;left:-42px;width:118px;height:118px;z-index:3;
+    transform-origin:50% 50%;animation:wobble 7s ease-in-out infinite}
+  @keyframes wobble{0%,100%{rotate:-8deg}50%{rotate:5deg}}
+  .art-stamp{position:absolute;right:-18px;top:-26px;width:96px;height:96px;border-radius:50%;
+    background:var(--yellow);border:4px solid var(--ink);box-shadow:5px 5px 0 var(--ink);
+    display:grid;place-items:center;text-align:center;transform:rotate(-13deg);z-index:3;
+    font-family:var(--head);font-size:12.5px;font-weight:900;line-height:1.15;letter-spacing:.06em}
+  .art-burst{transform-origin:388px 112px;animation:spin 64s linear infinite}
+  @keyframes spin{to{rotate:360deg}}
+
+  /* ── 四联版画 ── */
+  .warhol{background:var(--ink);color:var(--paper);border-top:3px solid var(--ink);border-bottom:3px solid var(--ink)}
+  .warhol-head{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:13px 0}
+  .warhol-head span{font-family:var(--head);font-size:10.5px;font-weight:900;letter-spacing:.2em}
+  .warhol-head span:first-child{color:var(--yellow)}
+  .warhol-head span:last-child{color:#cfcbc0;letter-spacing:.16em}
+  .warhol-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;background:var(--ink);border-top:3px solid var(--ink)}
+  .w-panel{position:relative;aspect-ratio:1/1.06;display:grid;place-items:center;overflow:hidden;isolation:isolate}
+  .w-panel::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(circle,rgba(17,17,17,.24) 2.1px,transparent 2.3px) 0 0/13px 13px;
+    transition:background-position .45s ease}
+  .w-panel:hover::after{background-position:6px 6px}
+  .w-bulb{position:relative;z-index:1;width:56%;max-width:148px;height:auto;
+    transition:transform .4s cubic-bezier(.2,.8,.3,1.3)}
+  .w-panel:hover .w-bulb{transform:rotate(-5deg) scale(1.06)}
+  .wp-red{background:var(--red);color:var(--paper)}
+  .wp-yellow{background:var(--yellow);color:var(--red)}
+  .wp-blue{background:var(--blue);color:var(--yellow)}
+  .wp-magenta{background:var(--magenta);color:var(--paper)}
+
+  /* ── 特性货架 ── */
+  .features{position:relative;padding:clamp(46px,5.6vw,74px) 0 clamp(56px,7vw,88px);scroll-margin-top:96px}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:14px 24px;flex-wrap:wrap;
+    padding-bottom:14px;border-bottom:4px solid var(--ink);margin-bottom:clamp(24px,3vw,36px)}
+  .sec-title{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-family:var(--head);
+    font-size:clamp(22px,3.4vw,36px);font-weight:900;line-height:1.1;letter-spacing:.02em}
+  .sec-plate{display:inline-block;background:var(--red);color:var(--paper);border:3px solid var(--ink);
+    padding:2px 13px 5px;box-shadow:5px 5px 0 var(--ink);transform:rotate(-1.6deg)}
+  .sec-en{font-size:.52em;letter-spacing:.24em;color:var(--ink);padding-top:.35em}
+  .sec-note{font-family:var(--head);font-size:11px;letter-spacing:.16em;background:var(--yellow);
+    border:3px solid var(--ink);padding:5px 11px;box-shadow:4px 4px 0 var(--ink);transform:rotate(1.5deg)}
+
+  .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(16px,2vw,24px)}
+  .card{position:relative;display:flex;flex-direction:column;min-height:262px;padding:20px 19px 24px;
+    border:3px solid var(--ink);box-shadow:7px 7px 0 var(--ink);overflow:hidden;
+    transition:transform .25s cubic-bezier(.2,.9,.3,1.25),box-shadow .25s ease}
+  .card::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(circle,rgba(17,17,17,.17) 2.1px,transparent 2.3px) 0 0/12px 12px;
+    transition:background-position .4s ease}
+  .card:hover{transform:translateY(-7px) rotate(-1.2deg);box-shadow:10px 12px 0 var(--ink)}
+  .card:hover::before{background-position:6px 6px}
+  .card>*{position:relative;z-index:1}
+  .c-red{background:var(--red)}
+  .c-yellow{background:var(--yellow)}
+  .c-blue{background:var(--blue)}
+  .c-magenta{background:var(--magenta)}
+
+  .card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:auto}
+  .num{display:inline-block;background:var(--paper);border:2px solid var(--ink);padding:1px 9px;
+    font-family:var(--head);font-size:12px;font-weight:900;letter-spacing:.1em;
+    box-shadow:3px 3px 0 var(--ink);transform:rotate(-3deg)}
+  .ico{width:62px;height:62px;flex:none;border-radius:50%;background:var(--paper);border:3px solid var(--ink);
+    display:grid;place-items:center;box-shadow:4px 4px 0 var(--ink);transform:rotate(-4deg);
+    transition:transform .3s cubic-bezier(.2,.9,.3,1.3)}
+  .card:hover .ico{transform:rotate(4deg) scale(1.05)}
+  .ico svg{width:36px;height:36px}
+  .card h3{align-self:flex-start;margin-top:26px;background:var(--ink);color:var(--paper);
+    font-family:var(--head);font-size:16.5px;font-weight:900;line-height:1.35;letter-spacing:.06em;
+    padding:3px 10px 5px;box-shadow:4px 4px 0 rgba(255,253,245,.92);transform:rotate(-1.4deg)}
+  .card p{display:flex;align-items:center;margin-top:12px;background:var(--paper);
+    border:2px solid var(--ink);padding:8px 11px;min-height:64px;font-size:13.2px;line-height:1.75;
+    color:var(--ink);box-shadow:3px 3px 0 var(--ink)}
+
+  /* 入场（有 JS 才启用，无 JS 直接可见） */
+  .js .card{opacity:0}
+  .js .card.in{animation:cardIn .6s cubic-bezier(.2,.9,.3,1.25) both}
+  .js .card.in:nth-child(2){animation-delay:.07s}
+  .js .card.in:nth-child(3){animation-delay:.14s}
+  .js .card.in:nth-child(4){animation-delay:.21s}
+  @keyframes cardIn{from{opacity:0;translate:0 26px;rotate:-2.4deg}to{opacity:1;translate:0 0;rotate:0deg}}
+  .js .w-panel{opacity:0}
+  .js .w-panel.in{animation:panelIn .55s ease both}
+  .js .w-panel.in:nth-child(2){animation-delay:.06s}
+  .js .w-panel.in:nth-child(3){animation-delay:.12s}
+  .js .w-panel.in:nth-child(4){animation-delay:.18s}
+  @keyframes panelIn{from{opacity:0;scale:.94}to{opacity:1;scale:1}}
+
+  /* ── 页脚 ── */
+  .site-foot{background:var(--ink);color:var(--paper);border-top:3px solid var(--ink)}
+  .foot-colors{display:grid;grid-template-columns:repeat(4,1fr);height:12px}
+  .foot-colors i:nth-child(1){background:var(--red)}
+  .foot-colors i:nth-child(2){background:var(--yellow)}
+  .foot-colors i:nth-child(3){background:var(--blue)}
+  .foot-colors i:nth-child(4){background:var(--magenta)}
+  .foot-in{display:flex;align-items:flex-end;justify-content:space-between;gap:18px 30px;flex-wrap:wrap;padding:36px 0 40px}
+  .foot-brand{font-family:var(--head);font-weight:900;font-size:clamp(26px,4vw,38px);line-height:1.05;letter-spacing:.02em}
+  .foot-brand em{display:block;font-family:Georgia,"Times New Roman",serif;font-style:italic;
+    font-weight:400;font-size:12px;letter-spacing:.24em;color:var(--yellow);margin-top:8px}
+  .foot-meta{font-family:var(--head);font-size:10.5px;letter-spacing:.18em;color:#bdb9ae;text-align:right;line-height:2}
+  .foot-copy{display:flex;align-items:center;justify-content:space-between;gap:10px 24px;flex-wrap:wrap;
+    border-top:2px solid rgba(255,253,245,.24);padding:14px 0 74px;font-size:12.5px;letter-spacing:.05em;color:#e6e2d8}
+  .foot-copy span:last-child{font-family:var(--head);font-size:10px;letter-spacing:.2em;color:#9d998f}
+
+  /* ── 返回胶囊 ── */
+  .style-tag{position:fixed;right:20px;bottom:20px;z-index:100;display:inline-flex;align-items:center;
+    min-height:44px;padding:0 18px;border-radius:999px;text-decoration:none;
+    color:#fff;background:rgba(17,17,17,.62);border:2px solid rgba(255,253,245,.26);
+    font-size:13px;font-weight:700;letter-spacing:.06em;
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    transition:background .22s ease,border-color .22s ease}
+  .style-tag:hover{background:rgba(17,17,17,1);border-color:var(--yellow)}
+  .style-tag:focus-visible{outline-color:var(--yellow)}
+
+  @media (max-width:980px){
+    .cards{grid-template-columns:repeat(2,1fr)}
+    .card{min-height:270px}
+  }
+  @media (max-width:860px){
+    .hero-grid{grid-template-columns:1fr;gap:52px}
+    .hero-art{justify-self:center;max-width:480px}
+    .hero h1{font-size:clamp(38px,10.5vw,70px)}
+    .hero::before{opacity:.45}
+  }
+  @media (max-width:760px){
+    .cards{grid-template-columns:1fr}
+    .card{min-height:0}
+    .card h3{margin-top:22px}
+    .sec-head{align-items:flex-start}
+    .foot-in{align-items:flex-start;flex-direction:column}
+    .foot-meta{text-align:left}
+  }
+  @media (max-width:520px){
+    .head-in{gap:4px 12px}
+    .brand-mark{width:30px;height:30px}
+    .brand-name{font-size:18px}
+    .nav a{padding:0 11px;font-size:13.5px;min-height:44px}
+    .plate{box-shadow:5px 5px 0 var(--magenta),10px 10px 0 var(--ink);border-width:3px}
+    .plate.p2{box-shadow:5px 5px 0 var(--blue),10px 10px 0 var(--ink)}
+    .art-frame{box-shadow:6px 6px 0 var(--magenta),12px 12px 0 var(--ink)}
+    .hero-burst{width:92px;height:92px;top:-30px;left:-20px}
+    .art-stamp{width:78px;height:78px;font-size:10.5px;right:-8px;top:-18px}
+    .say{font-size:15.5px;padding:11px 18px;max-width:100%}
+    .lede{font-size:14.5px;margin-top:42px}
+    .btn{width:100%;padding:0 20px}
+    .card{padding:18px 16px 22px}
+    .w-bulb{width:64%}
+    .warhol-head span{font-size:9px;letter-spacing:.14em}
+    .style-tag{right:12px;bottom:12px;font-size:12px;padding:0 14px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+
+<div class="ticker" aria-hidden="true">
+  <div class="tick-run">
+    <div class="tick-group">
+      <span>拾光日报</span><i class="tick-dot"></i><i>SHIGUANG DAILY</i><i class="tick-dot"></i>
+      <b>POP ART SPECIAL</b><i class="tick-dot"></i><span>四色印刷</span><i class="tick-dot"></i>
+      <i>NO.11</i><i class="tick-dot"></i><span>1962 → 2026</span><i class="tick-dot"></i>
+      <i>BEN-DAY DOTS</i><i class="tick-dot"></i><span>网点加粗</span><i class="tick-dot"></i>
+    </div>
+    <div class="tick-group">
+      <span>拾光日报</span><i class="tick-dot"></i><i>SHIGUANG DAILY</i><i class="tick-dot"></i>
+      <b>POP ART SPECIAL</b><i class="tick-dot"></i><span>四色印刷</span><i class="tick-dot"></i>
+      <i>NO.11</i><i class="tick-dot"></i><span>1962 → 2026</span><i class="tick-dot"></i>
+      <i>BEN-DAY DOTS</i><i class="tick-dot"></i><span>网点加粗</span><i class="tick-dot"></i>
+    </div>
+  </div>
+</div>
+
+<header class="site-head">
+  <div class="wrap head-in">
+    <a class="brand" href="#top" aria-label="拾光 SHIGUANG 首页">
+      <svg class="brand-mark" viewBox="-50 -50 100 100" aria-hidden="true">
+        <polygon points="0,-40 6.2,-23.2 20,-34.6 17,-17 34.6,-20 23.2,-6.2 40,0 23.2,6.2 34.6,20 17,17 20,34.6 6.2,23.2 0,40 -6.2,23.2 -20,34.6 -17,17 -34.6,20 -23.2,6.2 -40,0 -23.2,-6.2 -34.6,-20 -17,-17 -20,-34.6 -6.2,-23.2"
+          fill="#e8302a" stroke="#111111" stroke-width="5" stroke-linejoin="round"/>
+        <circle cx="0" cy="0" r="7" fill="#ffd400" stroke="#111111" stroke-width="4"/>
+      </svg>
+      <span class="brand-name">拾光<em>SHIGUANG</em></span>
+    </a>
+    <nav class="nav" aria-label="主导航">
+      <a href="#features">功能</a>
+      <a href="#">定价</a>
+      <a href="#">关于</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="issue"><i></i>NO.11 / POP ART</p>
+
+        <div class="say">灵感记录，轻如羽毛</div>
+
+        <h1 id="hero-title"><span class="h1-row"><span class="plate">把灵感，</span></span><span class="h1-row"><span class="plate p2">留在拾光</span></span></h1>
+
+        <p class="lede"><mark>一闪而过的想法最珍贵。</mark>拾光帮你随手捕捉、自动整理，让每一次创作都从从容容。</p>
+
+        <div class="cta">
+          <a class="btn btn-primary" href="#features">立即体验
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="#fffdf5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a class="btn" href="#features">了解更多
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 4v13M6 12l6 6 6-6" fill="none" stroke="#111111" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-art">
+        <svg class="hero-burst" viewBox="-60 -60 120 120" aria-hidden="true">
+          <polygon points="0,-40 6.2,-23.2 20,-34.6 17,-17 34.6,-20 23.2,-6.2 40,0 23.2,6.2 34.6,20 17,17 20,34.6 6.2,23.2 0,40 -6.2,23.2 -20,34.6 -17,17 -34.6,20 -23.2,6.2 -40,0 -23.2,-6.2 -34.6,-20 -17,-17 -20,-34.6 -6.2,-23.2"
+            fill="#ffd400" stroke="#111111" stroke-width="4" stroke-linejoin="round"/>
+          <text x="0" y="7" text-anchor="middle" font-family="'Arial Black',Impact,sans-serif" font-size="18" font-weight="900" fill="#111111">NEW!</text>
+        </svg>
+
+        <div class="art-frame">
+          <svg class="art" viewBox="0 0 520 520" role="img" aria-label="波普风格插画：钴蓝网点底上，黄色星芒、摊开的本子、斜放的铅笔与写着 IDEA 的对话框">
+            <defs>
+              <pattern id="paDots" width="15" height="15" patternUnits="userSpaceOnUse">
+                <circle cx="4" cy="4" r="2.4" fill="#fffdf5" opacity=".45"/>
+              </pattern>
+            </defs>
+            <rect width="520" height="520" fill="#1b4fd8"/>
+            <rect width="520" height="520" fill="url(#paDots)"/>
+
+            <g class="art-burst">
+              <polygon points="388.0,-34.0 404.4,29.6 443.9,-22.9 434.7,42.2 491.2,8.8 457.8,65.3 522.9,56.1 470.4,95.6 534.0,112.0 470.4,128.4 522.9,167.9 457.8,158.7 491.2,215.2 434.7,181.8 443.9,246.9 404.4,194.4 388.0,258.0 371.6,194.4 332.1,246.9 341.3,181.8 284.8,215.2 318.2,158.7 253.1,167.9 305.6,128.4 242.0,112.0 305.6,95.6 253.1,56.1 318.2,65.3 284.8,8.8 341.3,42.2 332.1,-22.9 371.6,29.6"
+                fill="#ffd400" stroke="#111111" stroke-width="5" stroke-linejoin="round"/>
+            </g>
+
+            <g stroke="#111111" stroke-width="4" stroke-linecap="round" opacity=".55">
+              <path d="M16 372h44"/>
+              <path d="M8 396h30"/>
+              <path d="M22 420h52"/>
+            </g>
+
+            <g transform="rotate(-6 258 352)">
+              <rect x="108" y="258" width="312" height="226" rx="8" fill="#111111"/>
+              <rect x="96" y="244" width="316" height="226" rx="8" fill="#e8302a" stroke="#111111" stroke-width="6"/>
+              <rect x="110" y="232" width="288" height="222" rx="4" fill="#fffdf5" stroke="#111111" stroke-width="6"/>
+              <line x1="254" y1="234" x2="254" y2="452" stroke="#111111" stroke-width="6"/>
+
+              <g stroke="#1b4fd8" stroke-width="3" stroke-linecap="round" opacity=".45">
+                <path d="M128 276h108M128 302h108M128 328h108M128 354h108M128 380h108M128 406h108"/>
+                <path d="M272 276h108M272 302h108M272 328h108M272 354h108M272 380h108M272 406h108"/>
+              </g>
+
+              <path d="M130 292c9-16 18 14 27-2s18-10 27 4 18 8 27-6" fill="none" stroke="#e8302a" stroke-width="5" stroke-linecap="round"/>
+              <path d="M132 318c14 12 30-14 44 0s30 10 44-4" fill="none" stroke="#111111" stroke-width="4" stroke-linecap="round" opacity=".7"/>
+
+              <g transform="translate(330 330)">
+                <polygon points="0,-30 9,-9 30,0 9,9 0,30 -9,9 -30,0 -9,-9" fill="#ffd400" stroke="#111111" stroke-width="4" stroke-linejoin="round"/>
+              </g>
+              <circle cx="300" cy="398" r="9" fill="#ff3d81" stroke="#111111" stroke-width="4"/>
+
+              <g fill="#fffdf5" stroke="#111111" stroke-width="4">
+                <circle cx="254" cy="258" r="5"/>
+                <circle cx="254" cy="286" r="5"/>
+                <circle cx="254" cy="314" r="5"/>
+                <circle cx="254" cy="342" r="5"/>
+                <circle cx="254" cy="370" r="5"/>
+                <circle cx="254" cy="398" r="5"/>
+                <circle cx="254" cy="426" r="5"/>
+              </g>
+            </g>
+
+            <g transform="translate(300 436) rotate(14)">
+              <rect x="0" y="0" width="150" height="30" fill="#ffd400" stroke="#111111" stroke-width="5"/>
+              <polygon points="-38,15 0,0 0,30" fill="#fffdf5" stroke="#111111" stroke-width="5" stroke-linejoin="round"/>
+              <polygon points="-38,15 -22,8 -22,22" fill="#111111"/>
+              <rect x="150" y="0" width="22" height="30" fill="#ff3d81" stroke="#111111" stroke-width="5"/>
+              <line x1="150" y1="0" x2="150" y2="30" stroke="#111111" stroke-width="5"/>
+            </g>
+
+            <g>
+              <path d="M74 62 H232 A20 20 0 0 1 252 82 V142 A20 20 0 0 1 232 162 H162 L138 200 L120 162 H74 A20 20 0 0 1 54 142 V82 A20 20 0 0 1 74 62 Z"
+                fill="#111111" transform="translate(7 7)"/>
+              <path d="M74 62 H232 A20 20 0 0 1 252 82 V142 A20 20 0 0 1 232 162 H162 L138 200 L120 162 H74 A20 20 0 0 1 54 142 V82 A20 20 0 0 1 74 62 Z"
+                fill="#fffdf5" stroke="#111111" stroke-width="5" stroke-linejoin="round"/>
+              <text x="152" y="128" text-anchor="middle" font-family="'Arial Black',Impact,sans-serif"
+                font-size="38" font-weight="900" fill="#111111" letter-spacing="1">IDEA!</text>
+            </g>
+
+            <g transform="translate(74 452) rotate(-14)">
+              <circle r="42" fill="#ffd400" stroke="#111111" stroke-width="5"/>
+              <text y="9" text-anchor="middle" font-family="'Arial Black',Impact,sans-serif"
+                font-size="25" font-weight="900" fill="#111111">11¢</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="art-stamp" aria-hidden="true">4 COLOR<br>PRINT</div>
+      </div>
+    </div>
+  </section>
+
+  <svg class="svg-defs" aria-hidden="true" focusable="false" width="0" height="0" style="position:absolute;overflow:hidden">
+    <symbol id="bulb" viewBox="0 0 120 150">
+      <g stroke="#111111" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M60 24c-21 0-38 16-38 36 0 14 8 23 15 30 5 5 7 9 7 15h32c0-6 2-10 7-15 7-7 15-16 15-30 0-20-17-36-38-36z" fill="currentColor"/>
+        <path d="M46 110h28"/>
+        <path d="M49 121h22"/>
+        <path d="M53 132h14"/>
+        <path d="M52 74c4-9 12-9 16 0" fill="none" stroke-width="4"/>
+        <path d="M60 7v10M31 19l7 8M89 19l-7 8M17 47h10M103 47h-10" fill="none"/>
+      </g>
+    </symbol>
+  </svg>
+
+  <section class="warhol" aria-label="四色重复版画">
+    <div class="wrap warhol-head">
+      <span>SAME IDEA — FOUR TIMES</span>
+      <span>AFTER WARHOL / 1962 — 2026</span>
+    </div>
+    <div class="warhol-grid">
+      <div class="w-panel wp-red"><svg class="w-bulb" viewBox="0 0 120 150" aria-hidden="true"><use href="#bulb"/></svg></div>
+      <div class="w-panel wp-yellow"><svg class="w-bulb" viewBox="0 0 120 150" aria-hidden="true"><use href="#bulb"/></svg></div>
+      <div class="w-panel wp-blue"><svg class="w-bulb" viewBox="0 0 120 150" aria-hidden="true"><use href="#bulb"/></svg></div>
+      <div class="w-panel wp-magenta"><svg class="w-bulb" viewBox="0 0 120 150" aria-hidden="true"><use href="#bulb"/></svg></div>
+    </div>
+  </section>
+
+  <section class="features" id="features" aria-labelledby="features-title">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="sec-title" id="features-title">
+          <span class="sec-plate">特性</span>
+          <span class="sec-en">FEATURES</span>
+        </h2>
+        <span class="sec-note">04 ITEMS / 四色上架</span>
+      </div>
+
+      <div class="cards">
+        <article class="card c-red">
+          <div class="card-top">
+            <span class="num">01</span>
+            <span class="ico">
+              <svg viewBox="0 0 48 48" aria-hidden="true">
+                <path d="M28 4 12 27h10l-2 17 16-24H26l2-16Z" fill="#ffd400" stroke="#111111" stroke-width="3.2" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </div>
+          <h3>一秒捕捉</h3>
+          <p>打开即写，灵感不过夜。</p>
+        </article>
+
+        <article class="card c-yellow">
+          <div class="card-top">
+            <span class="num">02</span>
+            <span class="ico">
+              <svg viewBox="0 0 48 48" aria-hidden="true">
+                <g fill="none" stroke="#111111" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="26" height="18" rx="2"/>
+                  <path d="M16 29v6M10 38h12"/>
+                  <rect x="32" y="17" width="13" height="23" rx="2.5"/>
+                  <path d="M37 35h3"/>
+                  <path d="M31 10a12 12 0 0 1 8 3"/>
+                  <path d="M35 5a18 18 0 0 1 10 5"/>
+                </g>
+              </svg>
+            </span>
+          </div>
+          <h3>多端同步</h3>
+          <p>手机、平板与桌面，实时同步。</p>
+        </article>
+
+        <article class="card c-blue">
+          <div class="card-top">
+            <span class="num">03</span>
+            <span class="ico">
+              <svg viewBox="0 0 48 48" aria-hidden="true">
+                <g fill="none" stroke="#111111" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M31 6l8 6-19 25-10 3 2-11L31 6Z" fill="#ffd400"/>
+                  <path d="M12 30l8 6"/>
+                  <path d="M8 43h32"/>
+                </g>
+              </svg>
+            </span>
+          </div>
+          <h3>极简专注</h3>
+          <p>只保留纸与笔的纯粹。</p>
+        </article>
+
+        <article class="card c-magenta">
+          <div class="card-top">
+            <span class="num">04</span>
+            <span class="ico">
+              <svg viewBox="0 0 48 48" aria-hidden="true">
+                <g fill="none" stroke="#111111" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="24" cy="23" r="16"/>
+                  <path d="M8 23h32"/>
+                  <path d="M24 7c5 5 7 10 7 16s-2 11-7 16c-5-5-7-10-7-16s2-11 7-16Z"/>
+                  <path d="M11 13h26M11 33h26"/>
+                </g>
+              </svg>
+            </span>
+          </div>
+          <h3>全平台</h3>
+          <p>网页版随时可用，无需安装。</p>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="foot-colors" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="wrap">
+    <div class="foot-in">
+      <div class="foot-brand">拾光 SHIGUANG<em>LIGHT, KEPT.</em></div>
+      <div class="foot-meta">PRINTED IN FOUR COLORS<br>BEN-DAY DOTS / NO.11</div>
+    </div>
+    <div class="foot-copy">
+      <span>© 2026 拾光 SHIGUANG · 保留所有权利</span>
+      <span>POP ART</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) return;
+  var items = document.querySelectorAll('.card, .w-panel');
+  if (!items.length) return;
+  var io = new IntersectionObserver(function (entries) {
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].isIntersecting) {
+        entries[i].target.classList.add('in');
+        io.unobserve(entries[i].target);
+      }
+    }
+  }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+  document.documentElement.classList.add('js');
+  for (var j = 0; j < items.length; j++) io.observe(items[j]);
+})();
+</script>
+
+<a class="style-tag" href="index.html">← 11 · 波普主义</a>
+
+</body>
+</html>

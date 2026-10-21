@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" href="data:,">
+<title>DesignLab · 十风格总览（瑞士国际主义）</title>
+<!-- DesignLab · 风格总览长图生成源（瑞士国际主义 02 规范）；由无头 Edge 截成单张大图 -->
+<style>
+  :root{--ink:#0b0b0b;--red:#e30613;--grey:#6f6f6f}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:#fff}
+  body{color:var(--ink);width:1200px;
+    font-family:Helvetica,Arial,"Microsoft YaHei UI","Microsoft YaHei",sans-serif;
+    font-feature-settings:"tnum";-webkit-font-smoothing:antialiased}
+  .wrap{padding:0 44px}
+
+  /* ── 顶栏：2px 版口线 ── */
+  header.top{border-bottom:2px solid var(--ink);display:flex;justify-content:space-between;align-items:baseline;padding:24px 0}
+  .brand{font-size:17px;font-weight:700}
+  .brand span{font-size:10.5px;font-weight:400;letter-spacing:.22em;color:var(--grey);margin-left:12px}
+  header.top .meta{font-size:11px;letter-spacing:.18em;color:var(--grey)}
+
+  /* ── hero：非对称栅格 + 红方块 ── */
+  .hero{display:grid;grid-template-columns:2fr 1fr;gap:64px;padding:72px 0 56px;position:relative}
+  .kicker{color:var(--red);font-size:12px;font-weight:700;letter-spacing:.3em;display:flex;align-items:center;gap:14px;text-transform:uppercase}
+  .kicker::after{content:"";width:52px;height:2px;background:var(--red)}
+  h1{font-size:88px;font-weight:700;line-height:1.04;letter-spacing:-.02em;margin-top:30px}
+  .hero-right{display:flex;flex-direction:column;justify-content:flex-end;padding-bottom:10px}
+  .redsquare{position:absolute;right:0;top:72px;width:52px;height:52px;background:var(--red)}
+  .lede{font-size:15px;line-height:1.9;color:#33383d}
+  .lede b{font-weight:700;color:var(--ink)}
+  .hero-note{margin-top:14px;font-size:11px;letter-spacing:.08em;color:var(--grey)}
+
+  /* ── 风格条目：数字当锚点，截图当版面 ── */
+  .style-entry{border-top:2px solid var(--ink);padding:26px 0 64px}
+  .entry-head{display:grid;grid-template-columns:92px auto 1fr;align-items:baseline;column-gap:18px;padding-bottom:22px}
+  .no{font-size:42px;font-weight:700;line-height:1;letter-spacing:-.03em;color:var(--red)}
+  .names b{font-size:20px;font-weight:700;letter-spacing:.01em}
+  .names small{font-size:11px;color:var(--grey);letter-spacing:.18em;text-transform:uppercase;margin-left:10px}
+  .trait{justify-self:end;font-size:13px;color:#4a4a4a;letter-spacing:.02em}
+  .plate{border:1px solid var(--ink)}
+  .plate img{display:block;width:100%;height:auto}
+
+  /* ── 页脚：反白色带 ── */
+  footer{background:var(--ink);color:#fff}
+  .foot{display:flex;justify-content:space-between;align-items:center;padding:26px 0;font-size:12px;letter-spacing:.08em}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">DesignLab<span>设计风格图鉴</span></div>
+    <div class="meta">2026-10 · 10 种风格 · 1 份内容源 · 零依赖单文件</div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-left">
+      <div class="kicker">DesignLab · Style Index</div>
+      <h1>十种设计语言，<br>同一份内容</h1>
+    </div>
+    <div class="hero-right">
+      <span class="redsquare" aria-hidden="true"></span>
+      <p class="lede">同一套产品文案（虚构产品「拾光 SHIGUANG · 灵感记录应用」），用 10 种经典设计风格各实现一遍。<b>文字一字不差，变化的全是视觉语言</b>——字体、色彩、空间、质感、动效。</p>
+      <p class="hero-note">编号沿用图鉴原号 · 10 页均为整页截图</p>
+    </div>
+  </section>
+
+  <section class="style-entry">
+    <div class="entry-head">
+      <span class="no">02</span>
+      <div class="names"><b>瑞士国际主义</b><small>Swiss Style</small></div>
+      <p class="trait">栅格秩序 · 唯一信号红</p>
+    </div>
+    <figure class="plate"><img src="../_shots/02-swiss.png" alt="02 瑞士国际主义 · 拾光示例页整页截图"></figure>
+  </section>
+
+  <section class="style-entry">
+    <div class="entry-head">
+      <span class="no">03</span>
+      <div class="names"><b>杂志编辑风</b><small>Editorial</small></div>
+      <p class="trait">衬线 · 报头双线 · 首字下沉</p>
+    </div>
+    <figure class="plate"><img src="../_shots/03-editorial.png" alt="03 杂志编辑风 · 拾光示例页整页截图"></figure>
+  </section>
+
+  <section class="style-entry">
+    <div class="entry-head">
+      <span class="no">04</span>
+      <div class="names"><b>暗调奢华</b><small>Luxury</small></div>
+      <p class="trait">近黑暖金 · 慢流光 · 全居中</p>
+    </div>
+    <figure class="plate"><img src="../_shots/04-luxury.png" alt="04 暗调奢华 · 拾光示例页整页截图"></figure>
+  </section>
+
+  <section class="style-entry">
+    <div class="entry-head">
+      <span class="no">06</span>
+      <div class="names"><b>新拟态</b><small>Neumorphism</small></div>
+      <p class="trait">同色浮雕 · 按压凹陷</p>
+    </div>
+    <figure class="plate"><img src="../_shots/06-neumorphism.png" alt="06 新拟态 · 拾光示例页整页截图"></figure>
+  </section>
+
+  <section class="style-entry">
+    <div class="entry-head">
+      <span class="no">07</span>
+      <div class="names"><b>粗野主义</b><small>Brutalism</small></div>
+      <p class="trait">4px 描边 · 硬阴影 · 跑马灯</p>
+    </div>
+    <figure class="plate"><img src="../_shots/07-brutalism.png" alt="07 粗野主义 · 拾光示例页整页截图"></figure>
+  </section>
+
+  <section class="style-entry">
+    <div class="entry-head">
+      <span class="no">09</span>
+      <div class="names"><b>赛博朋克</b><small>Cyberpunk</small></div>
+      <p class="trait">霓虹 · 扫描线 · 故障字效</p>
+    </div>
+    <figure class="plate"><img src="../_shots/09-cyberpunk.png" alt="09 赛博朋克 · 拾光示例页整页截图"></figure>
+  </section>
+
+  <section class="style-entry">
+    <div class="entry-head">
+      <span class="no">10</span>
+      <div class="names"><b>和风侘寂</b><small>Wabi-sabi</small></div>
+      <p class="trait">竖排题头 · 墨圈 · 朱印</p>
+    </div>
+    <figure class="plate"><img src="../_shots/10-zen.png" alt="10 和风侘寂 · 拾光示例页整页截图"></figure>
+  </section>
+
+  <section class="style-entry">
+    <div class="entry-head">
+      <span class="no">11</span>
+      <div class="names"><b>孟菲斯</b><small>Memphis</small></div>
+      <p class="trait">点阵底 · 漂浮几何 · 贴纸卡</p>
+    </div>
+    <figure class="plate"><img src="../_shots/11-memphis.png" alt="11 孟菲斯 · 拾光示例页整页截图"></figure>
+  </section>
+
+  <section class="style-entry">
+    <div class="entry-head">
+      <span class="no">12</span>
+      <div class="names"><b>包豪斯</b><small>Bauhaus</small></div>
+      <p class="trait">三原色 · 基本几何构成</p>
+    </div>
+    <figure class="plate"><img src="../_shots/12-bauhaus.png" alt="12 包豪斯 · 拾光示例页整页截图"></figure>
+  </section>
+
+  <section class="style-entry">
+    <div class="entry-head">
+      <span class="no">13</span>
+      <div class="names"><b>新粗野主义</b><small>Neo-Brutalism</small></div>
+      <p class="trait">硬边线框 · 撞色 · 双主题</p>
+    </div>
+    <figure class="plate"><img src="../_shots/13-neo-brutalism.png" alt="13 新粗野主义 · 拾光示例页整页截图"></figure>
+  </section>
+
+  <footer>
+    <div class="foot">
+      <span>© 2026 DesignLab · 设计风格图鉴</span>
+      <span>SWISS / INTERNATIONAL</span>
+    </div>
+  </footer>
+</div>
+</body>
+</html>

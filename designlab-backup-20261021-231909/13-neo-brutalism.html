@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>13 · 新粗野主义 — 拾光 SHIGUANG</title>
+<!-- DesignLab · 13 新粗野主义 Neo-Brutalism — 直角 / 3px 硬边 / 零模糊硬阴影 / 撞色标签 + 深浅主题（内核同构 nairocy.com 主站） -->
+<style>
+  :root{
+    --bg:#f4f5fa;
+    --card-bg:rgba(255,255,255,.92);
+    --text:#1a1d29;
+    --text-soft:#5b6072;
+    --line:#373b52;
+    --shadow-hard:rgba(0,0,0,.35);
+    --outline:rgba(26,29,41,.08);
+    /* 撞色板：主色 / 深色边框版 / 半透明投影 */
+    --c-1:#ff6b35; --c-1-dark:#9a3412; --c-1-soft:rgba(255,107,53,.38);
+    --c-2:#7c5cff; --c-2-dark:#5b21b6; --c-2-soft:rgba(124,92,255,.38);
+    --c-3:#0ea5e9; --c-3-dark:#075985; --c-3-soft:rgba(14,165,233,.38);
+    --c-4:#00c2a8; --c-4-dark:#0f766e; --c-4-soft:rgba(0,194,168,.38);
+  }
+  html[data-theme="dark"]{
+    --bg:#0d0f1a;
+    --card-bg:rgba(22,26,43,.92);
+    --text:#e8eaf2;
+    --text-soft:#9aa2b8;
+    --line:#5b6478;
+    --shadow-hard:rgba(0,0,0,.65);
+    --outline:rgba(232,234,242,.07);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    background:var(--bg);color:var(--text);
+    font-family:'Segoe UI','Helvetica Neue','PingFang SC','Microsoft YaHei',Arial,sans-serif;
+    line-height:1.8;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+    transition:background .3s ease,color .3s ease;
+  }
+  .mono,.mono-label{font-family:Consolas,'Courier New',monospace}
+  .mono-label{font-size:12px;letter-spacing:.24em;color:var(--text-soft)}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 44px;position:relative}
+
+  /* ── 顶栏 ── */
+  header{display:flex;align-items:center;justify-content:space-between;padding:28px 0}
+  .brand{display:flex;align-items:baseline;gap:10px;font-weight:800;font-size:16px;letter-spacing:.04em}
+  .brand small{font-family:Consolas,monospace;font-size:10px;letter-spacing:.26em;color:var(--text-soft);font-weight:400}
+  .nav-right{display:flex;align-items:center}
+  nav.links a{color:var(--text);text-decoration:none;font-size:13.5px;margin-left:24px;
+    padding-bottom:2px;border-bottom:2px solid transparent}
+  nav.links a:hover{border-color:var(--c-1)}
+  .theme-btn{width:42px;height:42px;margin-left:26px;background:var(--card-bg);color:var(--text);
+    border:3px solid var(--line);box-shadow:3px 3px 0 var(--shadow-hard);cursor:pointer;
+    display:inline-flex;align-items:center;justify-content:center;
+    transition:transform .15s ease,box-shadow .15s ease,background .3s ease,border-color .3s ease}
+  .theme-btn:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--shadow-hard)}
+  .theme-btn:active{transform:translate(1px,1px);box-shadow:2px 2px 0 var(--shadow-hard)}
+  .theme-btn svg{width:18px;height:18px;display:block}
+  .theme-btn .icon-moon{display:none}
+  html[data-theme="dark"] .theme-btn .icon-sun{display:none}
+  html[data-theme="dark"] .theme-btn .icon-moon{display:block}
+
+  /* ── 主视觉：描边大字在后，内容在前 ── */
+  .hero{padding:88px 0 84px;position:relative}
+  .outline-text{position:absolute;top:18px;left:-6px;font-family:Consolas,monospace;font-weight:700;
+    font-size:clamp(76px,12.5vw,162px);line-height:1;letter-spacing:.03em;white-space:nowrap;
+    color:transparent;-webkit-text-stroke:1px var(--outline);pointer-events:none;user-select:none}
+  .hero-inner{position:relative;z-index:1}
+  .kicker{display:inline-block;background:var(--card-bg);border:3px solid var(--line);
+    padding:8px 18px;font-size:12.5px;letter-spacing:.18em;text-indent:.18em;
+    box-shadow:4px 4px 0 var(--shadow-hard)}
+  h1{font-size:clamp(44px,6.4vw,74px);font-weight:800;line-height:1.24;letter-spacing:.01em;margin:32px 0 24px}
+  h1 em{font-style:normal;display:inline-block;background:var(--c-1);color:#fff;padding:0 .14em;
+    box-shadow:6px 6px 0 var(--shadow-hard)}
+  .lede{max-width:560px;font-size:15.5px;color:var(--text-soft);line-height:2}
+  .actions{margin-top:46px;display:flex;gap:20px;flex-wrap:wrap}
+  .btn{display:inline-block;background:var(--text);color:var(--bg);text-decoration:none;
+    padding:14px 36px;border:3px solid var(--text);font-size:14px;font-weight:700;letter-spacing:.08em;
+    box-shadow:4px 4px 0 var(--shadow-hard);
+    transition:transform .15s ease,box-shadow .15s ease,background .3s ease,color .3s ease}
+  .btn:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 var(--shadow-hard)}
+  .btn:active{transform:translate(1px,1px);box-shadow:2px 2px 0 var(--shadow-hard)}
+  .btn.line{background:var(--card-bg);color:var(--text)}
+
+  /* ── 卡片墙：瀑布挂画 + 每卡一色 ── */
+  .section-head{display:flex;align-items:baseline;gap:16px;margin-bottom:34px}
+  .section-head h2{font-size:25px;font-weight:800;letter-spacing:.02em}
+  .features{display:grid;grid-template-columns:1fr 1fr;gap:40px 34px;padding-bottom:96px}
+  .card{position:relative;background:var(--card-bg);border:3px solid var(--border-c);
+    --border-c:var(--c-dark);--accent-text:var(--c-dark);
+    box-shadow:4px 4px 0 var(--shadow-hard),8px 8px 0 var(--acc-soft);
+    padding:30px 28px 32px;
+    transition:transform .2s ease,box-shadow .2s ease,rotate .2s ease,background .3s ease,border-color .3s ease}
+  .card.c1{--c:var(--c-1);--c-dark:var(--c-1-dark);--acc-soft:var(--c-1-soft);rotate:-.8deg}
+  .card.c2{--c:var(--c-2);--c-dark:var(--c-2-dark);--acc-soft:var(--c-2-soft);rotate:.7deg;margin-top:1.3rem}
+  .card.c3{--c:var(--c-3);--c-dark:var(--c-3-dark);--acc-soft:var(--c-3-soft);rotate:.6deg}
+  .card.c4{--c:var(--c-4);--c-dark:var(--c-4-dark);--acc-soft:var(--c-4-soft);rotate:-.5deg;margin-top:.7rem}
+  html[data-theme="dark"] .card{--border-c:var(--c);--accent-text:var(--c)}
+  .card:hover{transform:translate(-4px,-4px);rotate:0deg;
+    box-shadow:8px 8px 0 var(--shadow-hard),12px 12px 0 var(--acc-soft)}
+  .card::before,.card::after{content:"";position:absolute;width:14px;height:14px;background:var(--c);
+    opacity:0;transform:scale(.5);transition:opacity .18s ease,transform .18s ease;z-index:2}
+  .card::before{top:-9px;right:-9px}
+  .card::after{bottom:-9px;left:-9px}
+  .card:hover::before,.card:hover::after{opacity:1;transform:scale(1)}
+  .card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+  .ic{width:24px;height:24px;color:var(--c);display:block}
+  .tag{font-family:Consolas,monospace;font-size:11px;letter-spacing:.18em;color:var(--accent-text);
+    border:2px solid currentColor;padding:2px 10px}
+  .card h3{font-size:19px;font-weight:800;letter-spacing:.02em;margin-bottom:10px}
+  .card p{font-size:13.5px;color:var(--text-soft);line-height:2}
+  .more{display:inline-block;margin-top:18px;font-size:13px;font-weight:700;color:var(--accent-text);letter-spacing:.04em}
+
+  /* ── 页脚 ── */
+  footer{border-top:3px solid var(--line)}
+  .foot{padding:32px 0 46px;display:flex;flex-direction:column;align-items:center;gap:10px}
+  .flinks a{color:var(--text-soft);text-decoration:none;font-size:12.5px;margin:0 10px;font-family:Consolas,monospace}
+  .flinks a:hover{color:var(--c-1)}
+  .copy{font-size:12px;color:var(--text-soft);letter-spacing:.08em}
+
+  /* 入场：错峰 */
+  @keyframes pop-in{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+  .hero-inner>*{animation:pop-in .8s cubic-bezier(.22,.61,.36,1) both}
+  .hero-inner>*:nth-child(2){animation-delay:.1s}
+  .hero-inner>*:nth-child(3){animation-delay:.2s}
+  .hero-inner>*:nth-child(4){animation-delay:.3s}
+  .card{animation:pop-in .8s cubic-bezier(.22,.61,.36,1) both}
+  .card:nth-child(1){animation-delay:.05s}
+  .card:nth-child(2){animation-delay:.15s}
+  .card:nth-child(3){animation-delay:.25s}
+  .card:nth-child(4){animation-delay:.35s}
+
+  .style-tag{position:fixed;right:20px;bottom:20px;z-index:99;font-size:11px;letter-spacing:.1em;color:#fff;
+    background:rgba(20,20,20,.62);padding:8px 14px;border-radius:999px;text-decoration:none;
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:.45;transition:opacity .25s}
+  .style-tag:hover{opacity:1}
+
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  @media (max-width:860px){
+    .wrap{padding:0 24px}
+    .hero{padding:60px 0}
+    .features{grid-template-columns:1fr;gap:34px}
+    .card:nth-child(2),.card:nth-child(4){margin-top:0}
+    header{flex-wrap:wrap;gap:14px}
+    .foot{gap:8px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">拾光<small>SHIGUANG</small></div>
+    <div class="nav-right">
+      <nav class="links"><a href="#">功能</a><a href="#">定价</a><a href="#">关于</a></nav>
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="切换主题">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M2.6 12h2.2M19.2 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.4 14.2A8.6 8.6 0 1 1 9.8 3.6a7 7 0 0 0 10.6 10.6z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="outline-text" aria-hidden="true">SHIGUANG</div>
+    <div class="hero-inner">
+      <div class="kicker">灵感记录，轻如羽毛</div>
+      <h1>把灵感，<br>留在<em>拾光</em></h1>
+      <p class="lede">一闪而过的想法最珍贵。拾光帮你随手捕捉、自动整理，让每一次创作都从从容容。</p>
+      <div class="actions">
+        <a class="btn" href="#">立即体验</a>
+        <a class="btn line" href="#">了解更多</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="mono-label">FEATURES</span><h2>四个特性</h2></div>
+    <div class="features">
+      <article class="card c1">
+        <div class="card-top">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          <span class="tag">01</span>
+        </div>
+        <h3>一秒捕捉</h3>
+        <p>打开即写，灵感不过夜。</p>
+        <span class="more">了解更多 →</span>
+      </article>
+      <article class="card c2">
+        <div class="card-top">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+          <span class="tag">02</span>
+        </div>
+        <h3>多端同步</h3>
+        <p>手机、平板与桌面，实时同步。</p>
+        <span class="more">了解更多 →</span>
+      </article>
+      <article class="card c3">
+        <div class="card-top">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" y1="8" x2="2" y2="22"/><line x1="17.5" y1="15" x2="9" y2="15"/></svg>
+          <span class="tag">03</span>
+        </div>
+        <h3>极简专注</h3>
+        <p>只保留纸与笔的纯粹。</p>
+        <span class="more">了解更多 →</span>
+      </article>
+      <article class="card c4">
+        <div class="card-top">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <span class="tag">04</span>
+        </div>
+        <h3>全平台</h3>
+        <p>网页版随时可用，无需安装。</p>
+        <span class="more">了解更多 →</span>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    <div class="foot">
+      <div class="flinks"><a href="#">功能</a><a href="#">定价</a><a href="#">关于</a></div>
+      <div class="copy">© 2026 拾光 SHIGUANG · 保留所有权利</div>
+      <div class="mono-label">NEO-BRUTALISM</div>
+    </div>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var btn = document.getElementById('themeBtn');
+  try {
+    var saved = localStorage.getItem('designlab-theme');
+    if (saved === 'dark' || saved === 'light') root.setAttribute('data-theme', saved);
+  } catch (e) {}
+  function sync() {
+    btn.setAttribute('aria-label', root.getAttribute('data-theme') === 'dark' ? '切换到浅色主题' : '切换到深色主题');
+  }
+  btn.addEventListener('click', function () {
+    var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('designlab-theme', next); } catch (e) {}
+    sync();
+  });
+  sync();
+})();
+</script>
+<a class="style-tag" href="index.html">← 13 · 新粗野主义</a>
+</body>
+</html>

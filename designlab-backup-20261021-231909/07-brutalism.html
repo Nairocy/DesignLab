@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:,">
+<title>07 · 粗野主义 — 拾光 SHIGUANG</title>
+<!-- DesignLab · 07 粗野主义 Web Brutalism — 生猛骨架、硬阴影、反精致 -->
+<style>
+  :root{--bg:#f4f2ec;--ink:#101010;--blue:#2500ff;--yellow:#ffe600}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);
+    font-family:"Arial Black",Impact,"Microsoft YaHei UI","Microsoft YaHei",sans-serif;
+    line-height:1.6;-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--yellow)}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 34px}
+
+  /* ── 滚动跑马灯：把结构露在外面 ── */
+  .ticker{background:var(--ink);color:var(--yellow);overflow:hidden;white-space:nowrap}
+  .track{display:inline-block;padding:10px 0;font-size:13px;font-weight:700;letter-spacing:.22em;
+    animation:tick 26s linear infinite}
+  .track span{margin:0 8px}
+  @keyframes tick{to{transform:translateX(-50%)}}
+
+  /* ── 顶栏：4px 实线 ── */
+  header{border-bottom:4px solid var(--ink);padding:24px 0;display:flex;justify-content:space-between;align-items:center}
+  .brand{font-size:22px;font-weight:900}
+  .brand small{font-family:Consolas,monospace;font-size:11px;font-weight:400;letter-spacing:.3em;margin-left:10px}
+  nav a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:700;
+    margin-left:6px;padding:6px 14px;border:3px solid transparent}
+  nav a:hover{background:var(--yellow);border-color:var(--ink)}
+
+  /* ── 主视觉：巨字 + 贴纸 + 偏移硬阴影 ── */
+  .hero{padding:80px 0 64px;position:relative}
+  .sticker{position:absolute;top:64px;right:16px;transform:rotate(7deg);background:#fff;
+    border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);padding:12px 20px;
+    font-size:13px;letter-spacing:.18em;font-weight:700}
+  .kicker{font-family:Consolas,monospace;font-size:13px;letter-spacing:.26em;color:#555;font-weight:400}
+  .kicker::before{content:"[ ";color:var(--blue)}
+  .kicker::after{content:" ]";color:var(--blue)}
+  h1{font-size:clamp(54px,10vw,140px);line-height:1;font-weight:900;letter-spacing:-.02em;margin:20px 0 36px}
+  h1 mark{background:var(--blue);color:#fff;padding:0 .06em}
+  .lede{max-width:580px;font-size:15px;font-weight:400;line-height:1.95;
+    font-family:"Microsoft YaHei UI","Microsoft YaHei",sans-serif;
+    border-left:6px solid var(--blue);padding-left:18px}
+  .actions{margin-top:50px;display:flex;gap:22px;flex-wrap:wrap}
+  .btn{display:inline-block;background:var(--ink);color:#fff;text-decoration:none;
+    font-size:15px;font-weight:700;letter-spacing:.1em;padding:16px 38px;border:3px solid var(--ink);
+    box-shadow:7px 7px 0 var(--blue);transition:transform .15s,box-shadow .15s}
+  .btn:hover{transform:translate(4px,4px);box-shadow:3px 3px 0 var(--blue)}
+  .btn.line{background:#fff;color:var(--ink);box-shadow:7px 7px 0 var(--ink)}
+  .btn.line:hover{box-shadow:3px 3px 0 var(--ink)}
+
+  /* ── 特性：四行表格，编号暴露在外 ── */
+  .features{border-top:4px solid var(--ink)}
+  .feature{display:grid;grid-template-columns:110px 240px 1fr;gap:26px;align-items:baseline;
+    padding:32px 12px;border-bottom:4px solid var(--ink);transition:background .15s}
+  .feature:hover{background:var(--yellow)}
+  .feature .num{font-family:Consolas,monospace;font-size:15px;letter-spacing:.2em;font-weight:400}
+  .feature h3{font-size:22px;font-weight:900}
+  .feature p{font-size:14px;font-weight:400;font-family:"Microsoft YaHei UI","Microsoft YaHei",sans-serif;color:#333}
+
+  /* ── 页脚：黑条 ── */
+  footer{background:var(--ink);color:#fff}
+  .foot{display:flex;justify-content:space-between;align-items:center;padding:30px 0;
+    font-family:Consolas,monospace;font-size:12.5px;letter-spacing:.16em;font-weight:400}
+
+  .style-tag{position:fixed;right:20px;bottom:20px;z-index:99;font-size:11px;letter-spacing:.1em;color:#fff;
+    background:rgba(20,20,20,.62);padding:8px 14px;border-radius:999px;text-decoration:none;
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);opacity:.45;transition:opacity .25s}
+  .style-tag:hover{opacity:1}
+
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  @media (max-width:800px){
+    .wrap{padding:0 22px}
+    .feature{grid-template-columns:64px 1fr;gap:12px}
+    .feature p{grid-column:2}
+    .sticker{position:static;display:inline-block;margin:0 0 18px}
+    .foot{flex-direction:column;gap:8px;text-align:center}
+  }
+</style>
+</head>
+<body>
+<div class="ticker" aria-hidden="true">
+  <div class="track">
+    <span>拾光 SHIGUANG * 把灵感，留在拾光 * 灵感记录，轻如羽毛 * 立即体验 *</span><span>拾光 SHIGUANG * 把灵感，留在拾光 * 灵感记录，轻如羽毛 * 立即体验 *</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <header>
+    <div class="brand">拾光<small>SHIGUANG</small></div>
+    <nav><a href="#">功能</a><a href="#">定价</a><a href="#">关于</a></nav>
+  </header>
+
+  <section class="hero">
+    <div class="sticker">灵感记录 APP</div>
+    <div class="kicker">灵感记录，轻如羽毛</div>
+    <h1>把灵感，<br>留在<mark>拾光</mark></h1>
+    <p class="lede">一闪而过的想法最珍贵。拾光帮你随手捕捉、自动整理，让每一次创作都从从容容。</p>
+    <div class="actions">
+      <a class="btn" href="#">立即体验</a>
+      <a class="btn line" href="#">了解更多</a>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="feature"><div class="num">[001]</div><h3>一秒捕捉</h3><p>打开即写，灵感不过夜。</p></div>
+    <div class="feature"><div class="num">[002]</div><h3>多端同步</h3><p>手机、平板与桌面，实时同步。</p></div>
+    <div class="feature"><div class="num">[003]</div><h3>极简专注</h3><p>只保留纸与笔的纯粹。</p></div>
+    <div class="feature"><div class="num">[004]</div><h3>全平台</h3><p>网页版随时可用，无需安装。</p></div>
+  </section>
+
+  <footer>
+    <div class="wrap"><div class="foot">
+      <span>© 2026 拾光 SHIGUANG · 保留所有权利</span>
+      <span>BRUTALISM</span>
+    </div></div>
+  </footer>
+</div>
+<a class="style-tag" href="index.html">← 07 · 粗野主义</a>
+</body>
+</html>
